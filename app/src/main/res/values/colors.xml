@@ -8,5 +8,6 @@
     <color name="red_pressed">#ED3333</color>
     <color name="gray">#E1ECF1</color>
     <color name="gray_pressed">#CBE2EC</color>
-    <color name="gray_text">#FF8E8E8E</color>
+    <color name="gray_text">#bcbdc1</color>
+    <color name="gray_edittext">#F6F8FB</color>
 </resources>
