@@ -55,18 +55,18 @@
             android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
             android:text="Đăng nhập"
-            android:background="@drawable/rounded_login_button"
+            android:background="@drawable/rounded_blue_button"
             android:textColor="@color/white"
             android:textStyle="bold"
             />
         <Button
-            android:id="@+id/btn_Signup_Lotus"
+            android:id="@+id/btnSignupLotus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Đăng ký"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/rounded_signup_button"
+            android:background="@drawable/rounded_gray_button"
             android:layout_marginStart="20dp"
             android:textColor="@color/blue"
             android:textSize="15sp"
@@ -82,7 +82,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-
         android:layout_above="@+id/loginOther"
         android:orientation="horizontal"
         android:layout_marginTop="30dp"
@@ -93,7 +92,7 @@
             android:layout_height="2dp"
             android:layout_weight="1"
             android:layout_marginStart="45dp"
-            android:background="@color/gray" />
+            android:background="@color/gray_text" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -109,7 +108,7 @@
             android:layout_height="2dp"
             android:layout_weight="1"
             android:layout_marginEnd="45dp"
-            android:background="@color/gray" />
+            android:background="@color/gray_text" />
     </LinearLayout>
 
     <LinearLayout
@@ -122,23 +121,23 @@
         android:layout_alignParentBottom="true"
         >
         <FrameLayout
-            android:id="@+id/FrameLayout2"
+            android:id="@+id/FrameLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             >
             <com.google.android.gms.common.SignInButton
-                android:id="@+id/btn_sign_in_google"
+                android:id="@+id/btnLoginGoogle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:stateListAnimator="@null"
-                android:layout_marginBottom="0dp" />
+                android:layout_marginBottom="-7dp" />
 
             <Button
                 android:drawable="@drawable/ic_mail"
-                android:id="@+id/google"
+                android:id="@+id/btnGoogle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_google_login_button"
@@ -150,13 +149,14 @@
                 android:textSize="15sp"
                 />
         </FrameLayout>
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Đăng nhập/đăng ký bằng VietID"
             android:layout_marginEnd="20dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/rounded_login_button"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_blue_button"
             android:layout_marginStart="20dp"
             android:textColor="@color/white"
             android:textSize="15sp"
