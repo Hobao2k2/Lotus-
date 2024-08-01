@@ -9,11 +9,11 @@
     tools:context=".LoginFragment"
     android:background="@color/white">
     <LinearLayout
-        android:id="@+id/action_bar"
+        android:id="@+id/actionBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageButton
-            android:id="@+id/backBtn"
+            android:id="@+id/btnBack"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/ic_back"
@@ -64,6 +64,28 @@
             android:layout_marginTop="20dp"
             android:textSize="15sp"
             />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordTil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/emailTil"
+            android:layout_marginTop="5dp"
+            app:hintEnabled="false"
+            app:passwordToggleEnabled="true"
+            >
+            <EditText
+                android:id="@+id/edtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_edittext_gray"
+                android:hint="Mật khẩu"
+                android:textSize="15sp"
+                android:inputType="textPassword"
+                android:padding="15dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray_text"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btnLoginLotus"

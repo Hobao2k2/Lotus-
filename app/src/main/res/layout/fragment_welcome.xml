@@ -60,7 +60,7 @@
             android:textStyle="bold"
             />
         <Button
-            android:id="@+id/btn_Signup_Lotus"
+            android:id="@+id/btnSignupLotus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Đăng ký"
@@ -121,13 +121,13 @@
         android:layout_alignParentBottom="true"
         >
         <FrameLayout
-            android:id="@+id/FrameLayout2"
+            android:id="@+id/FrameLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             >
             <com.google.android.gms.common.SignInButton
-                android:id="@+id/btn_sign_in_google"
+                android:id="@+id/btnLoginGoogle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -137,7 +137,7 @@
 
             <Button
                 android:drawable="@drawable/ic_mail"
-                android:id="@+id/google"
+                android:id="@+id/btnGoogle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_google_login_button"

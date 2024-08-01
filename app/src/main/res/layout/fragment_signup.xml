@@ -8,11 +8,11 @@
     tools:context=".SignupFragment"
     android:background="@color/white">
     <LinearLayout
-        android:id="@+id/action_bar"
+        android:id="@+id/actionBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageButton
-            android:id="@+id/backBtn"
+            android:id="@+id/btnBack"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/ic_back"
@@ -71,7 +71,7 @@
             app:passwordToggleEnabled="true"
             >
             <EditText
-                android:id="@+id/passwordEt"
+                android:id="@+id/edtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_edittext_gray"
@@ -84,7 +84,7 @@
         </com.google.android.material.textfield.TextInputLayout>
         <!--Confirm Pass-->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/cpasswordTil"
+            android:id="@+id/cfPasswordTil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/passwordTil"
@@ -93,7 +93,7 @@
             app:passwordToggleEnabled="true"
             >
             <EditText
-                android:id="@+id/cpasswordEt"
+                android:id="@+id/edtCfPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_edittext_gray"
@@ -116,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:checked="true"
+                android:checked="false"
 
                 />
             <TextView
@@ -130,7 +130,7 @@
         </RelativeLayout>
 
         <Button
-            android:id="@+id/btnLoginLotus"
+            android:id="@+id/btnSignup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -188,13 +188,13 @@
             android:fontFamily="@font/open_sans_medium"
             android:textStyle="bold"
             android:textSize="13sp"
-            android:layout_above="@+id/btn_Login"
+            android:layout_above="@+id/btnLogin"
             android:layout_centerInParent="true"
             android:layout_marginBottom="10dp"
             />
 
         <Button
-            android:id="@+id/btn_Login"
+            android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
