@@ -2,11 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="blue">#FF2196F3</color>
+    <color name="blue">#1eb0fd</color>
     <color name="blue_pressed">#FF1976D2</color>
     <color name="red">#F44141</color>
     <color name="red_pressed">#ED3333</color>
-    <color name="gray">#E1ECF1</color>
+    <color name="red_edittext">#59EFBBBB</color>
+    <color name="gray">#f2f6f4</color>
     <color name="gray_pressed">#CBE2EC</color>
     <color name="gray_text">#bcbdc1</color>
     <color name="gray_edittext">#F6F8FB</color>
