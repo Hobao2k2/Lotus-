@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Lotus"
+rootProject.name = "Lotus-"
 include(":app")
  
