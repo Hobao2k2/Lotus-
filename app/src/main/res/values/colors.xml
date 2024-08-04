@@ -8,7 +8,7 @@
     <color name="red_pressed">#ED3333</color>
     <color name="red_edittext">#59EFBBBB</color>
     <color name="gray">#f2f6f4</color>
-    <color name="gray_pressed">#CBE2EC</color>
-    <color name="gray_text">#bcbdc1</color>
-    <color name="gray_edittext">#F6F8FB</color>
+    <color name="gray_pressed">#DEE2E0</color>
+    <color name="gray_text">#919295</color>
+    <color name="gray_edittext">#f4f6fa</color>
 </resources>
