@@ -2,14 +2,26 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+<!--    mau background xanh cua nut dang nhap, tiep tuc,...-->
     <color name="blue">#1eb0fd</color>
     <color name="blue_pressed">#FF1976D2</color>
+
+<!--    mau bbackground do cua nut dang nhap bang google-->
     <color name="red">#F44141</color>
     <color name="red_pressed">#ED3333</color>
+
+<!--    mau background do canh bao loi error-->
     <color name="red_edittext">#59EFBBBB</color>
+
+<!--    mau background xam cua nut mau xam-->
     <color name="gray">#f2f6f4</color>
     <color name="gray_pressed">#DEE2E0</color>
+
+<!--    mau xam cua chu -->
     <color name="gray_text">#919295</color>
+    
+<!--   mau background của edittext mau xam   -->
     <color name="gray_edittext">#f4f6fa</color>
 
 
