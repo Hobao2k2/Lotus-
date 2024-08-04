@@ -11,4 +11,11 @@
     <color name="gray_pressed">#DEE2E0</color>
     <color name="gray_text">#919295</color>
     <color name="gray_edittext">#f4f6fa</color>
+
+
+    <color name="graydam">#858282</color>
+    <color name="selected_tab_icon_color">#FF4081</color>
+    <color name="unselected_tab_icon_color">#888888</color>
+    <color name="selected_tab_text_color">#FF4081</color>
+    <color name="unselected_tab_text_color">#888888</color>
 </resources>

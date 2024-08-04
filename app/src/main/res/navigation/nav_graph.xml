@@ -22,7 +22,11 @@
         android:id="@+id/loginFragment"
         android:name="com.example.lotus.ui.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_homePageActivity"
+            app:destination="@id/homePageActivity" />
+    </fragment>
     <fragment
         android:id="@+id/signupFragment"
         android:name="com.example.lotus.ui.SignupFragment"
@@ -39,6 +43,15 @@
         android:id="@+id/displayNameFragment"
         android:name="com.example.lotus.ui.DisplayNameFragment"
         android:label="fragment_display_name"
-        tools:layout="@layout/fragment_display_name" />
+        tools:layout="@layout/fragment_display_name" >
+        <action
+            android:id="@+id/action_displayNameFragment_to_homePageActivity"
+            app:destination="@id/homePageActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/homePageActivity"
+        android:name="com.example.lotus.ui.HomePageActivity"
+        android:label="activity_home_page"
+        tools:layout="@layout/activity_home_page" />
 
 </navigation>
