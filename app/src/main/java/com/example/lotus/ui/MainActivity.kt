@@ -1,4 +1,4 @@
-package com.example.lotus
+package com.example.lotus.ui
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -7,6 +7,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import com.example.lotus.R
 import com.example.lotus.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
