@@ -1,27 +1,22 @@
-package com.example.lotus.fragments
+package com.example.lotus.ui.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.Toast
 import com.example.lotus.R
-import com.example.lotus.databinding.FragmentProfileBinding
 
 
-class ProfileFragment : Fragment() {
-    private lateinit var binding:FragmentProfileBinding
+class PersonalManagementFragment : Fragment() {
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding=FragmentProfileBinding.inflate(inflater, container, false)
-        return binding.root
-
+        return inflater.inflate(R.layout.fragment_personal_management, container, false)
     }
 
 }
-

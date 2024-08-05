@@ -1,4 +1,4 @@
-package com.example.lotus.ui
+package com.example.lotus.ui.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.lotus.R
-import com.example.lotus.adapter.MyBottomViewPagerAdapter
+import com.example.lotus.ui.adapter.MyBottomViewPagerAdapter
 import com.example.lotus.databinding.ActivityHomePageBinding
 
 import com.google.android.material.tabs.TabLayout

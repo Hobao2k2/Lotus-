@@ -1,13 +1,13 @@
-package com.example.lotus.adapter
+package com.example.lotus.ui.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.lotus.fragments.ChatFragment
-import com.example.lotus.fragments.HomeFragment
-import com.example.lotus.fragments.NotifyFragment
-import com.example.lotus.fragments.ProfileFragment
+import com.example.lotus.ui.view.ChatFragment
+import com.example.lotus.ui.view.HomeFragment
+import com.example.lotus.ui.view.NotifyFragment
+import com.example.lotus.ui.view.ProfileFragment
 
 class MyBottomViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
