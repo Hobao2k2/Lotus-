@@ -1,4 +1,4 @@
-package com.example.lotus.ui
+package com.example.lotus.ui.view
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

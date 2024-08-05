@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:padding="20dp"
-    tools:context=".ui.DisplayNameFragment">
+    tools:context=".ui.view.DisplayNameFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
