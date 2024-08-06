@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center_horizontal"
-    tools:context=".ui.view.SignupFragment"
+    tools:context=".ui.view.RegisterFragment"
     android:background="@color/white">
     <LinearLayout
         android:id="@+id/actionBar"
@@ -50,14 +50,25 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/edtPhoneOrEmail"
+            android:id="@+id/edtUserName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:background="@drawable/rounded_edittext_gray"
-            android:hint="Nhập số điện thoại hoạc email"
+            android:hint="Nhập tên đăng nhập"
             android:textColorHint="@color/gray_text"
             android:layout_marginTop="20dp"
+            android:textSize="15sp"
+            />
+        <EditText
+            android:id="@+id/edtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:background="@drawable/rounded_edittext_gray"
+            android:hint="Nhập email"
+            android:textColorHint="@color/gray_text"
+            android:layout_marginTop="5dp"
             android:textSize="15sp"
             />
 

@@ -1,5 +1,6 @@
 package com.example.lotus.data.model
 
-data class Chat(val userId: String, val message: String) {
-
-}
+data class Chat(
+    val id: String,
+    val message: String
+)

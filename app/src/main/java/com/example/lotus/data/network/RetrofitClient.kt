@@ -7,6 +7,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitClient {
     private const val BASE_URL = "http://princehunganh.ddnsfree.com:7554"
 
+    var token: String = ""
+
     private fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor { chain ->
@@ -14,7 +16,7 @@ object RetrofitClient {
                 val newRequest = request.newBuilder()
                     .addHeader(
                         "Authorization",
-                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJiYW9uYW1ra2FAZ21haWwuY29tIiwidXNlcklkIjoiNjZiMDc4ZmNiODIyOTllNGI5ZWI2MDM2IiwiaWF0IjoxNzIyOTE1OTkxLCJleHAiOjE3MjI5MTk1OTF9.Gzh_Z1DIt4P14gg3fmPTWelh1v_NsM4XqzybwGhK7GE"
+                        token
                     )
                     .build()
                 chain.proceed(newRequest)
