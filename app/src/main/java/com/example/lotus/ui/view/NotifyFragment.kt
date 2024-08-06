@@ -1,20 +1,48 @@
 package com.example.lotus.ui.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.lotus.R
+import com.example.lotus.data.repository.UserRepository
+import com.example.lotus.databinding.FragmentNotifyBinding
+import com.example.lotus.ui.viewModel.UserViewModel
+import com.example.lotus.ui.viewModel.UserViewModelFactory
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
 class NotifyFragment : Fragment() {
-
+    private lateinit var binding:FragmentNotifyBinding
+    private val userViewModel:UserViewModel by viewModels {
+        UserViewModelFactory(UserRepository())
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notify, container, false)
+        binding = FragmentNotifyBinding.inflate(inflater, container, false)
+        binding.btnGetProfile.setOnClickListener {
+            getUserProfile()
+        }
+        return binding.root
+    }
+    fun getUserProfile(){
+        userViewModel.getUserProfile()
+        lifecycleScope.launch {
+            userViewModel.userProfile.collect(){
+                it?.let {
+                    Log.i("test",it.userName.toString())
+                    Log.i("test","dang chay")
+                    Log.i("test",it.email.toString())
+                }
+            }
+        }
     }
 }
