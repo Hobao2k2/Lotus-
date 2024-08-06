@@ -11,6 +11,7 @@ class SharedPrefManager(context: Context) {
     companion object {
         private const val SHARED_PREF_NAME = "my_shared_pref"
         private const val KEY_IS_LOGGED_IN = "is_logged_in"
+        private const val KEY_TOKEN = "token"
     }
 
     fun saveLoginState(isLoggedIn: Boolean) {
@@ -23,9 +24,20 @@ class SharedPrefManager(context: Context) {
         return sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false)
     }
 
+    fun saveToken(token: String) {
+        val editor = sharedPreferences.edit()
+        editor.putString(KEY_TOKEN, token)
+        editor.apply()
+    }
+
+    fun getToken(): String? {
+        return sharedPreferences.getString(KEY_TOKEN, null)
+    }
+
     fun clearLoginState() {
         val editor = sharedPreferences.edit()
         editor.remove(KEY_IS_LOGGED_IN)
+        editor.remove(KEY_TOKEN)
         editor.apply()
     }
 }

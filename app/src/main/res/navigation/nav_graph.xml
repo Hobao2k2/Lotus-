@@ -16,7 +16,7 @@
             app:destination="@id/loginFragment" />
         <action
             android:id="@+id/action_welcomeFragment_to_signupFragment"
-            app:destination="@id/signupFragment" />
+            app:destination="@id/registerFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -26,27 +26,21 @@
         <action
             android:id="@+id/action_loginFragment_to_homePageActivity"
             app:destination="@id/homePageActivity" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
     </fragment>
     <fragment
-        android:id="@+id/signupFragment"
-        android:name="com.example.lotus.ui.view.SignupFragment"
-        android:label="fragment_signup"
-        tools:layout="@layout/fragment_signup" >
+        android:id="@+id/registerFragment"
+        android:name="com.example.lotus.ui.view.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
         <action
-            android:id="@+id/action_signupFragment_to_displayNameFragment"
-            app:destination="@id/displayNameFragment" />
-        <action
-            android:id="@+id/action_signupFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/displayNameFragment"
-        android:name="com.example.lotus.ui.view.DisplayNameFragment"
-        android:label="fragment_display_name"
-        tools:layout="@layout/fragment_display_name" >
-        <action
-            android:id="@+id/action_displayNameFragment_to_homePageActivity"
+            android:id="@+id/action_signupFragment_to_homePageActivity"
             app:destination="@id/homePageActivity" />
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <activity
         android:id="@+id/homePageActivity"

@@ -11,4 +11,10 @@
         android:layout_height="match_parent"
         android:text="@string/hello_blank_fragment" />
 
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="107dp"
+        android:layout_height="392dp"
+        android:text="logout" />
+
 </FrameLayout>
