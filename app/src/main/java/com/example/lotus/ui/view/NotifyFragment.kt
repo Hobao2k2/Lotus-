@@ -28,21 +28,6 @@ class NotifyFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentNotifyBinding.inflate(inflater, container, false)
-        binding.btnGetProfile.setOnClickListener {
-            getUserProfile()
-        }
         return binding.root
-    }
-    fun getUserProfile(){
-        userViewModel.getUserProfile()
-        lifecycleScope.launch {
-            userViewModel.userProfile.collect(){
-                it?.let {
-                    Log.i("test",it.userName.toString())
-                    Log.i("test","dang chay")
-                    Log.i("test",it.email.toString())
-                }
-            }
-        }
     }
 }
