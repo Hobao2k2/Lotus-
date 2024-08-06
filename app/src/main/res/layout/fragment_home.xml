@@ -3,9 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     android:orientation="vertical">
     <SearchView
         android:id="@+id/searchView"
+=======
+    tools:context=".ui.view.HomeFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+>>>>>>> 8ddf534baf70a79c35bf369f09730b47641d76af
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:queryHint="Tìm kiếm..."

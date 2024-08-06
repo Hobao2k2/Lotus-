@@ -1,4 +1,4 @@
-package com.example.lotus.fragments
+package com.example.lotus.ui.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

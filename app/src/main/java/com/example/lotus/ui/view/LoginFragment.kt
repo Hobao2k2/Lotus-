@@ -1,4 +1,4 @@
-package com.example.lotus.ui
+package com.example.lotus.ui.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.lotus.R
-import com.example.lotus.databinding.FragmentWelcomeBinding
+import com.example.lotus.databinding.FragmentLoginBinding
 
+class LoginFragment : Fragment() {
 
-class WelcomeFragment : Fragment() {
-
-    private lateinit var binding: FragmentWelcomeBinding
+    private lateinit var binding: FragmentLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,16 +23,17 @@ class WelcomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Inflate the layout for this fragment
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
 
-        binding = FragmentWelcomeBinding.inflate(inflater, container, false)
+        binding.btnBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         binding.btnLoginLotus.setOnClickListener {
-            it.findNavController().navigate(R.id.action_welcomeFragment_to_loginFragment)
+            it.findNavController().navigate(R.id.action_loginFragment_to_homePageActivity)
         }
 
-        binding.btnSignupLotus.setOnClickListener {
-            it.findNavController().navigate(R.id.action_welcomeFragment_to_signupFragment)
-        }
 
         return binding.root
     }

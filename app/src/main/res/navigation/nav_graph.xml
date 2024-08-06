@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.example.lotus.ui.WelcomeFragment"
+        android:name="com.example.lotus.ui.view.WelcomeFragment"
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome" >
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.lotus.ui.LoginFragment"
+        android:name="com.example.lotus.ui.view.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/signupFragment"
-        android:name="com.example.lotus.ui.SignupFragment"
+        android:name="com.example.lotus.ui.view.SignupFragment"
         android:label="fragment_signup"
         tools:layout="@layout/fragment_signup" >
         <action
@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/displayNameFragment"
-        android:name="com.example.lotus.ui.DisplayNameFragment"
+        android:name="com.example.lotus.ui.view.DisplayNameFragment"
         android:label="fragment_display_name"
         tools:layout="@layout/fragment_display_name" >
         <action
@@ -50,7 +50,7 @@
     </fragment>
     <activity
         android:id="@+id/homePageActivity"
-        android:name="com.example.lotus.ui.HomePageActivity"
+        android:name="com.example.lotus.ui.view.HomePageActivity"
         android:label="activity_home_page"
         tools:layout="@layout/activity_home_page" />
 
