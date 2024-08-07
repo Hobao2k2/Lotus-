@@ -37,19 +37,20 @@ class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListene
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
 
-        // Launch a coroutine to handle the data collection and UI updates
         lifecycleScope.launch {
             // Fetch user profile data
-            userViewModel.getUserProfile()
+            userViewModel.getUserProfile().join()
 
             // Collect data from userProfile Flow
             userViewModel.userProfile.collect { userProfile ->
                 userProfile?.let {
                     Log.i("test", "User Name: ${it.userName}")
-
-                    // Update the items list with fetched data
                     items.clear()  // Clear existing items if needed
-                    items.add(Item1(R.drawable.avatar_default, it.userName))
+                    if(it.image==null){
+                        items.add(Item1(R.drawable.avatar_default,null, it.userName))
+                    }else {
+                        items.add(Item1(null, it.image, it.userName))
+                    }
 
                     // Add additional items as required
                     for (i in 1..6) {

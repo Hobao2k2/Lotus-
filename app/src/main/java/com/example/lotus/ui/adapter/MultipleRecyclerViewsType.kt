@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.lotus.R
 import com.example.lotus.ui.adapter.dataItem.Item1
 import com.example.lotus.ui.adapter.dataItem.Item2
@@ -15,7 +16,7 @@ import com.example.lotus.ui.view.ProfileFragment
 
 
 class MultipleRecyclerViewsType(
-    private val items: MutableList<Any>, // Change to MutableList
+    private val items: MutableList<Any>,
     private val listener: OnItemClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -91,7 +92,19 @@ class MultipleRecyclerViewsType(
         }
 
         fun bind(item: Item1) {
-            imageAvatar.setImageResource(item.avatarProfile)
+            when {
+                item.imageUrl != null -> {
+                    Glide.with(itemView.context)
+                        .load(item.imageUrl)
+                        .into(imageAvatar)
+                }
+                item.imageResId != null -> {
+                    imageAvatar.setImageResource(item.imageResId)
+                }
+                else -> {
+                    imageAvatar.setImageResource(R.drawable.avatar_default)
+                }
+            }
             userName.text = item.userName
         }
     }
@@ -108,7 +121,6 @@ class MultipleRecyclerViewsType(
         }
     }
 
-    // Define a click listener interface
     interface OnItemClickListener {
         fun onUpdateProfileClick()
         fun onAddAvatarClick()
