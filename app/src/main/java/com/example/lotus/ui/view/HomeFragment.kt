@@ -45,7 +45,7 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch {
             try {
                 // Thay "your_token_here" bằng token thực tế
-                val posts = RetrofitInstance.api.getAllPost("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJidWltYW5kYWMxNDAyQGdtYWlsLmNvbSIsInVzZXJJZCI6IjY2YjE5N2M1YjgyMjk5ZTRiOWViNjA5NiIsImlhdCI6MTcyMjkzODM3MSwiZXhwIjoxNzIyOTQxOTcxfQ.JIDXTB1nXseDa4y0I8VUUDoRelWTkwCUp8o2w_Y8H7o")
+                val posts = RetrofitInstance.api.getAllPost("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJidWltYW5kYWMxNDAyQGdtYWlsLmNvbSIsInVzZXJJZCI6IjY2YjE5N2M1YjgyMjk5ZTRiOWViNjA5NiIsImlhdCI6MTcyMjk5Njc1NiwiZXhwIjoxNzIzMDAwMzU2fQ.bP4KEN6ervThJKaSbc4rJIVrB0-036PcUpueBowD7eU")
                 postAdapter = PostAdapter(posts)  // Tạo adapter mới với danh sách post mới
                 view?.findViewById<RecyclerView>(R.id.recyclerView)?.adapter = postAdapter // Cập nhật adapter của RecyclerView
             } catch (e: Exception) {

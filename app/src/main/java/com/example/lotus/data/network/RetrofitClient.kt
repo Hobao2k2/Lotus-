@@ -45,7 +45,7 @@ class AuthInterceptor(private val token: String) : Interceptor {
 }
 object RetrofitInstance {
     private val client = OkHttpClient.Builder()
-        .addInterceptor(AuthInterceptor("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJidWltYW5kYWMxNDAyQGdtYWlsLmNvbSIsInVzZXJJZCI6IjY2YjE5N2M1YjgyMjk5ZTRiOWViNjA5NiIsImlhdCI6MTcyMjkzODM3MSwiZXhwIjoxNzIyOTQxOTcxfQ.JIDXTB1nXseDa4y0I8VUUDoRelWTkwCUp8o2w_Y8H7o")) // Thay "your_token_here" bằng token thực tế
+        .addInterceptor(AuthInterceptor("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJidWltYW5kYWMxNDAyQGdtYWlsLmNvbSIsInVzZXJJZCI6IjY2YjE5N2M1YjgyMjk5ZTRiOWViNjA5NiIsImlhdCI6MTcyMjk5Njc1NiwiZXhwIjoxNzIzMDAwMzU2fQ.bP4KEN6ervThJKaSbc4rJIVrB0-036PcUpueBowD7eU")) // Thay "your_token_here" bằng token thực tế
         .build()
 
     private val retrofit by lazy {

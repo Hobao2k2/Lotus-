@@ -15,13 +15,34 @@ import com.example.lotus.databinding.FragmentHomePostBinding
 class PostAdapter(private val postList:  List<Post>) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
     class ViewHolder(private val binding: FragmentHomePostBinding) : RecyclerView.ViewHolder(binding.root) {
+        private var isImage1 = true
+         var like: Int =0
         fun bind(post: Post) {
+              like = post.likes.size
             Glide.with(binding.avata.context)
                 .load(post.user.image)
                 .into(binding.avata)
             binding.name.text = post.user.userName
             binding.status.text = post.content
 
+            Glide.with(binding.image.context)
+                .load(post.image)
+                .into(binding.image)
+            setImage() // Đặt hình ảnh ban đầ
+            binding.buttonLike.setOnClickListener {
+                isImage1 = !isImage1 // Đổi trạng thái hình ảnh
+                setImage()
+            }
+
+            binding.like.text = like.toString()
+        }
+        private fun setImage() {
+            val imageResId = if (isImage1){
+                R.drawable.icon_unlike
+            } else{
+                R.drawable.icon_like
+            }
+            binding.buttonLike.setBackgroundResource(imageResId)
         }
     }
 

@@ -3,9 +3,7 @@ package com.example.lotus.data.model
 import android.widget.ImageView
 import java.io.File
 
-class Post (val user:User, val content: String){
-
-
+class Post (val user:User,val image: String? = null, val content: String,val likes: List<User>){
 
 }
 

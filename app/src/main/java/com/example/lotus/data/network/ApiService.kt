@@ -8,7 +8,7 @@ import retrofit2.http.Header
 interface ApiService {
     @GET("/users/profile")
     suspend fun getUserProfile(): User
-    @GET("/post/all")
+    @GET("/post")
     suspend fun getAllPost(
         @Header("Authorization") token: String
     ): List<Post>

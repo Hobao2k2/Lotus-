@@ -10,7 +10,5 @@ class UserRepository {
     suspend fun getUserProfile():User{
         return api.getUserProfile()
     }
-    suspend fun getAllPost():List<Post>{
-        return api.getAllPost()
-    }
+
 }
