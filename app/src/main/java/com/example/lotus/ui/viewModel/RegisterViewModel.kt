@@ -11,18 +11,6 @@ import kotlinx.coroutines.launch
 
 class RegisterViewModel (private val repository: UserRepository) : ViewModel(){
 
-//    val registerResponse = MutableLiveData<RegisterResponse>()
-//    val error = MutableLiveData<String>()
-//
-//    suspend fun register(registerRequest: RegisterRequest) {
-//        viewModelScope.launch {
-//            try {
-//                val result = repository.register(registerRequest)
-//                registerResponse.postValue(result)
-//            } catch (e: Exception) {
-//                error.postValue(e.message)
-//            }
-//        }
-//    }
+
 
 }

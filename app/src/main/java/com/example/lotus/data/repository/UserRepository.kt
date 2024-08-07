@@ -15,41 +15,41 @@ import java.io.IOException
 class UserRepository {
     private val api=RetrofitClient.getRetrofitClient()
 
-    suspend fun register(registerRequest: RegisterRequest): Resource<RegisterResponse> {
-        return try {
+    suspend fun register(registerRequest: RegisterRequest) = flow {
+        try {
             val response = api.register(registerRequest)
             if (response.isSuccessful) {
-                Resource.Success(response.body()!!)
+                emit(Resource.Success(response.body()!!))
             } else {
-                // Lấy thông tin lỗi từ phản hồi
                 val errorJson = response.errorBody()?.string()
                 val errorMessage = extractErrorMessage(errorJson) ?: "Unknown error"
-                Resource.Error(errorMessage)
+                emit(Resource.Error(errorMessage))
             }
         } catch (e: IOException) {
-            Resource.Error("Network error")
+            emit(Resource.Error("Network error"))
         }
     }
 
-    suspend fun login(registerRequest: RegisterRequest): Resource<String> {
-        return try {
+    suspend fun login(registerRequest: RegisterRequest) = flow {
+        try {
             val response = api.login(registerRequest)
             if (response.isSuccessful) {
-                Resource.Success(response.body()!!)
+                emit(Resource.Success(response.body()!!))
             } else {
                 // Lấy thông tin lỗi từ phản hồi
                 val errorJson = response.errorBody()?.string()
                 val errorMessage = extractErrorMessage(errorJson) ?: "Unknown error"
-                Resource.Error(errorMessage)
+                emit(Resource.Error(errorMessage))
             }
         } catch (e: IOException) {
-            Resource.Error("Network error")
+            emit(Resource.Error("Network error"))
         }
     }
 
     suspend fun getUserProfile():User{
         return api.getUserProfile()
     }
+
     // Hàm trích xuất thông báo lỗi từ JSON
     private fun extractErrorMessage(errorJson: String?): String? {
         return try {

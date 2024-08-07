@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.lotus.R
@@ -20,6 +21,7 @@ import com.example.lotus.ui.viewModel.UserViewModel
 import com.example.lotus.ui.viewModel.UserViewModelFactory
 import com.example.lotus.utils.Resource
 import com.example.lotus.utils.SharedPrefManager
+import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment() {
 
@@ -60,33 +62,37 @@ class LoginFragment : Fragment() {
             val password = binding.edtPassword.text.toString()
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(requireContext(), "Please fill all the fields", Toast.LENGTH_SHORT)
-                    .show()
+                if (email.isEmpty()) binding.edtEmail.error = "Please fill out this field"
+                if (password.isEmpty()) binding.edtPassword.error = "Please fill out this field"
             }
             else{
                 loginViewModel.login(RegisterRequest("",email = email, password = password,""))
 
             }
-
         }
-        loginViewModel.loginResponse.observe(viewLifecycleOwner, Observer{ response->
-            when(response){
-                is Resource.Loading->{
-                    Toast.makeText(requireContext(),"Loading",Toast.LENGTH_SHORT).show()
-                }
-                is Resource.Success->{
-                    findNavController().navigate(R.id.action_loginFragment_to_homePageActivity)
-                    sharedPrefManager.saveToken(response.data!!)
-                }
-                is Resource.Error->{
-                    val errorMessage = response.message
-                    Log.e(TAG, "Login error: $errorMessage")
-                    Toast.makeText(context,  errorMessage, Toast.LENGTH_SHORT).show()
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            loginViewModel.loginResponse.collect { response ->
+                when (response) {
+                    is Resource.Loading -> {
+                        Log.d(TAG, "onCreateView: Loading")
+                        Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
+                    }
+
+                    is Resource.Success -> {
+                        sharedPrefManager.saveToken(response.data!!)
+                        Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
+                        findNavController().navigate(R.id.action_loginFragment_to_homePageActivity)
+                    }
+
+                    is Resource.Error -> {
+                        Log.d(TAG, "onCreateView: ${response.message}")
+                        Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
 
-        )
         return binding.root
     }
 
