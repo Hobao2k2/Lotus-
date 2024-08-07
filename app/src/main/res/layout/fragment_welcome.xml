@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.WelcomeFragment">
+    tools:context=".ui.view.WelcomeFragment">
     <LinearLayout
         android:id="@+id/mainLl"
         android:layout_width="match_parent"

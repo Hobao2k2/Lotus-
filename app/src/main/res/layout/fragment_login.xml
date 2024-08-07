@@ -6,8 +6,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_gravity="center_horizontal"
-    tools:context=".ui.LoginFragment"
+    tools:context=".ui.view.LoginFragment"
     android:background="@color/white">
+
     <LinearLayout
         android:id="@+id/actionBar"
         android:layout_width="match_parent"
@@ -54,12 +55,12 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/edtPhoneOrEmail"
+            android:id="@+id/edtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:background="@drawable/rounded_edittext_gray"
-            android:hint="Nhập số điện thoại hoạc email"
+            android:hint="Nhập email"
             android:textColorHint="@color/gray_text"
             android:layout_marginTop="20dp"
             android:textSize="15sp"
@@ -109,7 +110,7 @@
             android:visibility="gone"
             />
         <TextView
-            android:id="@+id/tvSignup"
+            android:id="@+id/tvRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Đăng ký tài khoản"
