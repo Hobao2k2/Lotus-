@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.lotus.R
 import com.example.lotus.data.model.RegisterRequest
 import com.example.lotus.data.model.User
+import com.example.lotus.data.network.RetrofitClient
 import com.example.lotus.data.repository.UserRepository
 import com.example.lotus.databinding.FragmentRegisterBinding
 import com.example.lotus.ui.viewModel.UserViewModel

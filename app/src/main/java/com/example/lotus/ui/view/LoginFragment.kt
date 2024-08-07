@@ -9,12 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.lotus.R
 import com.example.lotus.data.model.RegisterRequest
+import com.example.lotus.data.network.RetrofitClient
 import com.example.lotus.data.repository.UserRepository
 import com.example.lotus.databinding.FragmentLoginBinding
 import com.example.lotus.ui.viewModel.UserViewModel
@@ -36,6 +36,7 @@ class LoginFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedPrefManager = SharedPrefManager(requireContext())
+        RetrofitClient.initialize(context = requireContext())
     }
 
     override fun onCreateView(

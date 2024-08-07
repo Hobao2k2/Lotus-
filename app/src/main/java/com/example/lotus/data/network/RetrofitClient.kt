@@ -1,5 +1,8 @@
 package com.example.lotus.data.network
 
+import android.content.Context
+import com.example.lotus.ui.view.LoginFragment
+import com.example.lotus.utils.SharedPrefManager
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -7,17 +10,19 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitClient {
     private const val BASE_URL = "http://princehunganh.ddnsfree.com:7554"
 
-    var token: String = ""
+    private lateinit var sharedPrefManager: SharedPrefManager
+
+    fun initialize(context: Context) {
+        sharedPrefManager = SharedPrefManager(context)
+    }
 
     private fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor { chain ->
+                val token = sharedPrefManager.getToken() ?: ""
                 val request = chain.request()
                 val newRequest = request.newBuilder()
-                    .addHeader(
-                        "Authorization",
-                        token
-                    )
+                    .addHeader("Authorization", token)
                     .build()
                 chain.proceed(newRequest)
             }
