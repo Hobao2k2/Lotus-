@@ -1,7 +1,5 @@
 package com.example.lotus.ui.viewModel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lotus.data.model.RegisterRequest
@@ -12,10 +10,18 @@ import com.example.lotus.data.repository.UserRepository
 import kotlinx.coroutines.Job
 import com.example.lotus.utils.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
+  
+    private val _registerResponse = MutableStateFlow<Resource<RegisterResponse>>(Resource.Loading())
+    val registerResponse: StateFlow<Resource<RegisterResponse>> = _registerResponse.asStateFlow()
+
+    private val _loginResponse = MutableStateFlow<Resource<String>>(Resource.Loading())
+    val loginResponse: StateFlow<Resource<String>> = _loginResponse.asStateFlow()
+
     private val _userProfile = MutableStateFlow<User?>(null)
     val userProfile = _userProfile.asStateFlow()
 
@@ -31,27 +37,20 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
         }
     }
 
-    private val _registerResponse = MutableLiveData<Resource<RegisterResponse>>()
-    val registerResponse: LiveData<Resource<RegisterResponse>> = _registerResponse
-
     fun register(registerRequest: RegisterRequest) {
         viewModelScope.launch {
-            _registerResponse.value = Resource.Loading()
-            val response = userRepository.register(registerRequest)
-            _registerResponse.value = response
+            userRepository.register(registerRequest).collect {
+                _registerResponse.value = it
+            }
         }
     }
-
-    private val _loginResponse = MutableLiveData<Resource<String>>()
-    val loginResponse: LiveData<Resource<String>> = _loginResponse
 
     fun login(registerRequest: RegisterRequest) {
         viewModelScope.launch {
-            _loginResponse.value = Resource.Loading()
-            val response = userRepository.login(registerRequest)
-            _loginResponse.value = response
+           userRepository.login(registerRequest).collect {
+               _loginResponse.value = it
+           }
         }
     }
 }
-
 
