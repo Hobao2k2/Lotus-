@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lotus.R
+import com.example.lotus.data.network.RetrofitClient
 import com.example.lotus.data.repository.UserRepository
 import com.example.lotus.databinding.FragmentProfileBinding
 import com.example.lotus.ui.adapter.MultipleRecyclerViewsType
@@ -17,6 +18,7 @@ import com.example.lotus.ui.adapter.dataItem.Item1
 import com.example.lotus.ui.adapter.dataItem.Item2
 import com.example.lotus.ui.viewModel.UserViewModel
 import com.example.lotus.ui.viewModel.UserViewModelFactory
+import com.example.lotus.utils.SharedPrefManager
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -27,6 +29,11 @@ class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListene
     }
     private val items: MutableList<Any> = mutableListOf()
     private lateinit var adapter: MultipleRecyclerViewsType
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        RetrofitClient.initialize(context = requireContext())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -28,11 +28,9 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
 
     fun getUserProfile(): Job {
         return viewModelScope.launch {
-            fun getUserProfile() {
-                viewModelScope.launch {
-                    val data = userRepository.getUserProfile()
-                    _userProfile.value = data
-                }
+            viewModelScope.launch {
+                val data = userRepository.getUserProfile()
+                _userProfile.value = data
             }
         }
     }

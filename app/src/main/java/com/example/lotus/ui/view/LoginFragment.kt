@@ -77,12 +77,13 @@ class LoginFragment : Fragment() {
                 when (response) {
                     is Resource.Loading -> {
                         Log.d(TAG, "onCreateView: Loading")
-                        Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Loadi", Toast.LENGTH_SHORT).show()
                     }
 
                     is Resource.Success -> {
                         sharedPrefManager.saveToken(response.data!!)
-                        Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
+                        sharedPrefManager.saveLoginState(true)
+                        Toast.makeText(requireContext(),  response.data, Toast.LENGTH_SHORT).show()
                         findNavController().navigate(R.id.action_loginFragment_to_homePageActivity)
                     }
 
