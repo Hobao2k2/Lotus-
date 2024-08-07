@@ -22,7 +22,11 @@ object RetrofitClient {
                 val token = sharedPrefManager.getToken() ?: ""
                 val request = chain.request()
                 val newRequest = request.newBuilder()
-                    .addHeader("Authorization", token)
+                    .addHeader(
+                        "Authorization",
+                        token
+
+                    )
                     .build()
                 chain.proceed(newRequest)
             }
