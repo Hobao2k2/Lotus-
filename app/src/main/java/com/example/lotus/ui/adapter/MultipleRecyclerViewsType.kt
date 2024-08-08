@@ -113,9 +113,14 @@ class MultipleRecyclerViewsType(
 
     class Item2ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val image: ViewStub = itemView.findViewById(R.id.imgStub)
-        private val imageView: ImageView = image.inflate().findViewById(R.id.imageView)
+        private val imageView: ImageView
         private val username: TextView = itemView.findViewById(R.id.txtUserNamePost)
         private val content: TextView = itemView.findViewById(R.id.txtContentPost)
+        init {
+            // Inflate the ViewStub and initialize other views
+            val inflatedView = image.inflate()
+            imageView = inflatedView.findViewById(R.id.imgAvatarPost)
+        }
 
         fun bind(item: Item2) {
             Glide.with(itemView.context)
