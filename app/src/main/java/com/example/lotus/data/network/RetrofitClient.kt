@@ -7,14 +7,10 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object RetrofitClient {
-    private const val BASE_URL = "http://princehunganh.ddnsfree.com:7554"
+class RetrofitClient(private val context: Context) {
+    private val BASE_URL = "http://princehunganh.ddnsfree.com:7554"
 
     private lateinit var sharedPrefManager: SharedPrefManager
-
-    fun initialize(context: Context) {
-        sharedPrefManager = SharedPrefManager(context)
-    }
 
     private fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()

@@ -1,5 +1,6 @@
 package com.example.lotus.data.repository
 
+import android.content.Context
 import android.net.http.HttpException
 import com.example.lotus.data.model.RegisterRequest
 import com.example.lotus.data.model.RegisterResponse
@@ -12,8 +13,8 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
 
-class UserRepository {
-    private val api=RetrofitClient.getRetrofitClient()
+class UserRepository(private val context: Context) {
+    private val api=RetrofitClient(context).getRetrofitClient()
 
     suspend fun register(registerRequest: RegisterRequest) = flow {
         try {
@@ -36,7 +37,6 @@ class UserRepository {
             if (response.isSuccessful) {
                 emit(Resource.Success(response.body()!!))
             } else {
-                // Lấy thông tin lỗi từ phản hồi
                 val errorJson = response.errorBody()?.string()
                 val errorMessage = extractErrorMessage(errorJson) ?: "Unknown error"
                 emit(Resource.Error(errorMessage))
