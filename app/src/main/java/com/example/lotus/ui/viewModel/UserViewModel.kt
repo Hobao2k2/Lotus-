@@ -1,9 +1,11 @@
 package com.example.lotus.ui.viewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.lotus.data.model.Post
 import com.example.lotus.data.model.RegisterRequest
 import com.example.lotus.data.model.RegisterResponse
 import com.example.lotus.data.model.User
@@ -14,19 +16,35 @@ import com.example.lotus.utils.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.io.File
 
 class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
     private val _userProfile = MutableStateFlow<User?>(null)
     val userProfile = _userProfile.asStateFlow()
 
+    private val _post= MutableStateFlow<Post?>(null)
+    val post=_post.asStateFlow()
+
+    private val _postAll= MutableStateFlow<List<Post>?>(null)
+    val postAll=_postAll.asStateFlow()
+
 
     fun getUserProfile(): Job {
         return viewModelScope.launch {
-            fun getUserProfile() {
-                viewModelScope.launch {
-                    val data = userRepository.getUserProfile()
-                    _userProfile.value = data
-                }
+            val data = userRepository.getUserProfile()
+            _userProfile.value = data
+        }
+    }
+
+    fun addPost(content: String, user: String, imageFile: File?): Job {
+        return viewModelScope.launch {
+            try {
+                val data = userRepository.addPost(content, user, imageFile)
+                _post.value = data
+            } catch (e: Exception) {
+                e.printStackTrace()
+                // Xử lý lỗi nếu cần
+                _post.value = null // Hoặc có thể gán một giá trị mặc định/ lỗi nào đó
             }
         }
     }
@@ -52,6 +70,22 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
             _loginResponse.value = response
         }
     }
+
+    fun getAllPost():Job {
+        return viewModelScope.launch {
+            try {
+                // Giả sử userRepository.getAllPost() trả về List<Post>
+                _postAll.value = userRepository.gelAllPost()
+            } catch (e: Exception) {
+                // Xử lý lỗi nếu cần
+                // Có thể cập nhật _postAll với dữ liệu rỗng hoặc hiển thị thông báo lỗi
+                _postAll.value = emptyList()
+                Log.e("ViewModel", "Failed to get posts", e)
+            }
+        }
+    }
+
+
 }
 
 

@@ -1,11 +1,13 @@
 package com.example.lotus.data.network
 
 import android.media.session.MediaSession.Token
+import com.example.lotus.data.model.Post
 import com.example.lotus.data.model.RegisterRequest
 import com.example.lotus.data.model.RegisterResponse
 import com.example.lotus.data.model.User
 import retrofit2.http.*
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 
 interface ApiService {
@@ -22,5 +24,15 @@ interface ApiService {
 
     @GET("/users/profile")
     suspend fun getUserProfile(): User
+
+    @Multipart
+    @POST("/post")
+    suspend fun addPost(
+        @Part("content") content: RequestBody,
+        @Part image:MultipartBody.Part?
+    ):Post
+
+    @GET("/post")
+    suspend fun getAllPost():List<Post>
 
 }

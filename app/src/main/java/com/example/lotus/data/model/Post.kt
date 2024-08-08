@@ -8,7 +8,7 @@ data class Post(
     @SerializedName("image")
     val image: String? = null,
     @SerializedName("user")
-    val user: User,
+    val user: String,
     @SerializedName("likes")
     val likes: List<User> = emptyList(),
     @SerializedName("comments")

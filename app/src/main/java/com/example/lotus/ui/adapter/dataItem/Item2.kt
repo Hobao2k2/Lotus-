@@ -1,3 +1,3 @@
 package com.example.lotus.ui.adapter.dataItem
 
-data class Item2(val Image:Int, val name:String,val email:String)
+data class Item2(val Image:String, val name:String,val content:String)

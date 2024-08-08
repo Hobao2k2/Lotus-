@@ -29,7 +29,7 @@ class RegisterFragment : Fragment() {
     private lateinit var sharedPrefManager: SharedPrefManager
 
     private val userViewModel: UserViewModel by viewModels {
-        UserViewModelFactory(UserRepository())
+        UserViewModelFactory(UserRepository(requireContext()))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -3,12 +3,14 @@ package com.example.lotus.ui.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewStub
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.lotus.R
+import com.example.lotus.data.model.Post
 import com.example.lotus.ui.adapter.dataItem.Item1
 import com.example.lotus.ui.adapter.dataItem.Item2
 import com.example.lotus.ui.view.ProfileFragment
@@ -110,14 +112,17 @@ class MultipleRecyclerViewsType(
     }
 
     class Item2ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val image: ImageView = itemView.findViewById(R.id.imgImage)
-        private val name: TextView = itemView.findViewById(R.id.txtName)
-        private val email: TextView = itemView.findViewById(R.id.txtEmail)
+        private val image: ViewStub = itemView.findViewById(R.id.imgStub)
+        private val imageView: ImageView = image.inflate().findViewById(R.id.imageView)
+        private val username: TextView = itemView.findViewById(R.id.txtUserNamePost)
+        private val content: TextView = itemView.findViewById(R.id.txtContentPost)
 
         fun bind(item: Item2) {
-            image.setImageResource(item.Image)
-            name.text = item.name
-            email.text = item.email
+            Glide.with(itemView.context)
+                .load(item.Image)
+                .into(imageView)
+            username.text = item.name
+            content.text = item.content
         }
     }
 

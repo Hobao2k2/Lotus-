@@ -28,7 +28,7 @@ class LoginFragment : Fragment() {
     private lateinit var sharedPrefManager: SharedPrefManager
 
     private val loginViewModel: UserViewModel by viewModels {
-        UserViewModelFactory(UserRepository())
+        UserViewModelFactory(UserRepository(requireContext()))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,20 +55,20 @@ class LoginFragment : Fragment() {
             it.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
-        binding.btnLoginLotus.setOnClickListener {
-            val email = binding.edtEmail.text.toString()
-            val password = binding.edtPassword.text.toString()
-
-            if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(requireContext(), "Please fill all the fields", Toast.LENGTH_SHORT)
-                    .show()
-            }
-            else{
-                loginViewModel.login(RegisterRequest("",email = email, password = password,""))
-
-            }
-
-        }
+//        binding.btnLoginLotus.setOnClickListener {
+//            val email = binding.edtEmail.text.toString()
+//            val password = binding.edtPassword.text.toString()
+//
+//            if (email.isEmpty() || password.isEmpty()) {
+//                Toast.makeText(requireContext(), "Please fill all the fields", Toast.LENGTH_SHORT)
+//                    .show()
+//            }
+//            else{
+//                loginViewModel.login(RegisterRequest("",email = email, password = password,""))
+//
+//            }
+//
+//        }
         loginViewModel.loginResponse.observe(viewLifecycleOwner, Observer{ response->
             when(response){
                 is Resource.Loading->{
