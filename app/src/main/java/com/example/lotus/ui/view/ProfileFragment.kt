@@ -70,8 +70,14 @@ class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListene
             userViewModel.postAll.collect(){
                 it?.forEach {
                     if(it.image==null){
+                        items.add(Item2(null,it.user.userName?: "Default Name",it.content?: "Default content"))
+                    }else{
+                        items.add(Item2(it.image,it.user.userName?: "Default Name",it.content?: "Default content"))
                     }
                 }
+                adapter.notifyDataSetChanged()
+
+                Log.i("test", "Items size after update: ${items.size}")
             }
         }
 

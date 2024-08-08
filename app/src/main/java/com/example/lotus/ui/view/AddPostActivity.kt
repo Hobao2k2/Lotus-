@@ -66,7 +66,7 @@ class AddPostActivity : AppCompatActivity() {
                 if (post != null) {
                     // Cập nhật UI với dữ liệu
                     binding.textViewContent.text = post.content
-                    binding.textViewUser.text = post.user
+//                    binding.textViewUser.text = post.user
                     // Xử lý hình ảnh nếu có
                     post.image?.let { imageUrl ->
                         // Ví dụ: sử dụng Glide để tải hình ảnh từ URL
