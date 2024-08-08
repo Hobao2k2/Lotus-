@@ -14,8 +14,6 @@ object RetrofitClient {
     private fun provideOkHttpClient(context : Context): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor { chain ->
-                val sharedPrefManager : SharedPrefManager = SharedPrefManager(context)
-
                 val request = chain.request()
                 val token = SharedPrefManager(context).getToken()?:""
                 Log.d("TAG", "provideOkHttpClient: $token")
