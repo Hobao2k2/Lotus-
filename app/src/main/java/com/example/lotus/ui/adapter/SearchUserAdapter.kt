@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.lotus.R
 import com.example.lotus.ui.adapter.dataItem.ItemSearchUser
 
-class SearchUserAdapter(private val items: MutableList<ItemSearchUser>):RecyclerView.Adapter<SearchUserAdapter.ViewHolderClass>() {
+class SearchUserAdapter(private val items: MutableList<ItemSearchUser>,private val itemClickListener: OnItemClickListener):RecyclerView.Adapter<SearchUserAdapter.ViewHolderClass>() {
     class ViewHolderClass(itemView: View):RecyclerView.ViewHolder(itemView){
         val Image: ImageView =itemView.findViewById(R.id.avatarProfile)
         val Name: TextView =itemView.findViewById(R.id.txtUserName)
@@ -36,6 +36,12 @@ class SearchUserAdapter(private val items: MutableList<ItemSearchUser>):Recycler
         } else {
             holder.Image.setImageResource(R.drawable.avatar_default)
         }
+        holder.itemView.setOnClickListener {
+            itemClickListener.onItemClick(position)
+        }
+    }
+    interface OnItemClickListener {
+        fun onItemClick(position: Int)
     }
 
 }

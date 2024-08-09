@@ -20,7 +20,7 @@ object RetrofitClient {
                 val newRequest = request.newBuilder()
                     .addHeader(
                         "Authorization",
-                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJiYW9uYW1AZ21haWwuY29tIiwidXNlcklkIjoiNjZiNDllNDViODIyOTllNGI5ZWI2MzBhIiwiaWF0IjoxNzIzMTkwNjA2LCJleHAiOjE3MjMxOTQyMDZ9.eIsMPW_UdKoPHo50Z3fJgIR3i8Lv4bJXv7lDLhMVwE4"
+                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJiYW9uYW1AZ21haWwuY29tIiwidXNlcklkIjoiNjZiNDllNDViODIyOTllNGI5ZWI2MzBhIiwiaWF0IjoxNzIzMTk0MzcyLCJleHAiOjE3MjMxOTc5NzJ9.DX3yzh-0edmLY0Ra0NBGb994YUMK1-yuj7LMqSxvJck"
 
                     )
                     .build()

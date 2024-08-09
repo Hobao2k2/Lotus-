@@ -92,4 +92,7 @@ class UserRepository(context: Context) {
     suspend fun searchUser(keyWord:String):List<User>{
         return api.getSearchUser(keyWord)
     }
+    suspend fun getUserById(id:String):User{
+        return api.getUsersById(id)
+    }
 }

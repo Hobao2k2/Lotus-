@@ -40,5 +40,7 @@ interface ApiService {
 
     @GET("/users")
     suspend fun getAllUsers():List<User>
+    @GET("/users/{id}")
+    suspend fun getUsersById(@Path("id")id:String):User
 
 }
