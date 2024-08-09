@@ -108,12 +108,6 @@
 
     </LinearLayout>
 
-    <View
-        android:id="@+id/view4"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:layout_marginTop="15dp"
-        android:background="@color/gray" />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -29,6 +29,10 @@ class HomeFragment : Fragment() {
             requireActivity().finish()
             sharedPrefManager.clearLoginState()
         }
+        binding.imgSearch.setOnClickListener{
+            val intent=Intent(requireContext(),SearchActivity::class.java)
+            startActivity(intent)
+        }
 
         return binding.root
     }
