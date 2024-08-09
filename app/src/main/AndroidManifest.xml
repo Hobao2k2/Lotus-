@@ -35,10 +35,6 @@
             android:name=".ui.view.AddPostActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.view.AddPost"
-            android:exported="false"
-            android:theme="@style/Base.Theme.Lotus" />
-        <activity
             android:name=".ui.view.HomePageActivity"
             android:exported="false" />
         <activity
