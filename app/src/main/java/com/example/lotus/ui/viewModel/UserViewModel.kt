@@ -28,6 +28,9 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
     private val _postAll= MutableStateFlow<List<Post>?>(null)
     val postAll=_postAll.asStateFlow()
 
+    private val _userAll=MutableStateFlow<List<User>?>(null)
+    val userAll=_userAll.asStateFlow()
+
 
     fun getUserProfile(): Job {
         return viewModelScope.launch {
@@ -84,8 +87,26 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
             }
         }
     }
-
-
+//    fun getAllUser(){
+//        viewModelScope.launch {
+//            try {
+//               _userAll.value=userRepository.gelAllUsers()
+//            } catch (e: Exception) {
+//                _userAll.value = emptyList()
+//                Log.e("ViewModel", "Failed to get users", e)
+//            }
+//        }
+//    }
+    fun  SearchUser(keyWord:String){
+        viewModelScope.launch {
+            try {
+                _userAll.value=userRepository.searchUser(keyWord)
+            } catch (e: Exception) {
+                _userAll.value = emptyList()
+                Log.e("ViewModel", "Failed to get users", e)
+            }
+        }
+    }
 }
 
 

@@ -11,16 +11,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitClient {
     private const val BASE_URL = "http://princehunganh.ddnsfree.com:7554"
 
-    private fun provideOkHttpClient(context : Context): OkHttpClient {
+    private fun provideOkHttpClient(context: Context): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor { chain ->
                 val request = chain.request()
-                val token = SharedPrefManager(context).getToken()?:""
+                val token = SharedPrefManager(context).getToken() ?: ""
                 Log.d("TAG", "provideOkHttpClient: $token")
                 val newRequest = request.newBuilder()
                     .addHeader(
                         "Authorization",
-                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJiYW9uYW1AZ21haWwuY29tIiwidXNlcklkIjoiNjZiNDllNDViODIyOTllNGI5ZWI2MzBhIiwiaWF0IjoxNzIzMTc3MzQ0LCJleHAiOjE3MjMxODA5NDR9.nMh4e2t8OZudcUwNxftMtw4XIVAUVhEKMQC-8MBontk"
+                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJiYW9uYW1AZ21haWwuY29tIiwidXNlcklkIjoiNjZiNDllNDViODIyOTllNGI5ZWI2MzBhIiwiaWF0IjoxNzIzMTkwNjA2LCJleHAiOjE3MjMxOTQyMDZ9.eIsMPW_UdKoPHo50Z3fJgIR3i8Lv4bJXv7lDLhMVwE4"
 
                     )
                     .build()

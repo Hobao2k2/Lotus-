@@ -2,6 +2,7 @@ package com.example.lotus.data.repository
 
 import android.content.Context
 import android.net.http.HttpException
+import android.provider.UserDictionary.Words
 import com.example.lotus.data.model.Post
 import com.example.lotus.data.model.RegisterRequest
 import com.example.lotus.data.model.RegisterResponse
@@ -85,4 +86,10 @@ class UserRepository(context: Context) {
         return api.getAllPost()
     }
 
+    suspend fun gelAllUsers():List<User>{
+        return api.getAllUsers()
+    }
+    suspend fun searchUser(keyWord:String):List<User>{
+        return api.getSearchUser(keyWord)
+    }
 }

@@ -50,47 +50,52 @@
         android:scaleType="center"
         android:layout_height="wrap_content"/>
 
-    <LinearLayout
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
+        android:layout_height="100dp">
+
+        <!-- ImageView và TextView cho Like -->
         <ImageView
             android:id="@+id/imgLike"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="100dp"
-
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/icon_like"/>
+            android:src="@drawable/icon_like"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
+            android:layout_alignParentBottom="true" />
 
         <TextView
             android:id="@+id/txtLike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:text="0"
-            android:textSize="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center"
-            />
+            android:textSize="20sp"
+            android:layout_toEndOf="@id/imgLike"
+            android:layout_alignBottom="@id/imgLike"
+            android:layout_marginStart="10dp" />
+
+        <!-- ImageView và TextView cho Comment -->
         <ImageView
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="100dp"
             android:id="@+id/imgComment"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/icon_comment"/>
+            android:layout_marginLeft="200dp"
+            android:src="@drawable/icon_comment"
+            android:layout_toEndOf="@id/txtLike"
+            android:layout_alignParentBottom="true" />
 
         <TextView
             android:id="@+id/txtComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:text="0"
-            android:textSize="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center"
-            />
-    </LinearLayout>
+            android:textSize="20sp"
+            android:layout_toEndOf="@id/imgComment"
+            android:layout_alignBottom="@id/imgComment"
+            android:layout_marginStart="10dp" />
+
+    </RelativeLayout>
+
 
 </LinearLayout>

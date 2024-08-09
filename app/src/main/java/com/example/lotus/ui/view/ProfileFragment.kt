@@ -33,7 +33,6 @@ class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListene
     private val userViewModel: UserViewModel by viewModels {
         UserViewModelFactory(UserRepository(requireContext()))
     }
-    private lateinit var listPost: List<Post>
     private val items: MutableList<Any> = mutableListOf()
     private lateinit var adapter: MultipleRecyclerViewsType
 
@@ -49,7 +48,7 @@ class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListene
             dividerItemDecoration.setDrawable(it)
         }
         binding.recyclerView.addItemDecoration(dividerItemDecoration)
-        val itemOffsetDecoration=ItemOffsetDecoration(100)
+        val itemOffsetDecoration=ItemOffsetDecoration()
         binding.recyclerView.addItemDecoration(itemOffsetDecoration)
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
 
@@ -59,12 +58,7 @@ class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListene
                 userProfile?.let {
                     Log.i("test", "User Name: ${it.userName}")
                     items.clear()  // Clear existing items if needed
-                    if (it.image == null) {
-                        items.add(Item1(R.drawable.icon_default_avatar, null, it.userName))
-                    } else {
-                        items.add(Item1(null, it.image, it.userName))
-                    }
-
+                        items.add(Item1( it.image, it.userName))
                     adapter.notifyDataSetChanged()
 
                     Log.i("test", "Items size after update: ${items.size}")
@@ -75,69 +69,22 @@ class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListene
             userViewModel.getAllPost()
             userViewModel.postAll.collect { posts ->
                 posts?.forEach { post ->
-                    if (post.image == null) {
-                        if (post.user.image == null) {
-                            items.add(
-                                Item2(
-                                    R.drawable.icon_default_avatar,
-                                    null,
-                                    null,
-                                    post.user.userName ?: "Default Name",
-                                    post.content ?: "",
-                                    post.id,
-                                    post.likes,
-                                    post.comments
-                                )
-                            )
-                        } else {
-                            items.add(
-                                Item2(
-                                    null,
-                                    post.user.image,
-                                    null,
-                                    post.user.userName ?: "Default Name",
-                                    post.content ?: "",
-                                    post.id,
-                                    post.likes,
-                                    post.comments
-                                )
-                            )
-                        }
-                    } else {
-                        if (post.user.image == null) {
-                            items.add(
-                                Item2(
-                                    R.drawable.icon_default_avatar,
-                                    null,
-                                    post.image,
-                                    post.user.userName ?: "Default Name",
-                                    post.content ?: "",
-                                    post.id,
-                                    post.likes,
-                                    post.comments
-                                )
-                            )
-                        } else {
-                            items.add(
-                                Item2(
-                                    null,
-                                    post.user.image,
-                                    post.image,
-                                    post.user.userName ?: "Default Name",
-                                    post.content ?: "",
-                                    post.id,
-                                    post.likes,
-                                    post.comments
-                                )
-                            )
-                        }
-                    }
+                    items.add(
+                        Item2(
+                            post.user.image,
+                            post.image,
+                            post.user.userName ?: "Default Name",
+                            post.content ?: "",
+                            post.id,
+                            post.likes,
+                            post.comments
+                        )
+                    )
                 }
                 adapter.notifyDataSetChanged()
                 Log.i("test", "Items size after update: ${items.size}")
             }
         }
-
 
         return binding.root
     }

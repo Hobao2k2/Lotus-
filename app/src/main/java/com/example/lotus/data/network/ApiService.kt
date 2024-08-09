@@ -35,4 +35,10 @@ interface ApiService {
     @GET("/post")
     suspend fun getAllPost():List<Post>
 
+    @POST("/users/search/{keyword}")
+    suspend fun getSearchUser(@Path("keyword") keyword: String): List<User>
+
+    @GET("/users")
+    suspend fun getAllUsers():List<User>
+
 }
