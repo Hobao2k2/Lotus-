@@ -12,7 +12,7 @@ data class Post(
     @SerializedName("user")
     val user: User,
     @SerializedName("likes")
-    val likes: List<User> = emptyList(),
+    val likes: List<String> = emptyList(),
     @SerializedName("comments")
     val comments: List<Comment> = emptyList(),
     @SerializedName("createdOn")

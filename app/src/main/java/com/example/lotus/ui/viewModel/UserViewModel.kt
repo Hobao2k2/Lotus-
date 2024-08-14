@@ -5,17 +5,21 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.lotus.data.model.FriendId
+import com.example.lotus.data.model.IdRequest
 import com.example.lotus.data.model.Post
 import com.example.lotus.data.model.RegisterRequest
 import com.example.lotus.data.model.RegisterResponse
 import com.example.lotus.data.model.User
 import com.example.lotus.data.repository.UserRepository
+import com.example.lotus.ui.adapter.dataItem.Item2
 
 import kotlinx.coroutines.Job
 import com.example.lotus.utils.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import okhttp3.RequestBody
 import java.io.File
 
 class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
@@ -82,11 +86,12 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
             try {
                 // Giả sử userRepository.getAllPost() trả về List<Post>
                 _postAll.value = userRepository.gelAllPost()
+                Log.i("test", "du lieu ok")
             } catch (e: Exception) {
                 // Xử lý lỗi nếu cần
                 // Có thể cập nhật _postAll với dữ liệu rỗng hoặc hiển thị thông báo lỗi
                 _postAll.value = emptyList()
-                Log.e("ViewModel", "Failed to get posts", e)
+                Log.e("test", "du lieu rong", e)
             }
         }
     }
@@ -118,6 +123,17 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
             }catch (e:Exception){
                 Log.e("ViewModel","Not User By Id")
             }
+        }
+    }
+
+    fun addFriend(idRequest: IdRequest){
+        viewModelScope.launch {
+           userRepository.addFriend(idRequest)
+        }
+    }
+    fun unFriend(friendId: FriendId){
+        viewModelScope.launch {
+            userRepository.unFriend(friendId)
         }
     }
 }

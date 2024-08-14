@@ -6,7 +6,7 @@ data class Comment(
     @SerializedName("content")
     val content: String,
     @SerializedName("user")
-    val user: User,
+    val user: String,
     @SerializedName("createdOn")
     val createdOn: String
 )

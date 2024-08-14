@@ -53,12 +53,12 @@ class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListene
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
 
         lifecycleScope.launch {
-            userViewModel.getUserProfile()
+            userViewModel.getUserProfile().join()
             userViewModel.userProfile.collect { userProfile ->
                 userProfile?.let {
                     Log.i("test", "User Name: ${it.userName}")
                     items.clear()  // Clear existing items if needed
-                        items.add(Item1( it.image, it.userName))
+                    items.add(Item1( it.image, it.userName))
                     adapter.notifyDataSetChanged()
 
                     Log.i("test", "Items size after update: ${items.size}")
@@ -66,7 +66,7 @@ class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListene
             }
         }
         lifecycleScope.launch {
-            userViewModel.getAllPost()
+            userViewModel.getAllPost().join()
             userViewModel.postAll.collect { posts ->
                 posts?.forEach { post ->
                     items.add(
