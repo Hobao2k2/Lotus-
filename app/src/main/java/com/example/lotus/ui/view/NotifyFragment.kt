@@ -20,8 +20,8 @@ import kotlinx.coroutines.launch
 
 class NotifyFragment : Fragment() {
     private lateinit var binding:FragmentNotifyBinding
-    private val userViewModel:UserViewModel by viewModels {
-        UserViewModelFactory(UserRepository())
+    private val userViewModel:UserViewModel by viewModels() {
+        UserViewModelFactory(UserRepository(requireContext()))
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -10,7 +10,7 @@ import retrofit2.Response
 
 interface ApiService {
 
-    @POST("users")
+    @POST("/users")
     suspend fun register(
         @Body registerRequest: RegisterRequest
     ): Response<RegisterResponse>

@@ -24,15 +24,15 @@ import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListener {
     private lateinit var binding: FragmentProfileBinding
-    private val userViewModel: UserViewModel by viewModels {
-        UserViewModelFactory(UserRepository())
+    private val userViewModel: UserViewModel by viewModels() {
+        UserViewModelFactory(UserRepository(requireContext()))
     }
+
     private val items: MutableList<Any> = mutableListOf()
     private lateinit var adapter: MultipleRecyclerViewsType
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        RetrofitClient.initialize(context = requireContext())
     }
 
     override fun onCreateView(
