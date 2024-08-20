@@ -3,12 +3,14 @@ package com.example.lotus.ui.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewStub
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.lotus.R
+import com.example.lotus.data.model.Post
 import com.example.lotus.ui.adapter.dataItem.Item1
 import com.example.lotus.ui.adapter.dataItem.Item2
 import com.example.lotus.ui.view.ProfileFragment
@@ -41,7 +43,7 @@ class MultipleRecyclerViewsType(
             }
             TYPE_ITEM2 -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.item_type_2, parent, false)
-                Item2ViewHolder(view)
+                Item2ViewHolder(view,listener)
             }
             else -> throw IllegalArgumentException("Invalid view type")
         }
@@ -58,16 +60,6 @@ class MultipleRecyclerViewsType(
         }
     }
 
-    fun addItem(item: Any) {
-        items.add(item)
-        notifyItemInserted(items.size - 1)
-    }
-
-    fun addItems(newItems: List<Any>) {
-        val startPosition = items.size
-        items.addAll(newItems)
-        notifyItemRangeInserted(startPosition, newItems.size)
-    }
 
     class Item1ViewHolder(
         itemView: View,
@@ -98,9 +90,6 @@ class MultipleRecyclerViewsType(
                         .load(item.imageUrl)
                         .into(imageAvatar)
                 }
-                item.imageResId != null -> {
-                    imageAvatar.setImageResource(item.imageResId)
-                }
                 else -> {
                     imageAvatar.setImageResource(R.drawable.avatar_default)
                 }
@@ -109,15 +98,46 @@ class MultipleRecyclerViewsType(
         }
     }
 
-    class Item2ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val image: ImageView = itemView.findViewById(R.id.imgImage)
-        private val name: TextView = itemView.findViewById(R.id.txtName)
-        private val email: TextView = itemView.findViewById(R.id.txtEmail)
+    class Item2ViewHolder(itemView: View,private val listener: OnItemClickListener) : RecyclerView.ViewHolder(itemView) {
+        private val image: ViewStub = itemView.findViewById(R.id.imgStub)
+        private val imageView: ImageView
+        private val imageAvatar:ImageView= itemView.findViewById(R.id.avatarProfile)
+        private val username: TextView = itemView.findViewById(R.id.txtUserNamePost)
+        private val imageLike:ImageView=itemView.findViewById(R.id.imgLike)
+        private val imageComment:ImageView=itemView.findViewById(R.id.imgComment)
+        private val content: TextView = itemView.findViewById(R.id.txtContentPost)
+        private val txtLike: TextView = itemView.findViewById(R.id.txtLike)
+        private val txtComment: TextView = itemView.findViewById(R.id.txtComment)
+        init {
+            // Inflate the ViewStub and initialize other views
+            val inflatedView = image.inflate()
+            imageView = inflatedView.findViewById(R.id.imgAvatarPost)
+        }
 
         fun bind(item: Item2) {
-            image.setImageResource(item.Image)
-            name.text = item.name
-            email.text = item.email
+            Glide.with(itemView.context)
+                .load(item.imagePost)
+                .into(imageView)
+            when {
+                item.imageAvatar != null -> {
+                    Glide.with(itemView.context)
+                        .load(item.imageAvatar)
+                        .into(imageAvatar)
+                }
+                else -> {
+                    imageAvatar.setImageResource(R.drawable.avatar_default)
+                }
+            }
+            username.text = item.name
+            content.text = item.content
+            imageLike.setOnClickListener {
+                listener.onLikeClick(item.id)
+            }
+            imageComment.setOnClickListener {
+                listener.onCommentClick(item.id)
+            }
+            txtLike.text=item.likes.size.toString()
+            txtComment.text=item.comments.size.toString()
         }
     }
 
@@ -125,5 +145,7 @@ class MultipleRecyclerViewsType(
         fun onUpdateProfileClick()
         fun onAddAvatarClick()
         fun onPostClick()
+        fun onLikeClick(id:String)
+        fun onCommentClick(id:String)
     }
 }

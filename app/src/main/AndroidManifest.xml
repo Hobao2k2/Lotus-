@@ -28,10 +28,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lotus"
         tools:targetApi="31">
-<!--        <activity-->
-<!--            android:name=".ui.view.AddPost"-->
-<!--            android:exported="false"-->
-<!--            android:theme="@style/Theme.Lotus" />-->
+        <activity
+            android:name=".ui.view.UserDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.view.SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.view.AddPostActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.view.HomePageActivity"
             android:exported="false" />
