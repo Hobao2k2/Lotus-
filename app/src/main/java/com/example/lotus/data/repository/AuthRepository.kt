@@ -1,21 +1,17 @@
 package com.example.lotus.data.repository
 
 import android.content.Context
-import android.util.Log
 import com.example.lotus.data.model.RegisterRequest
 import com.example.lotus.data.model.RegisterResponse
 import com.example.lotus.data.network.ApiService
 import com.example.lotus.data.network.RetrofitClient
 import com.example.lotus.utils.Resource
-import dagger.hilt.android.scopes.ActivityRetainedScoped
-import dagger.hilt.android.scopes.FragmentScoped
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import javax.inject.Inject
 
-class AuthRepository(context: Context)  : AuthRepositoryIpm {
+class AuthRepository(context: Context)  : AuthRepositoryImpl {
 
     private val apiService: ApiService = RetrofitClient.getRetrofitClient(context)
 

@@ -1,9 +1,9 @@
 package com.example.lotus.data.network
 
-import android.media.session.MediaSession.Token
+import com.example.lotus.data.model.ApiResponse
 import com.example.lotus.data.model.FriendId
 import com.example.lotus.data.model.IdRequest
-import com.example.lotus.data.model.Post
+import com.example.lotus.data.model.PostDetailResponse
 import com.example.lotus.data.model.RegisterRequest
 import com.example.lotus.data.model.RegisterResponse
 import com.example.lotus.data.model.User
@@ -24,17 +24,21 @@ interface ApiService {
         @Body registerRequest: RegisterRequest
     ): Response<String>
 
-
-
     @Multipart
     @POST("/post")
     suspend fun addPost(
         @Part("content") content: RequestBody,
         @Part image:MultipartBody.Part?
-    ):Post
+    ):PostDetailResponse
 
     @GET("/post")
-    suspend fun getAllPost():List<Post>
+    suspend fun getAllPost():List<PostDetailResponse>
+
+    @GET("/post")
+    suspend fun getPosts():ApiResponse
+
+    @POST("/post/like/{idPost}")
+    suspend fun likePost(@Path("idPost") idPost:String):ApiResponse
 
     @POST("/users/search/{keyword}")
     suspend fun getSearchUser(@Path("keyword") keyword: String): List<User>

@@ -1,35 +1,28 @@
 package com.example.lotus.ui.viewModel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lotus.data.model.FriendId
 import com.example.lotus.data.model.IdRequest
-import com.example.lotus.data.model.Post
-import com.example.lotus.data.model.RegisterRequest
-import com.example.lotus.data.model.RegisterResponse
+import com.example.lotus.data.model.PostDetailResponse
 import com.example.lotus.data.model.User
 import com.example.lotus.data.repository.UserRepository
-import com.example.lotus.ui.adapter.dataItem.Item2
 
 import kotlinx.coroutines.Job
-import com.example.lotus.utils.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import okhttp3.RequestBody
 import java.io.File
 
 class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
     private val _userProfile = MutableStateFlow<User?>(null)
     val userProfile = _userProfile.asStateFlow()
 
-    private val _post= MutableStateFlow<Post?>(null)
+    private val _post= MutableStateFlow<PostDetailResponse?>(null)
     val post=_post.asStateFlow()
 
-    private val _postAll= MutableStateFlow<List<Post>?>(null)
+    private val _postAll= MutableStateFlow<List<PostDetailResponse>?>(null)
     val postAll=_postAll.asStateFlow()
 
     private val _userAll=MutableStateFlow<List<User>?>(null)

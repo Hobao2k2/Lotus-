@@ -42,6 +42,9 @@ data class User(
     @SerializedName("friendRequests")
     val friendRequests: List<String> = emptyList(),
 
+    @SerializedName("friendRequestsSent")
+    val friendRequestsSent: List<String> = emptyList(),
+
     @SerializedName("friends")
     val friends: List<String> = emptyList(),
 

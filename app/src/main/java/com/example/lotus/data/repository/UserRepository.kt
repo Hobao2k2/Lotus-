@@ -1,29 +1,17 @@
 package com.example.lotus.data.repository
 
 import android.content.Context
-import android.net.http.HttpException
-import android.provider.UserDictionary.Words
 import com.example.lotus.data.model.FriendId
 import com.example.lotus.data.model.IdRequest
-import com.example.lotus.data.model.Post
-import com.example.lotus.data.model.RegisterRequest
-import com.example.lotus.data.model.RegisterResponse
+import com.example.lotus.data.model.PostDetailResponse
 import com.example.lotus.data.model.User
-import com.example.lotus.data.network.ApiService
 import com.example.lotus.data.network.RetrofitClient
-import com.example.lotus.ui.adapter.dataItem.Item2
-import com.example.lotus.utils.Resource
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.json.JSONException
 import org.json.JSONObject
-import retrofit2.http.POST
 import java.io.File
-import java.io.IOException
 
 class UserRepository(context: Context) {
     private val api=RetrofitClient.getRetrofitClient(context)
@@ -40,7 +28,7 @@ class UserRepository(context: Context) {
     suspend fun getUserProfile():User{
         return api.getUserProfile()
     }
-    suspend fun addPost(content: String, user: String, imageFile: File?): Post {
+    suspend fun addPost(content: String, user: String, imageFile: File?): PostDetailResponse {
         // Tạo RequestBody cho nội dung và user
         val contentRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), content)
         val userRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), user)
@@ -54,7 +42,7 @@ class UserRepository(context: Context) {
         return api.addPost(contentRequestBody, imagePart)
     }
 
-    suspend fun gelAllPost():List<Post>{
+    suspend fun gelAllPost():List<PostDetailResponse>{
         return api.getAllPost()
     }
 

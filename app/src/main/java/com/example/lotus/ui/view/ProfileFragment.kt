@@ -13,20 +13,16 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.load.engine.Resource
 import com.example.lotus.R
-import com.example.lotus.data.model.Post
-import com.example.lotus.data.network.RetrofitClient
 import com.example.lotus.data.repository.UserRepository
 import com.example.lotus.databinding.FragmentProfileBinding
 import com.example.lotus.ui.adapter.MultipleRecyclerViewsType
-import com.example.lotus.ui.adapter.dataItem.Item1
-import com.example.lotus.ui.adapter.dataItem.Item2
+import com.example.lotus.ui.adapter.dataItem.ItemProfile
+import com.example.lotus.ui.adapter.dataItem.ItemPost
+import com.example.lotus.ui.adapter.dataItem.ListItem
 import com.example.lotus.ui.adapter.itemDecoration.ItemOffsetDecoration
 import com.example.lotus.ui.viewModel.UserViewModel
 import com.example.lotus.ui.viewModel.UserViewModelFactory
-import com.example.lotus.utils.SharedPrefManager
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListener {
@@ -36,7 +32,7 @@ class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListene
         UserViewModelFactory(UserRepository(requireContext()))
     }
 
-    private val items: MutableList<Any> = mutableListOf()
+    private val items: MutableList<ListItem> = mutableListOf()
     private lateinit var adapter: MultipleRecyclerViewsType
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,7 +64,7 @@ class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListene
                 userProfile?.let {
                     Log.i("test", "User Name: ${it.userName}")
                     items.clear()  // Clear existing items if needed
-                    items.add(Item1( it.image, it.userName))
+                    items.add(ItemProfile( it.image, it.userName))
                     adapter.notifyDataSetChanged()
 
                     Log.i("test", "Items size after update: ${items.size}")
@@ -80,7 +76,7 @@ class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListene
             userViewModel.postAll.collect { posts ->
                 posts?.forEach { post ->
                     items.add(
-                        Item2(
+                        ItemPost(
                             post.user.image,
                             post.image,
                             post.user.userName ?: "Default Name",
