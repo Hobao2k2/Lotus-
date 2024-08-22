@@ -11,15 +11,17 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.lotus.R
+import com.example.lotus.data.model.FriendId
+import com.example.lotus.data.model.receiverId
 import com.example.lotus.data.repository.UserRepository
 import com.example.lotus.databinding.ActivityUserDetailBinding
 import com.example.lotus.ui.viewModel.UserViewModel
 import com.example.lotus.ui.viewModel.UserViewModelFactory
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class UserDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserDetailBinding
+
     private val userViewModel: UserViewModel by viewModels {
         UserViewModelFactory(UserRepository(this))
     }
@@ -34,8 +36,8 @@ class UserDetailActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
         val _id = intent.getStringExtra("_id").toString()
+
 
         lifecycleScope.launch {
             userViewModel.getUserById(_id)
@@ -58,31 +60,45 @@ class UserDetailActivity : AppCompatActivity() {
             userViewModel.getUserProfile()
             userViewModel.userProfile.collect { userProfile ->
                 userProfile?.let {
-                    if (it.friendRequests.contains(_id)) {
+                    if(it.friendRequestsSent.contains(_id)){
+                        binding.btnAddFriend.text = "Chờ phản hồi"
+                    }
+                    else if (it.friendRequests.contains(_id)) {
                         binding.btnAddFriend.text = "Phản hồi"
-                    } else {
-                        binding.btnAddFriend.text = "Thêm bạn bè"
+                    } else if(it.friends.contains(_id)){
+                        binding.btnAddFriend.text = "Bạn bè"
+                    }else{
+                        binding.btnAddFriend.text = "Thêm Bạn bè"
                     }
                 }
             }
         }
 
         binding.btnAddFriend.setOnClickListener {
-            showOptionsDialog()
+            if(binding.btnAddFriend.text.equals("Phản hồi")) {
+                showOptionsDialog(_id)
+            }else if(binding.btnAddFriend.text.equals("Thêm bạn bè")){
+                userViewModel.addFriend(receiverId(_id))
+                binding.btnAddFriend.text = "Chờ phản hồi"
+            }
         }
     }
 
-    private fun showOptionsDialog() {
+    private fun showOptionsDialog(_id:String) {
         val options = arrayOf("Xác nhận", "Từ chối")
 
         AlertDialog.Builder(this)
             .setItems(options) {_, which ->
                 when (which) {
                     0 -> {
+                        userViewModel.acceptFriend(FriendId(_id))
+                        binding.btnAddFriend.setText("Bạn bè")
                         Log.d("UserDetailActivity", "Chọn xác nhận")
                     }
                     1 -> {
                         // Xử lý lựa chọn 2
+                        userViewModel.rejectFriend(FriendId(_id))
+                        binding.btnAddFriend.setText("Thêm bạn bè")
                         Log.d("UserDetailActivity", "Chọn từ chối")
                     }
                 }

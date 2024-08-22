@@ -64,7 +64,6 @@ class SearchActivity : AppCompatActivity(), SearchUserAdapter.OnItemClickListene
                             items.add(ItemSearchUser(user.id,user.image, user.userName))
                         }
                         adapter.notifyDataSetChanged()
-                        Log.i("test", "Items size after update: ${items.size}")
                     }
                 }
             } catch (e: Exception) {
@@ -76,7 +75,6 @@ class SearchActivity : AppCompatActivity(), SearchUserAdapter.OnItemClickListene
 
     override fun onItemClick(position: Int) {
         val clickedUser = items[position]
-        Toast.makeText(this, "Clicked on: ${clickedUser.userName}", Toast.LENGTH_SHORT).show()
         val intent= Intent(this,UserDetailActivity::class.java)
         intent.putExtra("_id",clickedUser.id)
         startActivity(intent)

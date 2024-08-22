@@ -1,6 +1,7 @@
 package com.example.lotus.ui.view
 
 import android.content.Intent
+import android.icu.text.Transliterator.Position
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -41,7 +42,7 @@ class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListene
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
-        adapter = MultipleRecyclerViewsType(items, this)
+        adapter = MultipleRecyclerViewsType(items, this, userViewModel.postLikes)
         binding.recyclerView.adapter = adapter
         var dividerItemDecoration=DividerItemDecoration(requireContext(),RecyclerView.VERTICAL)
         ResourcesCompat.getDrawable(resources,R.drawable.divider_item_post,null)?.let {
@@ -107,9 +108,10 @@ class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListene
         startActivity(intent)
     }
 
-    override fun onLikeClick(id:String) {
-        TODO("Not yet implemented")
+    override fun onLikeClick(id: String) {
+        userViewModel.likePost(id)
     }
+
 
     override fun onCommentClick(id:String) {
         TODO("Not yet implemented")

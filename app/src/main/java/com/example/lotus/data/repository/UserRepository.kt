@@ -1,26 +1,20 @@
 package com.example.lotus.data.repository
 
 import android.content.Context
-import android.net.http.HttpException
-import android.provider.UserDictionary.Words
 import com.example.lotus.data.model.FriendId
-import com.example.lotus.data.model.IdRequest
+import com.example.lotus.data.model.receiverId
 import com.example.lotus.data.model.Post
+import com.example.lotus.data.model.PostUserString
 import com.example.lotus.data.model.RegisterRequest
 import com.example.lotus.data.model.RegisterResponse
 import com.example.lotus.data.model.User
 import com.example.lotus.data.network.RetrofitClient
-import com.example.lotus.ui.adapter.dataItem.Item2
 import com.example.lotus.utils.Resource
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.json.JSONException
 import org.json.JSONObject
-import retrofit2.http.POST
 import java.io.File
 import java.io.IOException
 
@@ -98,11 +92,21 @@ class UserRepository(context: Context) {
     suspend fun getUserById(id:String):User{
         return api.getUsersById(id)
     }
-    suspend fun addFriend(idRequest: IdRequest){
+    suspend fun addFriend(idRequest: receiverId){
         return api.addFriend(idRequest)
     }
 
     suspend fun unFriend(friendId: FriendId){
         return api.unFriend(friendId)
+    }
+
+    suspend fun rejectFriend(friendId: FriendId){
+        return api.rejectFriend(friendId)
+    }
+    suspend fun acceptFriend(friendId: FriendId){
+        return api.acceptFriend(friendId)
+    }
+    suspend fun  likePost(id:String):PostUserString{
+        return api.likePost(id)
     }
 }

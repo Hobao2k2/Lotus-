@@ -21,7 +21,7 @@ object RetrofitClient {
                     .addHeader(
                         "Authorization",
            //             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJiYW9uYW1AZ21haWwuY29tIiwidXNlcklkIjoiNjZiNDllNDViODIyOTllNGI5ZWI2MzBhIiwiaWF0IjoxNzIzNjAyNzQxLCJleHAiOjE3MjYxOTQ3NDF9.ltLQH86UMpO1MNROEivkPYjo8LVDTyRGnmxMhhwlZIw"
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJiYW9uYW1ra2FAZ21haWwuY29tIiwidXNlcklkIjoiNjZiMDc4ZmNiODIyOTllNGI5ZWI2MDM2IiwiaWF0IjoxNzIzNjA4MTAxLCJleHAiOjE3MjYyMDAxMDF9.MlQMH262ETRYRhHnm6m6Od5NmuwFYf6x7nUgWNTUBWo"
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJiYW9uYW0xMkBnbWFpbC5jb20iLCJ1c2VySWQiOiI2NmM1YjA2MDFjODdmZDM0ZDc4ZWNiYzYiLCJpYXQiOjE3MjQyMzIyODUsImV4cCI6MTcyNjgyNDI4NX0.qV7QJx60ghs854xhU8sVRFmOP8mDcK29nvGNApph7cw"
                     )
                     .build()
                 chain.proceed(newRequest)

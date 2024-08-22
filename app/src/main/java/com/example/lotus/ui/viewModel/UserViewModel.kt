@@ -6,20 +6,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lotus.data.model.FriendId
-import com.example.lotus.data.model.IdRequest
+import com.example.lotus.data.model.receiverId
 import com.example.lotus.data.model.Post
 import com.example.lotus.data.model.RegisterRequest
 import com.example.lotus.data.model.RegisterResponse
 import com.example.lotus.data.model.User
 import com.example.lotus.data.repository.UserRepository
-import com.example.lotus.ui.adapter.dataItem.Item2
 
 import kotlinx.coroutines.Job
 import com.example.lotus.utils.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import okhttp3.RequestBody
 import java.io.File
 
 class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
@@ -37,6 +36,9 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
 
     private val _userId = MutableStateFlow<User?>(null)
     val userId = _userId.asStateFlow()
+
+    private val _like= MutableStateFlow<Int?>(null)
+    val like=_like.asStateFlow()
 
 
     fun getUserProfile(): Job {
@@ -126,7 +128,7 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
         }
     }
 
-    fun addFriend(idRequest: IdRequest){
+    fun addFriend(idRequest: receiverId){
         viewModelScope.launch {
            userRepository.addFriend(idRequest)
         }
@@ -134,6 +136,32 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
     fun unFriend(friendId: FriendId){
         viewModelScope.launch {
             userRepository.unFriend(friendId)
+        }
+    }
+
+    fun rejectFriend(friendId: FriendId){
+        viewModelScope.launch {
+            userRepository.rejectFriend(friendId)
+        }
+    }
+
+    fun acceptFriend(friendId: FriendId){
+        viewModelScope.launch {
+            userRepository.acceptFriend(friendId)
+        }
+    }
+
+
+
+    private val _postLikes = MutableStateFlow<Map<String, Int>>(emptyMap())
+    val postLikes: StateFlow<Map<String, Int>> = _postLikes.asStateFlow()
+
+    fun likePost(postId: String) {
+        viewModelScope.launch {
+            val updatedPost = userRepository.likePost(postId)
+            _postLikes.value = _postLikes.value.toMutableMap().apply {
+                put(postId, updatedPost.likes.size)
+            }
         }
     }
 }

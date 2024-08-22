@@ -1,9 +1,9 @@
 package com.example.lotus.data.network
 
-import android.media.session.MediaSession.Token
 import com.example.lotus.data.model.FriendId
-import com.example.lotus.data.model.IdRequest
+import com.example.lotus.data.model.receiverId
 import com.example.lotus.data.model.Post
+import com.example.lotus.data.model.PostUserString
 import com.example.lotus.data.model.RegisterRequest
 import com.example.lotus.data.model.RegisterResponse
 import com.example.lotus.data.model.User
@@ -45,11 +45,19 @@ interface ApiService {
     suspend fun getUsersById(@Path("id")id:String):User
 
     @POST("/friends/send-request")
-    suspend fun addFriend(@Body idRequest: IdRequest)
+    suspend fun addFriend(@Body idRequest: receiverId)
     @GET("/users/profile")
     suspend fun getUserProfile(): User
 
     @POST("/friends/unfriend")
     suspend fun unFriend(@Body friendId: FriendId)
 
+    @POST("/friends/reject-request")
+    suspend fun rejectFriend(@Body friendId: FriendId)
+
+    @POST("/friends/accept-request")
+    suspend fun acceptFriend(@Body friendId: FriendId)
+
+    @POST("/post/like/{postId}")
+    suspend fun likePost(@Path("postId")postId:String):PostUserString
 }
