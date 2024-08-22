@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.load.engine.Resource
 import com.example.lotus.R
 import com.example.lotus.data.model.Post
+import com.example.lotus.data.network.RetrofitClient
 import com.example.lotus.data.repository.UserRepository
 import com.example.lotus.databinding.FragmentProfileBinding
 import com.example.lotus.ui.adapter.MultipleRecyclerViewsType
@@ -25,17 +26,23 @@ import com.example.lotus.ui.adapter.dataItem.Item2
 import com.example.lotus.ui.adapter.itemDecoration.ItemOffsetDecoration
 import com.example.lotus.ui.viewModel.UserViewModel
 import com.example.lotus.ui.viewModel.UserViewModelFactory
+import com.example.lotus.utils.SharedPrefManager
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListener {
     private lateinit var binding: FragmentProfileBinding
     private var id = ""
-    private val userViewModel: UserViewModel by viewModels {
+    private val userViewModel: UserViewModel by viewModels() {
         UserViewModelFactory(UserRepository(requireContext()))
     }
+
     private val items: MutableList<Any> = mutableListOf()
     private lateinit var adapter: MultipleRecyclerViewsType
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,7 +61,10 @@ class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListene
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
 
         lifecycleScope.launch {
+            // Fetch user profile data
             userViewModel.getUserProfile().join()
+
+            // Collect data from userProfile Flow
             userViewModel.userProfile.collect { userProfile ->
                 userProfile?.let {
                     Log.i("test", "User Name: ${it.userName}")

@@ -36,7 +36,7 @@
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
-            android:id="@+id/action_signupFragment_to_homePageActivity"
+            android:id="@+id/action_registerFragment_to_homePageActivity"
             app:destination="@id/homePageActivity" />
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"

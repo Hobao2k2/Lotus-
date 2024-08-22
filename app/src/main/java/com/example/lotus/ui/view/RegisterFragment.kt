@@ -10,16 +10,23 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.lotus.R
 import com.example.lotus.data.model.RegisterRequest
 import com.example.lotus.data.model.User
+import com.example.lotus.data.network.RetrofitClient
+import com.example.lotus.data.repository.AuthRepository
 import com.example.lotus.data.repository.UserRepository
 import com.example.lotus.databinding.FragmentRegisterBinding
+import com.example.lotus.ui.viewModel.Auth.AuthViewModel
+import com.example.lotus.ui.viewModel.Auth.AuthViewModelFactory
 import com.example.lotus.ui.viewModel.UserViewModel
 import com.example.lotus.ui.viewModel.UserViewModelFactory
 import com.example.lotus.utils.Resource
 import com.example.lotus.utils.SharedPrefManager
+import kotlinx.coroutines.launch
 
 
 class RegisterFragment : Fragment() {
@@ -28,8 +35,14 @@ class RegisterFragment : Fragment() {
 
     private lateinit var sharedPrefManager: SharedPrefManager
 
-    private val userViewModel: UserViewModel by viewModels {
-        UserViewModelFactory(UserRepository(requireContext()))
+    private val navOptions = NavOptions.Builder()
+        .setEnterAnim(R.anim.slide_in_right)  // Hiệu ứng khi fragment mới xuất hiện
+        .setExitAnim(R.anim.slide_out_left)   // Hiệu ứng khi fragment hiện tại biến mất
+        .setPopEnterAnim(R.anim.slide_in_left)  // Hiệu ứng khi quay lại fragment trước
+        .setPopExitAnim(R.anim.slide_out_right)
+
+    private val registerViewModel: AuthViewModel by viewModels() {
+        AuthViewModelFactory(AuthRepository(requireContext()))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +61,13 @@ class RegisterFragment : Fragment() {
         }
 
         binding.btnLogin.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+            val navOptions = navOptions
+                .setPopUpTo(R.id.registerFragment, true) // Xóa register khỏi stack
+                .setLaunchSingleTop(true)                // Không khởi tạo lại nếu đã tồn tại trên top
+                .build()
+
+            findNavController().navigate(R.id.action_registerFragment_to_loginFragment, null, navOptions)
+
         }
 
         binding.btnSignup.setOnClickListener {
@@ -67,38 +86,38 @@ class RegisterFragment : Fragment() {
                     binding.edtCfPassword.error = "Password does not match"
                 } else {
                     val registerRequest = RegisterRequest(userName, email, password, conformPassword)
-                    userViewModel.register(registerRequest)
+                    registerViewModel.register(registerRequest)
+
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        registerViewModel.registerResponse?.collect{ response ->
+                            when(response){
+                                is Resource.Loading -> {
+                                    Log.d(TAG, "onCreateView: Loading")
+                                }
+                                is Resource.Success -> {
+                                    Log.d(TAG, "onCreateView: Success")
+                                    val navOptions = navOptions
+                                        .setPopUpTo(R.id.registerFragment, true) // Xóa register và các fragment trước đó
+                                        .setLaunchSingleTop(true)                // Không khởi tạo lại nếu đã tồn tại trên top
+                                        .build()
+
+                                    findNavController().navigate(R.id.action_registerFragment_to_homePageActivity, null, navOptions)
+
+                                    sharedPrefManager.saveLoginState(true)
+                                    sharedPrefManager.saveToken(response.data!!.token)
+                                }
+                                is Resource.Error -> {
+                                    Log.d(TAG, "onCreateView: Error")
+                                    Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
                 }
             }
         }
 
-        userViewModel.registerResponse.observe(viewLifecycleOwner, Observer { response ->
-            when (response) {
-                is Resource.Success -> {
-                    // Đăng ký thành công
-                    val token = response.data?.token
-                    val user = response.data?.user
-                    if (token != null) {
-                        sharedPrefManager.saveLoginState(true)
-                        sharedPrefManager.saveToken(token)
-                    }
-                    Toast.makeText(context, "Register successfully", Toast.LENGTH_SHORT).show()
-                    Log.d(TAG, "Register token: $token")
-                    Log.d(TAG, "Register user: $user")
-                }
-                is Resource.Error -> {
-                    // Đăng ký thất bại, hiển thị thông báo lỗi
-                    val errorMessage = response.message
-                    Log.e(TAG, "Register error: $errorMessage")
-                    Toast.makeText(context,  errorMessage, Toast.LENGTH_SHORT).show()
-                }
-                is Resource.Loading -> {
-                    // Hiển thị trạng thái đang tải
-                    Log.d(TAG, "Register in progress")
-                }
-            }
-        })
 
+        }
 
 
         return binding.root

@@ -59,16 +59,21 @@ class UserDetailActivity : AppCompatActivity() {
         lifecycleScope.launch {
             userViewModel.getUserProfile()
             userViewModel.userProfile.collect { userProfile ->
+                Log.i("test",userProfile.toString())
                 userProfile?.let {
                     if(it.friendRequestsSent.contains(_id)){
                         binding.btnAddFriend.text = "Chờ phản hồi"
+                        Log.i("test","cho phan hoi")
                     }
                     else if (it.friendRequests.contains(_id)) {
                         binding.btnAddFriend.text = "Phản hồi"
+                        Log.i("test","phan hoi")
                     } else if(it.friends.contains(_id)){
                         binding.btnAddFriend.text = "Bạn bè"
+                        Log.i("test","ban be")
                     }else{
                         binding.btnAddFriend.text = "Thêm Bạn bè"
+                        Log.i("test","them ban be")
                     }
                 }
             }

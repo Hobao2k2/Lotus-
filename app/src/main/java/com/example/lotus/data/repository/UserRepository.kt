@@ -8,6 +8,7 @@ import com.example.lotus.data.model.PostUserString
 import com.example.lotus.data.model.RegisterRequest
 import com.example.lotus.data.model.RegisterResponse
 import com.example.lotus.data.model.User
+import com.example.lotus.data.network.ApiService
 import com.example.lotus.data.network.RetrofitClient
 import com.example.lotus.utils.Resource
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -20,38 +21,6 @@ import java.io.IOException
 
 class UserRepository(context: Context) {
     private val api=RetrofitClient.getRetrofitClient(context)
-
-    suspend fun register(registerRequest: RegisterRequest): Resource<RegisterResponse> {
-        return try {
-            val response = api.register(registerRequest)
-            if (response.isSuccessful) {
-                Resource.Success(response.body()!!)
-            } else {
-                // Lấy thông tin lỗi từ phản hồi
-                val errorJson = response.errorBody()?.string()
-                val errorMessage = extractErrorMessage(errorJson) ?: "Unknown error"
-                Resource.Error(errorMessage)
-            }
-        } catch (e: IOException) {
-            Resource.Error("Network error")
-        }
-    }
-
-    suspend fun login(registerRequest: RegisterRequest): Resource<String> {
-        return try {
-            val response = api.login(registerRequest)
-            if (response.isSuccessful) {
-                Resource.Success(response.body()!!)
-            } else {
-                // Lấy thông tin lỗi từ phản hồi
-                val errorJson = response.errorBody()?.string()
-                val errorMessage = extractErrorMessage(errorJson) ?: "Unknown error"
-                Resource.Error(errorMessage)
-            }
-        } catch (e: IOException) {
-            Resource.Error("Network error")
-        }
-    }
 
     // Hàm trích xuất thông báo lỗi từ JSON
     private fun extractErrorMessage(errorJson: String?): String? {

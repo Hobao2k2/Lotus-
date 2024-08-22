@@ -44,7 +44,7 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
     fun getUserProfile(): Job {
         return viewModelScope.launch {
             val data = userRepository.getUserProfile()
-            _userProfile.value = data
+                _userProfile.value = data
         }
     }
 
@@ -58,28 +58,6 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
                 // Xử lý lỗi nếu cần
                 _post.value = null // Hoặc có thể gán một giá trị mặc định/ lỗi nào đó
             }
-        }
-    }
-
-    private val _registerResponse = MutableLiveData<Resource<RegisterResponse>>()
-    val registerResponse: LiveData<Resource<RegisterResponse>> = _registerResponse
-
-    fun register(registerRequest: RegisterRequest) {
-        viewModelScope.launch {
-            _registerResponse.value = Resource.Loading()
-            val response = userRepository.register(registerRequest)
-            _registerResponse.value = response
-        }
-    }
-
-    private val _loginResponse = MutableLiveData<Resource<String>>()
-    val loginResponse: LiveData<Resource<String>> = _loginResponse
-
-    fun login(registerRequest: RegisterRequest) {
-        viewModelScope.launch {
-            _loginResponse.value = Resource.Loading()
-            val response = userRepository.login(registerRequest)
-            _loginResponse.value = response
         }
     }
 
