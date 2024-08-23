@@ -8,30 +8,37 @@
     android:orientation="vertical"
     tools:context=".ui.view.AddPostActivity">
 
-    <!-- TextView để hiển thị nội dung bài viết -->
-    <TextView
-        android:id="@+id/textViewContent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Content"
-        android:textSize="50dp"
-        android:paddingBottom="8dp"/>
 
-    <!-- TextView để hiển thị tên người dùng -->
     <TextView
-        android:id="@+id/textViewUser"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="User"
-        android:textSize="50dp"
-        android:paddingBottom="8dp"/>
+        android:gravity="center"
+        android:textSize="30dp"
+        android:textColor="@color/red"
+        android:padding="10dp"
+        android:text="Tạo bài viết"/>
+
+    <EditText
+        android:id="@+id/edtContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/blue_border"
+        android:inputType="text"
+        android:hint="Bạn đang nghĩ gì"
+        />
+
 
     <!-- ImageView để hiển thị hình ảnh -->
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_marginBottom="16dp"
+        android:layout_gravity="center"
         android:scaleType="centerCrop"/>
 
     <!-- Button để chọn hình ảnh -->
@@ -39,7 +46,8 @@
         android:id="@+id/buttonSelectImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Image"
+        android:text="Chọn ảnh đăng  "
+        android:layout_gravity="center"
         android:layout_marginBottom="16dp"/>
 
     <!-- Button để gửi bài viết -->
@@ -47,5 +55,6 @@
         android:id="@+id/buttonPost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Post"/>
+        android:layout_gravity="center"
+        android:text="Đăng"/>
 </LinearLayout>

@@ -48,15 +48,15 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
         }
     }
 
-    fun addPost(content: String, user: String, imageFile: File?): Job {
+    fun addPost(content: String, imageFile: File?): Job {
         return viewModelScope.launch {
             try {
-                val data = userRepository.addPost(content, user, imageFile)
+                val data = userRepository.addPost(content,  imageFile)
                 _post.value = data
             } catch (e: Exception) {
                 e.printStackTrace()
                 // Xử lý lỗi nếu cần
-                _post.value = null // Hoặc có thể gán một giá trị mặc định/ lỗi nào đó
+                _post.value = null
             }
         }
     }

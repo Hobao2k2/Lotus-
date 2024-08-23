@@ -1,9 +1,11 @@
 package com.example.lotus.ui.view
 
 import android.content.ContentResolver
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.provider.OpenableColumns
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
@@ -31,13 +33,14 @@ class AddPostActivity : AppCompatActivity() {
     }
     private var selectedImageFile: File? = null
 
-    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        uri?.let {
-            val file = uriToFile(it)
-            selectedImageFile = file
-            binding.imageView.setImageURI(it)
+    private val galleryLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            uri?.let {
+                val file = uriToFile(it, this)
+                selectedImageFile = file
+                binding.imageView.setImageURI(it)
+            }
         }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,23 +54,13 @@ class AddPostActivity : AppCompatActivity() {
             insets
         }
 
-        lifecycleScope.launch {
-            userViewModel.post.collect { post ->
-                post?.let {
-                    binding.textViewContent.text = it.content
-                    it.image?.let { imageUrl ->
-                        Glide.with(this@AddPostActivity)
-                            .load(imageUrl)
-                            .into(binding.imageView)
-                    }
-                }
-            }
-        }
 
         binding.buttonPost.setOnClickListener {
-            val content = "Alo Alo 1234"
-            val user = "66b078fcb82299e4b9eb6036"
-            userViewModel.addPost(content, user, selectedImageFile)
+            val content = binding.edtContent.text.trim().toString()
+            userViewModel.addPost(content, selectedImageFile)
+            val intent = Intent(this, HomePageActivity::class.java)
+            intent.putExtra("open_profile_tab", true)
+            startActivity(intent)
         }
 
         binding.buttonSelectImage.setOnClickListener {
@@ -75,34 +68,24 @@ class AddPostActivity : AppCompatActivity() {
         }
     }
 
-    private fun uriToFile(uri: Uri): File? {
-        val contentResolver: ContentResolver = contentResolver
-        val fileName = getFileName(uri)
-        val tempFile = File(cacheDir, fileName)
-
-        try {
-            val inputStream: InputStream? = contentResolver.openInputStream(uri)
-            val outputStream = FileOutputStream(tempFile)
-
-            inputStream?.copyTo(outputStream)
-            inputStream?.close()
-            outputStream.close()
-
-            return tempFile
-        } catch (e: Exception) {
-            e.printStackTrace()
+    private fun uriToFile(uri: Uri, context: Context): File? {
+        // Sử dụng DocumentFile để lấy tên file từ uri
+        val contentResolver = context.contentResolver
+        val cursor = contentResolver.query(uri, null, null, null, null)
+        cursor?.use {
+            if (cursor.moveToFirst()) {
+                val displayName =
+                    cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME))
+                val tempFile = File.createTempFile(displayName, null, context.cacheDir)
+                contentResolver.openInputStream(uri)?.use { inputStream ->
+                    tempFile.outputStream().use { outputStream ->
+                        inputStream.copyTo(outputStream)
+                    }
+                }
+                return tempFile
+            }
         }
         return null
     }
 
-    private fun getFileName(uri: Uri): String {
-        var name = "temp_file"
-        val cursor = contentResolver.query(uri, null, null, null, null)
-        cursor?.use {
-            if (it.moveToFirst()) {
-                name = it.getString(it.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME))
-            }
-        }
-        return name
-    }
 }

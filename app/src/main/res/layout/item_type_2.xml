@@ -47,7 +47,7 @@
         android:id="@+id/imgStub"
         android:layout_width="wrap_content"
         android:layout="@layout/image_view"
-        android:scaleType="center"
+        android:scaleType="centerCrop"
         android:layout_height="wrap_content"/>
 
     <RelativeLayout

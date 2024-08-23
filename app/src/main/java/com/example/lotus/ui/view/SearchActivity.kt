@@ -23,6 +23,7 @@ import kotlinx.coroutines.launch
 class SearchActivity : AppCompatActivity(), SearchUserAdapter.OnItemClickListener {
     private lateinit var binding: ActivitySearchBinding
     private lateinit var adapter: SearchUserAdapter
+    private var _id=""
     private val items: MutableList<ItemSearchUser> = mutableListOf()
     private val userViewModel: UserViewModel by viewModels {
         UserViewModelFactory(UserRepository(this))
@@ -51,7 +52,18 @@ class SearchActivity : AppCompatActivity(), SearchUserAdapter.OnItemClickListene
                 Toast.makeText(this, "Vui long nhap tu khoa tim kiem", Toast.LENGTH_SHORT).show()
             }
         }
+        lifecycleScope.launch {
+            userViewModel.getUserProfile()
+            userViewModel.userProfile.collect { userProfile ->
+                Log.i("test",userProfile.toString())
+                userProfile?.let {
+                    _id=it.id
+                }
+            }
+        }
+
     }
+
 
     private fun searchUser(keyword: String) {
         lifecycleScope.launch {
@@ -75,8 +87,14 @@ class SearchActivity : AppCompatActivity(), SearchUserAdapter.OnItemClickListene
 
     override fun onItemClick(position: Int) {
         val clickedUser = items[position]
-        val intent= Intent(this,UserDetailActivity::class.java)
-        intent.putExtra("_id",clickedUser.id)
-        startActivity(intent)
+        if(clickedUser.id.equals(_id)){
+            val intent = Intent(this, HomePageActivity::class.java)
+            intent.putExtra("open_profile_tab", true)
+            startActivity(intent)
+        }else{
+            val intent= Intent(this,UserDetailActivity::class.java)
+            intent.putExtra("_id",clickedUser.id)
+            startActivity(intent)
+        }
     }
 }

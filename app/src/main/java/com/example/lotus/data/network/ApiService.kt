@@ -1,6 +1,7 @@
 package com.example.lotus.data.network
 
 import com.example.lotus.data.model.FriendId
+import com.example.lotus.data.model.Notification
 import com.example.lotus.data.model.receiverId
 import com.example.lotus.data.model.Post
 import com.example.lotus.data.model.PostUserString
@@ -60,4 +61,8 @@ interface ApiService {
 
     @POST("/post/like/{postId}")
     suspend fun likePost(@Path("postId")postId:String):PostUserString
+
+    @GET("/notification")
+    suspend fun getNotification(): List<Notification>
+
 }

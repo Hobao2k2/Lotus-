@@ -2,6 +2,7 @@ package com.example.lotus.data.repository
 
 import android.content.Context
 import com.example.lotus.data.model.FriendId
+import com.example.lotus.data.model.Notification
 import com.example.lotus.data.model.receiverId
 import com.example.lotus.data.model.Post
 import com.example.lotus.data.model.PostUserString
@@ -34,10 +35,10 @@ class UserRepository(context: Context) {
     suspend fun getUserProfile():User{
         return api.getUserProfile()
     }
-    suspend fun addPost(content: String, user: String, imageFile: File?): Post {
+    suspend fun addPost(content: String, imageFile: File?): Post {
         // Tạo RequestBody cho nội dung và user
         val contentRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), content)
-        val userRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), user)
+//        val userRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), user)
 
         // Tạo MultipartBody.Part cho hình ảnh nếu có
         val imagePart: MultipartBody.Part? = imageFile?.let {
@@ -77,5 +78,8 @@ class UserRepository(context: Context) {
     }
     suspend fun  likePost(id:String):PostUserString{
         return api.likePost(id)
+    }
+    suspend fun getNotification():List<Notification>{
+        return api.getNotification()
     }
 }
