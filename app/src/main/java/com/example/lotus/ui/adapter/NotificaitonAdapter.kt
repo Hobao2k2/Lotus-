@@ -32,10 +32,8 @@ class NotificaitonAdapter(val dataList: ArrayList<NotificationItem>):RecyclerVie
             Glide.with(holder.itemView.context)
                 .load(item.image)
                 .into(holder.image)
-            Log.i("test", "Load ảnh từ URL")
         } else {
             holder.image.setImageResource(R.drawable.avatar_default)
-            Log.i("test", "Ảnh null hoặc rỗng, đặt ảnh mặc định")
         }
 
 

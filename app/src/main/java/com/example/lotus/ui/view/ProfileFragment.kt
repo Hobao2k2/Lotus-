@@ -32,7 +32,9 @@ import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListener {
     private lateinit var binding: FragmentProfileBinding
-    private var id = ""
+    private var image: String? = null
+
+    private var username: String? = null
     private val userViewModel: UserViewModel by viewModels() {
         UserViewModelFactory(UserRepository(requireContext()))
     }
@@ -67,7 +69,8 @@ class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListene
             // Collect data from userProfile Flow
             userViewModel.userProfile.collect { userProfile ->
                 userProfile?.let {
-                    Log.i("test", "User Name: ${it.userName}")
+                    image=it.image
+                    username=it.userName
                     items.clear()  // Clear existing items if needed
                     items.add(Item1( it.image, it.userName))
                     adapter.notifyDataSetChanged()
@@ -111,9 +114,9 @@ class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListene
 
     override fun onPostClick() {
         Log.i("test", "click post")
-        Log.i("test", id)
         val intent = Intent(requireContext(), AddPostActivity::class.java).apply {
-            putExtra("id", id)
+            putExtra("image", image)
+            putExtra("username", username)
         }
         startActivity(intent)
     }

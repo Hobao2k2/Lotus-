@@ -65,4 +65,6 @@ interface ApiService {
     @GET("/notification")
     suspend fun getNotification(): List<Notification>
 
+    @PUT("/notification/mark-as-read/{id}")
+    suspend fun MarkAsRead(@Path("id")id:String):String
 }

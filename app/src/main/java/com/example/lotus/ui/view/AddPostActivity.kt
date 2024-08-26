@@ -7,11 +7,15 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.OpenableColumns
+import android.util.Log
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
@@ -28,10 +32,10 @@ import java.io.InputStream
 
 class AddPostActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddPostBinding
+    private var selectedImageFile: File? = null
     private val userViewModel: UserViewModel by viewModels {
         UserViewModelFactory(UserRepository(this))
     }
-    private var selectedImageFile: File? = null
 
     private val galleryLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
@@ -54,14 +58,34 @@ class AddPostActivity : AppCompatActivity() {
             insets
         }
 
-
-        binding.buttonPost.setOnClickListener {
-            val content = binding.edtContent.text.trim().toString()
-            userViewModel.addPost(content, selectedImageFile)
-            val intent = Intent(this, HomePageActivity::class.java)
-            intent.putExtra("open_profile_tab", true)
-            startActivity(intent)
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        toolbar.findViewById<TextView>(R.id.txtCancel).setOnClickListener {
+            finish()
         }
+
+        binding.txtUserName.text = intent.getStringExtra("username")
+        if (intent.getStringExtra("image") != null) {
+            Glide.with(this).load(intent.getStringExtra("image")).into(binding.avatarProfile)
+        } else {
+            binding.avatarProfile.setImageResource(R.drawable.avatar_default)
+        }
+
+        var content:String
+        toolbar.findViewById<TextView>(R.id.txtPost).setOnClickListener {
+            content = binding.edtContent.text.trim().toString()
+            if (content.isNullOrEmpty() && selectedImageFile == null) {
+                Toast.makeText(this, "Vui long chon anh hoac nhap noi dung", Toast.LENGTH_LONG).show()
+            } else {
+                userViewModel.addPost(content, selectedImageFile)
+                val intent = Intent(this, HomePageActivity::class.java)
+                intent.putExtra("open_profile_tab", true)
+                startActivity(intent)
+            }
+        }
+
+
 
         binding.buttonSelectImage.setOnClickListener {
             galleryLauncher.launch("image/*")

@@ -44,8 +44,9 @@ class NotifyFragment : Fragment() {
                 notifications?.let {
                     Log.i("notification size", it.size.toString())
                     it.forEach { notification ->
-                        Log.i("iii",notification.notificationSender.image.toString())
-                        item.add(NotificationItem(notification.notificationSender.image ?: "",notification.notificationSender.userName,notification.message))
+                        if(!notification.isRead){
+                            item.add(NotificationItem(notification.notificationSender.image,notification.notificationSender.userName,notification.message))
+                        }
                     }
                     adapter.notifyDataSetChanged()
                 }

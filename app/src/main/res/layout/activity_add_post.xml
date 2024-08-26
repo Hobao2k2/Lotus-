@@ -8,30 +8,47 @@
     android:orientation="vertical"
     tools:context=".ui.view.AddPostActivity">
 
+    <include layout="@layout/toolbar_personal_management" />
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="30dp"
-        android:textColor="@color/red"
-        android:padding="10dp"
-        android:text="Tạo bài viết"/>
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/avatarProfile"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_avatar"
+            app:shapeAppearanceOverlay="@style/roundedImageView" />
+
+        <TextView
+            android:id="@+id/txtUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="UserName"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:layout_gravity="center"
+            />
+
+    </LinearLayout>
 
     <EditText
         android:id="@+id/edtContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/blue_border"
-        android:inputType="text"
-        android:hint="Bạn đang nghĩ gì"
-        />
+        android:hint="Nhập nội dung bạn muốn chia sẻ....."
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@null"
+        android:inputType="textMultiLine" />
 
 
-    <!-- ImageView để hiển thị hình ảnh -->
     <ImageView
         android:id="@+id/imageView"
         android:layout_marginTop="20dp"
@@ -40,21 +57,18 @@
         android:layout_marginBottom="16dp"
         android:layout_gravity="center"
         android:scaleType="centerCrop"/>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
-    <!-- Button để chọn hình ảnh -->
     <Button
         android:id="@+id/buttonSelectImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Chọn ảnh đăng  "
+        android:text="Ảnh/video"
         android:layout_gravity="center"
         android:layout_marginBottom="16dp"/>
 
     <!-- Button để gửi bài viết -->
-    <Button
-        android:id="@+id/buttonPost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Đăng"/>
 </LinearLayout>
