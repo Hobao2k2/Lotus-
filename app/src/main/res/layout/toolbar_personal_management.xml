@@ -1,23 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
-    <ImageView
-        android:id="@+id/imgLeftIcon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/icon_back"
-        />
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/txtCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:padding="6dp"
+        android:textColor="@color/blue"
+        android:text="Hủy" />
+
     <TextView
         android:id="@+id/txtPersonalManagement"
-        android:gravity="center"
-        android:text="Quản lý cá nhân"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="Tạo bài viết"
         android:padding="6dp"
-        />
+        android:layout_gravity="center"/>
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/txtPost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/blue"
+        android:text="Đăng bài"
+        android:padding="6dp"
+        android:layout_gravity="end"/>
+
+</androidx.appcompat.widget.Toolbar>

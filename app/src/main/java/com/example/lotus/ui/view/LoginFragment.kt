@@ -10,18 +10,23 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.lotus.R
 import com.example.lotus.data.model.RegisterRequest
 import com.example.lotus.data.network.RetrofitClient
+import com.example.lotus.data.repository.AuthRepository
 import com.example.lotus.data.repository.UserRepository
 import com.example.lotus.databinding.FragmentLoginBinding
+import com.example.lotus.ui.viewModel.Auth.AuthViewModel
+import com.example.lotus.ui.viewModel.Auth.AuthViewModelFactory
 import com.example.lotus.ui.viewModel.UserViewModel
 import com.example.lotus.ui.viewModel.UserViewModelFactory
 import com.example.lotus.utils.Resource
 import com.example.lotus.utils.SharedPrefManager
 import kotlinx.coroutines.launch
+
 
 class LoginFragment : Fragment() {
 
@@ -29,14 +34,21 @@ class LoginFragment : Fragment() {
 
     private lateinit var sharedPrefManager: SharedPrefManager
 
-    private val loginViewModel: UserViewModel by viewModels {
-        UserViewModelFactory(UserRepository())
+    private val loginViewModel: AuthViewModel by viewModels() {
+        AuthViewModelFactory(AuthRepository(requireContext()))
     }
+
+    private val navOptions = NavOptions.Builder()
+        .setEnterAnim(R.anim.slide_in_right)  // Hiệu ứng khi fragment mới xuất hiện
+        .setExitAnim(R.anim.slide_out_left)   // Hiệu ứng khi fragment hiện tại biến mất
+        .setPopEnterAnim(R.anim.slide_in_left)  // Hiệu ứng khi quay lại fragment trước
+        .setPopExitAnim(R.anim.slide_out_right)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedPrefManager = SharedPrefManager(requireContext())
-        RetrofitClient.initialize(context = requireContext())
+
     }
 
     override fun onCreateView(
@@ -50,12 +62,11 @@ class LoginFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        binding.btnLoginLotus.setOnClickListener {
-            it.findNavController().navigate(R.id.action_loginFragment_to_homePageActivity)
-        }
-
         binding.tvRegister.setOnClickListener {
-            it.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+            // Hiệu ứng khi fragment mới biến mất khi back
+            val navOptions = navOptions.setPopUpTo(R.id.loginFragment, false).setLaunchSingleTop(true).build()
+
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment, null, navOptions)
         }
 
         binding.btnLoginLotus.setOnClickListener {
@@ -69,29 +80,37 @@ class LoginFragment : Fragment() {
             else{
                 loginViewModel.login(RegisterRequest("",email = email, password = password,""))
 
-            }
-        }
+                viewLifecycleOwner.lifecycleScope.launch {
+                    loginViewModel.loginResponse.collect { response ->
+                        when (response) {
+                            is Resource.Loading -> {
+                                Log.d(TAG, "Loading")
+                                Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
+                            }
+                            is Resource.Success -> {
+                                Log.d(TAG, "Success: ${response.data}")
+                                val navOptions = navOptions
+                                    .setPopUpTo(R.id.loginFragment, true)  // Xóa fragment trước đó bao gồm loginFragment
+                                    .setLaunchSingleTop(true)               // Không khởi tạo lại nếu đã tồn tại trên top
+                                    .build()
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            loginViewModel.loginResponse.collect { response ->
-                when (response) {
-                    is Resource.Loading -> {
-                        Log.d(TAG, "onCreateView: Loading")
-                        Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
-                    }
-
-                    is Resource.Success -> {
-                        sharedPrefManager.saveToken(response.data!!)
-                        Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.action_loginFragment_to_homePageActivity)
-                    }
-
-                    is Resource.Error -> {
-                        Log.d(TAG, "onCreateView: ${response.message}")
-                        Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT).show()
+                                // Điều hướng với NavOptions
+                                findNavController().navigate(R.id.action_loginFragment_to_homePageActivity, null, navOptions)
+                                sharedPrefManager.saveToken(response.data!!)
+                                sharedPrefManager.saveLoginState(true)
+                                Toast.makeText(requireContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show()
+                            }
+                            is Resource.Error -> {
+                                Log.e(TAG, "Error: ${response.message}")
+                                Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT).show()
+                            }
+                        }
                     }
                 }
+
+
             }
+
         }
 
         return binding.root

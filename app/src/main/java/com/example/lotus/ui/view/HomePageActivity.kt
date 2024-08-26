@@ -77,8 +77,13 @@ class HomePageActivity : AppCompatActivity() {
                 // Optionally handle tab reselected
             }
         })
-        val selectedTab = binding.tabLayout.getTabAt(binding.tabLayout.selectedTabPosition)
-        updateTabColors(selectedTab, true)
+        val openProfileTab = intent.getBooleanExtra("open_profile_tab", false)
+        if (openProfileTab) {
+            binding.viewPager.currentItem = 3 // Index of the "Cá nhân" tab
+        } else {
+            val selectedTab = binding.tabLayout.getTabAt(binding.tabLayout.selectedTabPosition)
+            updateTabColors(selectedTab, true)
+        }
     }
 
 
