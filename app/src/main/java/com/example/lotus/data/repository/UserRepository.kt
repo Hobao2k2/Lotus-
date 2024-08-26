@@ -3,22 +3,17 @@ package com.example.lotus.data.repository
 import android.content.Context
 import com.example.lotus.data.model.FriendId
 import com.example.lotus.data.model.Notification
-import com.example.lotus.data.model.receiverId
 import com.example.lotus.data.model.Post
 import com.example.lotus.data.model.PostUserString
-import com.example.lotus.data.model.RegisterRequest
-import com.example.lotus.data.model.RegisterResponse
+import com.example.lotus.data.model.ReceiverId
 import com.example.lotus.data.model.User
-import com.example.lotus.data.network.ApiService
 import com.example.lotus.data.network.RetrofitClient
-import com.example.lotus.utils.Resource
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
-import java.io.IOException
 
 class UserRepository(context: Context) {
     private val api=RetrofitClient.getRetrofitClient(context)
@@ -62,7 +57,7 @@ class UserRepository(context: Context) {
     suspend fun getUserById(id:String):User{
         return api.getUsersById(id)
     }
-    suspend fun addFriend(idRequest: receiverId){
+    suspend fun addFriend(idRequest: ReceiverId){
         return api.addFriend(idRequest)
     }
 

@@ -1,20 +1,15 @@
 package com.example.lotus.ui.viewModel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lotus.data.model.FriendId
-import com.example.lotus.data.model.receiverId
 import com.example.lotus.data.model.Post
-import com.example.lotus.data.model.RegisterRequest
-import com.example.lotus.data.model.RegisterResponse
+import com.example.lotus.data.model.ReceiverId
 import com.example.lotus.data.model.User
 import com.example.lotus.data.repository.UserRepository
 
 import kotlinx.coroutines.Job
-import com.example.lotus.utils.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -91,7 +86,7 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
         }
     }
 
-    fun addFriend(idRequest: receiverId){
+    fun addFriend(idRequest: ReceiverId){
         viewModelScope.launch {
            userRepository.addFriend(idRequest)
         }

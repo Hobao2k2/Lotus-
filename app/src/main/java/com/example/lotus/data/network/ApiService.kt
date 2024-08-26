@@ -2,9 +2,9 @@ package com.example.lotus.data.network
 
 import com.example.lotus.data.model.FriendId
 import com.example.lotus.data.model.Notification
-import com.example.lotus.data.model.receiverId
 import com.example.lotus.data.model.Post
 import com.example.lotus.data.model.PostUserString
+import com.example.lotus.data.model.ReceiverId
 import com.example.lotus.data.model.RegisterRequest
 import com.example.lotus.data.model.RegisterResponse
 import com.example.lotus.data.model.User
@@ -46,7 +46,7 @@ interface ApiService {
     suspend fun getUsersById(@Path("id")id:String):User
 
     @POST("/friends/send-request")
-    suspend fun addFriend(@Body idRequest: receiverId)
+    suspend fun addFriend(@Body idRequest: ReceiverId)
     @GET("/users/profile")
     suspend fun getUserProfile(): User
 

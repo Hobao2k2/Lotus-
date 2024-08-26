@@ -72,18 +72,21 @@ class AddPostActivity : AppCompatActivity() {
             binding.avatarProfile.setImageResource(R.drawable.avatar_default)
         }
 
-        var content:String
+        var content: String
         toolbar.findViewById<TextView>(R.id.txtPost).setOnClickListener {
             content = binding.edtContent.text.trim().toString()
             if (content.isNullOrEmpty() && selectedImageFile == null) {
-                Toast.makeText(this, "Vui long chon anh hoac nhap noi dung", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Vui lòng chọn ảnh hoặc nhập nội dung", Toast.LENGTH_LONG).show()
             } else {
-                userViewModel.addPost(content, selectedImageFile)
-                val intent = Intent(this, HomePageActivity::class.java)
-                intent.putExtra("open_profile_tab", true)
-                startActivity(intent)
+                lifecycleScope.launch {
+                    userViewModel.addPost(content, selectedImageFile).join()
+                    val intent = Intent(this@AddPostActivity, HomePageActivity::class.java)
+                    intent.putExtra("open_profile_tab", true)
+                    startActivity(intent)
+                }
             }
         }
+
 
 
 

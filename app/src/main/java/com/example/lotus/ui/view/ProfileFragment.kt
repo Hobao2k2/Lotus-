@@ -53,29 +53,26 @@ class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListene
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         adapter = MultipleRecyclerViewsType(items, this, userViewModel.postLikes)
         binding.recyclerView.adapter = adapter
-        var dividerItemDecoration=DividerItemDecoration(requireContext(),RecyclerView.VERTICAL)
-        ResourcesCompat.getDrawable(resources,R.drawable.divider_item_post,null)?.let {
+        var dividerItemDecoration = DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
+        ResourcesCompat.getDrawable(resources, R.drawable.divider_item_post, null)?.let {
             dividerItemDecoration.setDrawable(it)
         }
         binding.recyclerView.addItemDecoration(dividerItemDecoration)
-        val itemOffsetDecoration=ItemOffsetDecoration()
+        val itemOffsetDecoration = ItemOffsetDecoration()
         binding.recyclerView.addItemDecoration(itemOffsetDecoration)
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
 
         lifecycleScope.launch {
-            // Fetch user profile data
             userViewModel.getUserProfile().join()
 
             // Collect data from userProfile Flow
             userViewModel.userProfile.collect { userProfile ->
                 userProfile?.let {
-                    image=it.image
-                    username=it.userName
+                    image = it.image
+                    username = it.userName
                     items.clear()  // Clear existing items if needed
-                    items.add(Item1( it.image, it.userName))
+                    items.add(Item1(it.image, it.userName))
                     adapter.notifyDataSetChanged()
-
-                    Log.i("test", "Items size after update: ${items.size}")
                 }
             }
         }
@@ -96,7 +93,6 @@ class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListene
                     )
                 }
                 adapter.notifyDataSetChanged()
-                Log.i("test", "Items size after update: ${items.size}")
             }
         }
 
@@ -126,7 +122,7 @@ class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListene
     }
 
 
-    override fun onCommentClick(id:String) {
+    override fun onCommentClick(id: String) {
         TODO("Not yet implemented")
     }
 }

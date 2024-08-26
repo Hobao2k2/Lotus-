@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.lotus.R
 import com.example.lotus.data.model.FriendId
-import com.example.lotus.data.model.receiverId
+import com.example.lotus.data.model.ReceiverId
 import com.example.lotus.data.repository.UserRepository
 import com.example.lotus.databinding.ActivityUserDetailBinding
 import com.example.lotus.ui.viewModel.UserViewModel
@@ -80,7 +80,7 @@ class UserDetailActivity : AppCompatActivity() {
                 showOptionsDialog(_id)
             }else if(binding.btnAddFriend.text.equals("Thêm Bạn Bè")){
                 binding.btnAddFriend.text = "Chờ phản hồi"
-                userViewModel.addFriend(receiverId(_id))
+                userViewModel.addFriend(ReceiverId(_id))
             }
         }
     }
