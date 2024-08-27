@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -119,6 +120,14 @@ class ProfileFragment : Fragment(),OnItemClickListener {
         val intent = Intent(requireContext(), AddPostActivity::class.java).apply {
             putExtra("image", image)
             putExtra("username", username)
+        }
+        startActivity(intent)
+    }
+
+    override fun onItemClick(position: Int) {
+        val item=items[position] as Item2
+        val intent = Intent(requireContext(), PostDetailActivity::class.java).apply {
+            putExtra("item_key", item)
         }
         startActivity(intent)
     }

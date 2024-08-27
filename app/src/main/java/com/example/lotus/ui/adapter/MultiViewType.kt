@@ -59,6 +59,8 @@ class MultiViewType(
                 val item = dataList[position] as Item2
                 holder.userName.text = item.name
                 holder.content.text = item.content
+                holder.txtLike.text = item.likes.size.toString()
+                holder.txtComment.text=item.comments.size.toString()
                 if (item.imageAvatar.isNullOrEmpty()) {
                     holder.image.setImageResource(R.drawable.avatar_default)
                 } else {
@@ -76,8 +78,9 @@ class MultiViewType(
                 holder.txtComment.setOnClickListener {
                     listener.onCommentClick(item.id)
                 }
-                holder.txtLike.text = item.likes.size.toString()
-                holder.txtComment.text=item.comments.size.toString()
+                holder.itemView.setOnClickListener {
+                    listener.onItemClick(position)
+                }
             }
         }
     }

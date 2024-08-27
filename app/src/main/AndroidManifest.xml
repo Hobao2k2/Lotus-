@@ -29,6 +29,12 @@
         android:theme="@style/Theme.Lotus"
         tools:targetApi="31">
         <activity
+            android:name=".ui.view.PostDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.view.PostDetail"
+            android:exported="false" />
+        <activity
             android:name=".ui.view.UserDetailActivity"
             android:exported="false" />
         <activity
