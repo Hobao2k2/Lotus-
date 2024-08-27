@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lotus.data.model.FriendId
 import com.example.lotus.data.model.IdRequest
-import com.example.lotus.data.model.PostDetailResponse
+import com.example.lotus.data.model.PostUserId
 import com.example.lotus.data.model.User
 import com.example.lotus.data.repository.UserRepository
 
@@ -19,10 +19,10 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
     private val _userProfile = MutableStateFlow<User?>(null)
     val userProfile = _userProfile.asStateFlow()
 
-    private val _post= MutableStateFlow<PostDetailResponse?>(null)
+    private val _post= MutableStateFlow<PostUserId?>(null)
     val post=_post.asStateFlow()
 
-    private val _postAll= MutableStateFlow<List<PostDetailResponse>?>(null)
+    private val _postAll= MutableStateFlow<List<PostUserId>?>(null)
     val postAll=_postAll.asStateFlow()
 
     private val _userAll=MutableStateFlow<List<User>?>(null)

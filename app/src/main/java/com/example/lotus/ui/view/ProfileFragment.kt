@@ -73,23 +73,22 @@ class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListene
         }
         lifecycleScope.launch {
             userViewModel.getAllPost().join()
-            userViewModel.postAll.collect { posts ->
-                posts?.forEach { post ->
-                    items.add(
-                        ItemPost(
-                            post.user.image,
-                            post.image,
-                            post.user.userName ?: "Default Name",
-                            post.content ?: "",
-                            post.id,
-                            post.likes,
-                            post.comments
-                        )
-                    )
-                }
-                adapter.notifyDataSetChanged()
-                Log.i("test", "Items size after update: ${items.size}")
-            }
+//            userViewModel.postAll.collect { posts ->
+//                posts?.forEach { post ->
+//                    items.add(
+//                        ItemPost(
+//                            post.id,
+//                            post.content,
+//                            post.userId,
+//                            post.image,
+//                            post.likes,
+//                            post.comments
+//                        )
+//                    )
+//                }
+//                adapter.notifyDataSetChanged()
+//                Log.i("test", "Items size after update: ${items.size}")
+//            }
         }
 
         return binding.root

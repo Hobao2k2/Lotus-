@@ -1,6 +1,7 @@
 package com.example.lotus.ui.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
@@ -94,11 +95,13 @@ class MultipleRecyclerViewsType(
 
         fun bind(item: ItemPost) {
             with(binding) {
-                // Inflate the ViewStub and get the reference to the ImageView
-                if (!isViewStubInflated) {
-                    val inflatedView = imgStub.inflate()
-                    imageView = inflatedView.findViewById(R.id.imgAvatarPost)
-                    isViewStubInflated = true
+                if (item.imagePost != null) {
+                    imgPost.visibility = View.VISIBLE
+                    Glide.with(itemView.context)
+                        .load(item.imagePost)
+                        .into(imgPost)
+                } else {
+                    imgPost.visibility = View.GONE
                 }
 
                 // Load image using Glide into the inflated ImageView

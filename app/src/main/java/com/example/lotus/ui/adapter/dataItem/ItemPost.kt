@@ -1,8 +1,8 @@
 package com.example.lotus.ui.adapter.dataItem
 
 import com.example.lotus.data.model.Comment
-import com.example.lotus.data.model.PostDetailResponse
-import com.example.lotus.data.model.PostListResponse
+import com.example.lotus.data.model.PostUserId
+import com.example.lotus.data.model.PostUser
 import com.example.lotus.data.model.User
 
 data class ItemPost(
@@ -19,7 +19,7 @@ data class ItemPost(
         return ListItem.Type.POST
     }
 }
-fun PostListResponse.toPost(): ItemPost {
+fun PostUser.toPost(): ItemPost {
     return ItemPost(
         id = id,
         content = content,
@@ -32,7 +32,7 @@ fun PostListResponse.toPost(): ItemPost {
     )
 }
 
-fun PostDetailResponse.toPost(user: User? = null): ItemPost {
+fun PostUserId.toPost(user: User? = null): ItemPost {
     return ItemPost(
         id = id,
         content = content,

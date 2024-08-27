@@ -3,7 +3,7 @@ package com.example.lotus.data.repository
 import android.content.Context
 import com.example.lotus.data.model.FriendId
 import com.example.lotus.data.model.IdRequest
-import com.example.lotus.data.model.PostDetailResponse
+import com.example.lotus.data.model.PostUserId
 import com.example.lotus.data.model.User
 import com.example.lotus.data.network.RetrofitClient
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -28,7 +28,7 @@ class UserRepository(context: Context) {
     suspend fun getUserProfile():User{
         return api.getUserProfile()
     }
-    suspend fun addPost(content: String, user: String, imageFile: File?): PostDetailResponse {
+    suspend fun addPost(content: String, user: String, imageFile: File?): PostUserId {
         // Tạo RequestBody cho nội dung và user
         val contentRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), content)
         val userRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), user)
@@ -42,7 +42,7 @@ class UserRepository(context: Context) {
         return api.addPost(contentRequestBody, imagePart)
     }
 
-    suspend fun gelAllPost():List<PostDetailResponse>{
+    suspend fun gelAllPost():List<PostUserId>{
         return api.getAllPost()
     }
 

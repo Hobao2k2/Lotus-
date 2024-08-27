@@ -2,7 +2,6 @@ package com.example.lotus.ui.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.lotus.data.model.PostDetailResponse
 import com.example.lotus.data.repository.PostRepository
 import com.example.lotus.ui.adapter.dataItem.ItemPost
 import com.example.lotus.utils.Resource
@@ -35,13 +34,11 @@ class PostViewModel(private val postRepository: PostRepository): ViewModel() {
 //            }
 //        }
 //    }
-    private val _likePost = MutableStateFlow<Resource<List<String>>>(Resource.Loading())
-    val likePost: StateFlow<Resource<List<String>>> = _likePost
+    private val _likePost = MutableStateFlow<Resource<ItemPost>>(Resource.Loading())
+    val likePost: StateFlow<Resource<ItemPost>> = _likePost
 
     fun likePost(idPost: String) {
-
-
-
+        
         viewModelScope.launch {
             postRepository.likePost(idPost).collect {
                 // Xử lý response khi like bài viết

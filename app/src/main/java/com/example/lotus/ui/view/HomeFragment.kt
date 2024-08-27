@@ -22,6 +22,7 @@ import com.example.lotus.ui.viewModel.PostViewModel
 import com.example.lotus.ui.viewModel.PostViewModelFactory
 import com.example.lotus.utils.Resource
 import com.example.lotus.utils.SharedPrefManager
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -33,21 +34,18 @@ class HomeFragment : Fragment(), PostAdapter.OnItemClickListener {
 
     private val TAG = "HomeFragment"
 
-    private val items: MutableList<ItemPost> = mutableListOf()
-
     private val postViewModel: PostViewModel by viewModels() {
         PostViewModelFactory(PostRepository(requireContext()))
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         sharedPrefManager = SharedPrefManager(requireContext())
 
-        adapter = PostAdapter(items,this)
+        adapter = PostAdapter(mutableListOf(), this)
 
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
@@ -60,27 +58,34 @@ class HomeFragment : Fragment(), PostAdapter.OnItemClickListener {
             requireActivity().finish()
             sharedPrefManager.clearLoginState()
         }
-        binding.imgSearch.setOnClickListener{
-            val intent=Intent(requireContext(),SearchActivity::class.java)
+
+        binding.imgSearch.setOnClickListener {
+            val intent = Intent(requireContext(), SearchActivity::class.java)
             startActivity(intent)
         }
+
+
 
         return binding.root
     }
 
     private fun getData() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {//thực hiện khi fragment đang ở trạng thái started trở lên
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 postViewModel.fetchPosts()
                 postViewModel.posts.collect { resource ->
                     when (resource) {
                         is Resource.Loading -> {
                             Log.d(TAG, "getData: Loading")
+                            binding.recyclerView.visibility = View.GONE
+                            binding.progressBar.visibility = View.VISIBLE
+                            delay(300)
                         }
                         is Resource.Success -> {
-                            items.clear()
-                            resource.data?.forEach { post ->
-                                items.add(
+                            binding.progressBar.visibility = View.GONE
+                            binding.recyclerView.visibility = View.VISIBLE
+                            resource.data?.let { posts ->
+                                val itemPosts = posts.map { post ->
                                     ItemPost(
                                         id = post.id,
                                         content = post.content,
@@ -91,7 +96,8 @@ class HomeFragment : Fragment(), PostAdapter.OnItemClickListener {
                                         likes = post.likes,
                                         comments = post.comments
                                     )
-                                )
+                                }
+                                adapter.submitList(itemPosts)
                             }
                         }
                         is Resource.Error -> {
@@ -100,14 +106,15 @@ class HomeFragment : Fragment(), PostAdapter.OnItemClickListener {
                     }
                 }
             }
-
         }
     }
 
     override fun onLikeClick(position: Int) {
-        val idPost = items[position].id
-        val likes = items[position].likes
-        
+        val currentList = adapter.differ.currentList.toMutableList()
+        val item = currentList[position]
+        val idPost = item.id
+
+        // Cập nhật giao diện tạm thời trước khi phản hồi từ server
         updateLike(idPost, true)
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -119,7 +126,7 @@ class HomeFragment : Fragment(), PostAdapter.OnItemClickListener {
                     }
                     is Resource.Success -> {
                         Log.d(TAG, "onLikeClick: ${resource.data}")
-//                        adapter.submitList(resource.data)
+                        // Cập nhật lại adapter nếu cần thiết
                     }
                     is Resource.Error -> {
                         Log.d(TAG, "onLikeClick: ${resource.message}")
@@ -129,19 +136,22 @@ class HomeFragment : Fragment(), PostAdapter.OnItemClickListener {
         }
     }
 
+
     private fun updateLike(idPost: String, isLiked: Boolean) {
-        val post = items.find { it.id == idPost }
-
-
 
     }
+
+    fun scrollToTopAndRefresh() {
+        // Cuộn lên đầu
+        binding.recyclerView.smoothScrollToPosition(0)
+        // Load lại dữ liệu
+        getData()
+    }
+
 
     override fun onCommentClick(position: Int) {
         TODO("Not yet implemented")
     }
 
-    override fun onLoadMore() {
-        TODO("Not yet implemented")
-    }
 
 }

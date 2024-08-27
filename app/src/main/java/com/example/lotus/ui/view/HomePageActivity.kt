@@ -74,7 +74,14 @@ class HomePageActivity : AppCompatActivity() {
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
-                // Optionally handle tab reselected
+                when (tab?.position) {
+                    0 -> {
+                        // Lấy HomeFragment từ adapter
+                        val homeFragment = (binding.viewPager.adapter as MyBottomViewPagerAdapter).getFragmentAt(0) as? HomeFragment
+                        homeFragment?.scrollToTopAndRefresh()
+                    }
+                    // Xử lý các tab khác nếu cần
+                }
             }
         })
         val selectedTab = binding.tabLayout.getTabAt(binding.tabLayout.selectedTabPosition)

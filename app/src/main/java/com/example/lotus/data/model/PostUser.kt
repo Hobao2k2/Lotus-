@@ -2,7 +2,7 @@ package com.example.lotus.data.model
 
 import com.google.gson.annotations.SerializedName
 
-class PostListResponse (
+class PostUser (
     @SerializedName("_id")
     val id: String,
     @SerializedName("content")

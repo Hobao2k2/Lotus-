@@ -1,8 +1,10 @@
 package com.example.lotus.ui.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -28,7 +30,7 @@ class PostAdapter(private val items: MutableList<ItemPost>, private val listener
         }
     }
 
-    private val differ = AsyncListDiffer(this, differCallback)
+    val differ = AsyncListDiffer(this, differCallback)
 
     // Cập nhật danh sách bài viết
     fun submitList(list: List<ItemPost>) {
@@ -53,9 +55,6 @@ class PostAdapter(private val items: MutableList<ItemPost>, private val listener
         private val listener: OnItemClickListener
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        private var isViewStubInflated = false
-        private var imageView: ImageView? = null
-
         init {
             binding.imgLike.setOnClickListener {
                 listener.onLikeClick(bindingAdapterPosition)
@@ -67,18 +66,13 @@ class PostAdapter(private val items: MutableList<ItemPost>, private val listener
 
         fun bind(item: ItemPost) {
             with(binding) {
-                // Inflate the ViewStub and get the reference to the ImageView
-                if (!isViewStubInflated) {
-                    val inflatedView = imgStub.inflate()
-                    imageView = inflatedView.findViewById(R.id.imgAvatarPost)
-                    isViewStubInflated = true
-                }
-
-                // Load image using Glide into the inflated ImageView
-                imageView?.let {
+                if (item.imagePost != null) {
+                    imgPost.visibility = View.VISIBLE
                     Glide.with(itemView.context)
                         .load(item.imagePost)
-                        .into(it)
+                        .into(imgPost)
+                } else {
+                    imgPost.visibility = View.GONE
                 }
 
                 // Load the avatar image
@@ -90,6 +84,11 @@ class PostAdapter(private val items: MutableList<ItemPost>, private val listener
                 txtContentPost.text = item.content
                 txtLike.text = item.likes.size.toString()
                 txtComment.text = item.comments.size.toString()
+
+                val likeCommentSection = binding.likeCommentSection
+                val params = likeCommentSection.layoutParams as ConstraintLayout.LayoutParams
+                params.topToBottom = if (item.imagePost != null) R.id.imgPost else R.id.txtContentPost
+                likeCommentSection.layoutParams = params
             }
         }
     }
@@ -98,6 +97,5 @@ class PostAdapter(private val items: MutableList<ItemPost>, private val listener
     interface OnItemClickListener {
         fun onLikeClick(position: Int)
         fun onCommentClick(position: Int)
-        fun onLoadMore() // Được gọi khi cuộn đến cuối danh sách
     }
 }

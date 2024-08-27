@@ -10,66 +10,81 @@
         android:id="@+id/avatarProfile"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
-        android:layout_marginStart="20dp"
         android:scaleType="centerCrop"
         android:src="@drawable/image_avatar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/roundedImageView" />
 
+    <!--Noi dung bai viet    -->
     <TextView
         android:id="@+id/txtUserNamePost"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:text="Tuấn Đạt"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/avatarProfile"
         app:layout_constraintTop_toTopOf="@id/avatarProfile"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Nội dung bài viết -->
+    <!--    Thoi gian dang bai-->
+    <TextView
+        android:id="@+id/txtTimePost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2 mins ago"
+        app:layout_constraintStart_toStartOf="@+id/txtUserNamePost"
+        app:layout_constraintTop_toBottomOf="@+id/txtUserNamePost" />
+
+
+    <!-- ImageView để load ảnh khi cần -->
     <TextView
         android:id="@+id/txtContentPost"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginStart="13dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="20dp"
+        android:ellipsize="end"
+        android:maxLines="3"
         android:text="Bài đăng của bảo\n adsad áđâs \n áđâsd"
         android:textSize="18sp"
-        android:maxLines="3"
-        android:ellipsize="end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/avatarProfile"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/avatarProfile" />
 
-    <!-- ViewStub để load ảnh khi cần -->
-    <ViewStub
-        android:id="@+id/imgStub"
+<!--    image post-->
+    <ImageView
+        android:id="@+id/imgPost"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="15dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/lotus"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtContentPost"
-        android:layout="@layout/image_view"
-        android:scaleType="centerCrop" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtContentPost" />
 
     <!-- Like và Comment Section -->
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/likeCommentSection"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgStub">
+        app:layout_constraintTop_toBottomOf="@id/imgPost"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <!-- Like Icon -->
         <ImageView

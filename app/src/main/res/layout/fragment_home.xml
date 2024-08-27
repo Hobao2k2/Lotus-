@@ -24,7 +24,6 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="10dp"
                 android:src="@drawable/lotus"
-                app:layout_constraintHeight_default="wrap"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_default="wrap" />
@@ -36,7 +35,6 @@
                 android:layout_marginTop="12dp"
                 android:src="@drawable/icon_search"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_default="wrap"
                 app:layout_constraintHorizontal_bias="0.796"
                 app:layout_constraintStart_toEndOf="@+id/iconHome"
                 app:layout_constraintTop_toTopOf="parent"
@@ -50,7 +48,6 @@
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_logout_white"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_default="wrap"
                 app:layout_constraintHorizontal_bias="0.915"
                 app:layout_constraintStart_toEndOf="@+id/imgSearch"
                 app:layout_constraintTop_toTopOf="parent"
@@ -91,11 +88,32 @@
     </com.google.android.material.appbar.AppBarLayout>
     <!--        Ban dang nghi gi-->
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:listitem="@layout/item_post" />
+        >
+
+        <!-- Your RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:listitem="@layout/item_post" />
+
+        <!-- ProgressBar -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+    </FrameLayout>
+
+
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
