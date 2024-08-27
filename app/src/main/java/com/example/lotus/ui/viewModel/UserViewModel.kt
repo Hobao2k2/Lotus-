@@ -111,15 +111,13 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
 
 
 
-    private val _postLikes = MutableStateFlow<Map<String, Int>>(emptyMap())
-    val postLikes: StateFlow<Map<String, Int>> = _postLikes.asStateFlow()
+    private val _postLikes = MutableStateFlow<List<String>>(emptyList())
+    val postLikes = _postLikes.asStateFlow()
 
-    fun likePost(postId: String) {
-        viewModelScope.launch {
+    fun likePost(postId: String):Job {
+      return  viewModelScope.launch {
             val updatedPost = userRepository.likePost(postId)
-            _postLikes.value = _postLikes.value.toMutableMap().apply {
-                put(postId, updatedPost.likes.size)
-            }
+            _postLikes.value=updatedPost.likes
         }
     }
 }

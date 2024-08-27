@@ -20,27 +20,28 @@ import com.example.lotus.data.model.Post
 import com.example.lotus.data.network.RetrofitClient
 import com.example.lotus.data.repository.UserRepository
 import com.example.lotus.databinding.FragmentProfileBinding
-import com.example.lotus.ui.adapter.MultipleRecyclerViewsType
+import com.example.lotus.ui.adapter.MultiViewType
+import com.example.lotus.ui.adapter.dataItem.BaseItem
 import com.example.lotus.ui.adapter.dataItem.Item1
 import com.example.lotus.ui.adapter.dataItem.Item2
 import com.example.lotus.ui.adapter.itemDecoration.ItemOffsetDecoration
+import com.example.lotus.ui.adapter.listener.OnItemClickListener
 import com.example.lotus.ui.viewModel.UserViewModel
 import com.example.lotus.ui.viewModel.UserViewModelFactory
 import com.example.lotus.utils.SharedPrefManager
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListener {
+class ProfileFragment : Fragment(),OnItemClickListener {
     private lateinit var binding: FragmentProfileBinding
     private var image: String? = null
-
     private var username: String? = null
     private val userViewModel: UserViewModel by viewModels() {
         UserViewModelFactory(UserRepository(requireContext()))
     }
 
-    private val items: MutableList<Any> = mutableListOf()
-    private lateinit var adapter: MultipleRecyclerViewsType
+    private lateinit var items: ArrayList<BaseItem>
+    private lateinit var adapter: MultiViewType
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +52,8 @@ class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListene
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
-        adapter = MultipleRecyclerViewsType(items, this, userViewModel.postLikes)
+        items = ArrayList()
+        adapter = MultiViewType(items,this)
         binding.recyclerView.adapter = adapter
         var dividerItemDecoration = DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
         ResourcesCompat.getDrawable(resources, R.drawable.divider_item_post, null)?.let {
@@ -96,6 +98,10 @@ class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListene
             }
         }
 
+
+
+
+
         return binding.root
     }
 
@@ -118,8 +124,22 @@ class ProfileFragment : Fragment(), MultipleRecyclerViewsType.OnItemClickListene
     }
 
     override fun onLikeClick(id: String) {
-        userViewModel.likePost(id)
+        lifecycleScope.launch {
+            userViewModel.likePost(id).join()
+            userViewModel.postLikes.collect { updatedLikes ->
+                Log.d("ProfileFragment", "Updated likes: $updatedLikes")
+                val postIndex = items.indexOfFirst {
+                    it is Item2 && it.id == id
+                }
+                Log.d("ProfileFragment", "postIndex: $postIndex")
+                if (postIndex != -1) {
+                    items[postIndex] = (items[postIndex] as Item2).copy(likes = updatedLikes)
+                    adapter.notifyItemChanged(postIndex)
+                }
+            }
+        }
     }
+
 
 
     override fun onCommentClick(id: String) {

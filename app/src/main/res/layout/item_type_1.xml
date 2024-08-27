@@ -90,7 +90,6 @@
             android:padding="10dp">
 
             <ImageView
-                android:id="@+id/iconPost"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginEnd="1dp"

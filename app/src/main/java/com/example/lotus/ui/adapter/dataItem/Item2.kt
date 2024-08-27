@@ -12,5 +12,8 @@ data class Item2(
     val id: String,
     val likes:List<String>,
     val comments:List<Comment>
-
-)
+):BaseItem{
+    override fun getType(): Int {
+        return 1
+    }
+}
