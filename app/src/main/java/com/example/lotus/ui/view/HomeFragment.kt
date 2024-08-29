@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -43,9 +44,11 @@ class HomeFragment : Fragment(), PostAdapter.OnItemClickListener {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        sharedPrefManager = SharedPrefManager(requireContext())
 
-        adapter = PostAdapter(mutableListOf(), this)
+        sharedPrefManager = SharedPrefManager(requireContext())
+        val userId = sharedPrefManager.getUserId()
+
+        adapter = PostAdapter(mutableListOf(), userId,this)
 
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
@@ -63,8 +66,6 @@ class HomeFragment : Fragment(), PostAdapter.OnItemClickListener {
             val intent = Intent(requireContext(), SearchActivity::class.java)
             startActivity(intent)
         }
-
-
 
         return binding.root
     }
@@ -97,6 +98,7 @@ class HomeFragment : Fragment(), PostAdapter.OnItemClickListener {
                                         comments = post.comments
                                     )
                                 }
+
                                 adapter.submitList(itemPosts)
                             }
                         }
@@ -114,26 +116,22 @@ class HomeFragment : Fragment(), PostAdapter.OnItemClickListener {
         val item = currentList[position]
         val idPost = item.id
 
-        // Cập nhật giao diện tạm thời trước khi phản hồi từ server
-        updateLike(idPost, true)
+        val viewHolder = binding.recyclerView.findViewHolderForAdapterPosition(position)
+        if (viewHolder != null && viewHolder is PostAdapter.PostViewHolder) {
+            val likeButton = viewHolder.binding.imgLike
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            postViewModel.likePost(idPost)
-            postViewModel.likePost.collect { resource ->
-                when (resource) {
-                    is Resource.Loading -> {
-                        Log.d(TAG, "onLikeClick: Loading")
-                    }
-                    is Resource.Success -> {
-                        Log.d(TAG, "onLikeClick: ${resource.data}")
-                        // Cập nhật lại adapter nếu cần thiết
-                    }
-                    is Resource.Error -> {
-                        Log.d(TAG, "onLikeClick: ${resource.message}")
-                    }
-                }
+            val isCurrentlyLiked = likeButton.tag == "liked"
+            if (isCurrentlyLiked) {
+                likeButton.setColorFilter(resources.getColor(R.color.graydam, null))
+                likeButton.tag = "unliked"
+            } else {
+                likeButton.setColorFilter(resources.getColor(R.color.blue, null))
+                likeButton.tag = "liked"
             }
+
+            updateLike(idPost, !isCurrentlyLiked)
         }
+
     }
 
 

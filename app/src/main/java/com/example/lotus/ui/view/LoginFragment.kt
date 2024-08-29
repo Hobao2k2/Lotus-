@@ -39,12 +39,18 @@ class LoginFragment : Fragment() {
         AuthViewModelFactory(AuthRepository(requireContext()))
     }
 
+    private val userViewModel: UserViewModel by viewModels() {
+        UserViewModelFactory(UserRepository(requireContext()))
+    }
+
     private val navOptions = NavOptions.Builder()
         .setEnterAnim(R.anim.slide_in_right)  // Hiệu ứng khi fragment mới xuất hiện
         .setExitAnim(R.anim.slide_out_left)   // Hiệu ứng khi fragment hiện tại biến mất
         .setPopEnterAnim(R.anim.slide_in_left)  // Hiệu ứng khi quay lại fragment trước
         .setPopExitAnim(R.anim.slide_out_right)
-
+        .setPopUpTo(R.id.loginFragment, false)
+        .setLaunchSingleTop(true)
+        .build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,15 +70,16 @@ class LoginFragment : Fragment() {
         }
 
         binding.tvRegister.setOnClickListener {
-            // Hiệu ứng khi fragment mới biến mất khi back
-            val navOptions = navOptions.setPopUpTo(R.id.loginFragment, false).setLaunchSingleTop(true).build()
 
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment, null, navOptions)
         }
 
         binding.btnLoginLotus.setOnClickListener {
-            val email = binding.edtEmail.text.toString()
-            val password = binding.edtPassword.text.toString()
+//            val email = binding.edtEmail.text.toString()
+//            val password = binding.edtPassword.text.toString()
+
+            val email = "thietluong2002@gmail.com"
+            val password = "thiet19502"
 
             if (email.isEmpty() || password.isEmpty()) {
                 if (email.isEmpty()) binding.edtEmail.error = "Please fill out this field"
@@ -90,15 +97,16 @@ class LoginFragment : Fragment() {
                             }
                             is Resource.Success -> {
                                 Log.d(TAG, "Success: ${response.data}")
-                                val navOptions = navOptions
-                                    .setPopUpTo(R.id.loginFragment, true)  // Xóa fragment trước đó bao gồm loginFragment
-                                    .setLaunchSingleTop(true)               // Không khởi tạo lại nếu đã tồn tại trên top
-                                    .build()
 
                                 // Điều hướng với NavOptions
                                 findNavController().navigate(R.id.action_loginFragment_to_homePageActivity, null, navOptions)
+
+
                                 sharedPrefManager.saveToken(response.data!!)
                                 sharedPrefManager.saveLoginState(true)
+
+                                saveUserId()
+
                                 Toast.makeText(requireContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show()
                             }
                             is Resource.Error -> {
@@ -115,6 +123,17 @@ class LoginFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun saveUserId() {
+        userViewModel.getUserProfile()
+        viewLifecycleOwner.lifecycleScope.launch {
+            userViewModel.userProfile.collect { response ->
+                if (response != null) {
+                    sharedPrefManager.saveUserId(response.id)
+                }
+            }
+        }
     }
 
 

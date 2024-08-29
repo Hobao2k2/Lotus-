@@ -2,6 +2,7 @@ package com.example.lotus.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.lotus.ui.adapter.dataItem.ItemProfile
 
 class SharedPrefManager(context: Context) {
 
@@ -34,10 +35,21 @@ class SharedPrefManager(context: Context) {
         return sharedPreferences.getString(KEY_TOKEN, null)
     }
 
+    fun saveUserId(id: String) {
+        val editor = sharedPreferences.edit()
+        editor.putString("userId", id)
+        editor.apply()
+    }
+
+    fun getUserId(): String? {
+        return sharedPreferences.getString("userId", null)
+    }
+
     fun clearLoginState() {
         val editor = sharedPreferences.edit()
         editor.remove(KEY_IS_LOGGED_IN)
         editor.remove(KEY_TOKEN)
+        editor.remove("userId")
         editor.apply()
     }
 }

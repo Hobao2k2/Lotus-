@@ -36,10 +36,14 @@ class RegisterFragment : Fragment() {
     private lateinit var sharedPrefManager: SharedPrefManager
 
     private val navOptions = NavOptions.Builder()
-        .setEnterAnim(R.anim.slide_in_right)  // Hiệu ứng khi fragment mới xuất hiện
-        .setExitAnim(R.anim.slide_out_left)   // Hiệu ứng khi fragment hiện tại biến mất
+        .setEnterAnim(R.anim.slide_in_right)    // Hiệu ứng khi fragment mới xuất hiện
+        .setExitAnim(R.anim.slide_out_left)     // Hiệu ứng khi fragment hiện tại biến mất
         .setPopEnterAnim(R.anim.slide_in_left)  // Hiệu ứng khi quay lại fragment trước
         .setPopExitAnim(R.anim.slide_out_right)
+        .setPopUpTo(R.id.registerFragment, true) // Xóa register khỏi stack
+        .setLaunchSingleTop(true)                // Không khởi tạo lại nếu đã tồn tại trên top
+        .build() // Chỉ cần build một lần
+
 
     private val registerViewModel: AuthViewModel by viewModels() {
         AuthViewModelFactory(AuthRepository(requireContext()))
@@ -61,13 +65,7 @@ class RegisterFragment : Fragment() {
         }
 
         binding.btnLogin.setOnClickListener {
-            val navOptions = navOptions
-                .setPopUpTo(R.id.registerFragment, true) // Xóa register khỏi stack
-                .setLaunchSingleTop(true)                // Không khởi tạo lại nếu đã tồn tại trên top
-                .build()
-
             findNavController().navigate(R.id.action_registerFragment_to_loginFragment, null, navOptions)
-
         }
 
         binding.btnSignup.setOnClickListener {
@@ -89,18 +87,13 @@ class RegisterFragment : Fragment() {
                     registerViewModel.register(registerRequest)
 
                     viewLifecycleOwner.lifecycleScope.launch {
-                        registerViewModel.registerResponse?.collect{ response ->
-                            when(response){
+                        registerViewModel.registerResponse?.collect { response ->
+                            when(response) {
                                 is Resource.Loading -> {
                                     Log.d(TAG, "onCreateView: Loading")
                                 }
                                 is Resource.Success -> {
                                     Log.d(TAG, "onCreateView: Success")
-                                    val navOptions = navOptions
-                                        .setPopUpTo(R.id.registerFragment, true) // Xóa register và các fragment trước đó
-                                        .setLaunchSingleTop(true)                // Không khởi tạo lại nếu đã tồn tại trên top
-                                        .build()
-
                                     findNavController().navigate(R.id.action_registerFragment_to_homePageActivity, null, navOptions)
 
                                     sharedPrefManager.saveLoginState(true)
@@ -112,13 +105,10 @@ class RegisterFragment : Fragment() {
                                 }
                             }
                         }
+                    }
                 }
             }
         }
-
-
-        }
-
 
         return binding.root
 

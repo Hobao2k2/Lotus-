@@ -87,15 +87,22 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <!-- Like Icon -->
-        <ImageView
+        <ImageButton
             android:id="@+id/imgLike"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@drawable/icon_like"
+            android:scaleType="fitCenter"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="20dp" />
+
+
+
 
         <!-- Like Count -->
         <TextView
@@ -114,6 +121,7 @@
             android:id="@+id/imgComment"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:layout_marginTop="2dp"
             android:src="@drawable/icon_comment"
             app:layout_constraintStart_toEndOf="@id/txtLike"
             app:layout_constraintTop_toTopOf="@id/imgLike"

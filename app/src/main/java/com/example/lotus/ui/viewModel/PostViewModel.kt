@@ -1,5 +1,6 @@
 package com.example.lotus.ui.viewModel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lotus.data.repository.PostRepository
@@ -22,6 +23,7 @@ class PostViewModel(private val postRepository: PostRepository): ViewModel() {
         viewModelScope.launch {
             postRepository.getPosts().collect { resource ->
                 _posts.value = resource
+                Log.d("abc", "fetchPosts: resource = ${resource.data}")
             }
         }
     }

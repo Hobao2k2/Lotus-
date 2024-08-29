@@ -1,5 +1,6 @@
 package com.example.lotus.ui.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +13,12 @@ import com.bumptech.glide.Glide
 import com.example.lotus.R
 import com.example.lotus.databinding.ItemPostBinding
 import com.example.lotus.ui.adapter.dataItem.ItemPost
+import com.example.lotus.utils.SharedPrefManager
 
-class PostAdapter(private val items: MutableList<ItemPost>, private val listener: OnItemClickListener) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
+class PostAdapter(
+    private val items: MutableList<ItemPost>,
+    private val userId: String?,
+    private val listener: OnItemClickListener) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
     private val differCallback = object : DiffUtil.ItemCallback<ItemPost>() {
         override fun areItemsTheSame(oldItem: ItemPost, newItem: ItemPost): Boolean {
@@ -50,8 +55,8 @@ class PostAdapter(private val items: MutableList<ItemPost>, private val listener
         return differ.currentList.size
     }
 
-    class PostViewHolder(
-        private val binding: ItemPostBinding,
+    inner class PostViewHolder(
+        val binding: ItemPostBinding,
         private val listener: OnItemClickListener
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -84,6 +89,20 @@ class PostAdapter(private val items: MutableList<ItemPost>, private val listener
                 txtContentPost.text = item.content
                 txtLike.text = item.likes.size.toString()
                 txtComment.text = item.comments.size.toString()
+
+                // Set like button color
+                val likeButton = binding.imgLike
+
+                val isLiked = item.likes.contains(userId)
+                val TAG = "PostAdapter"
+                Log.d(TAG, "bind: $item")
+                Log.d(TAG, "post: ${item.content} - ${item.likes} - $userId")
+                likeButton.setColorFilter(
+                    itemView.resources.getColor(
+                        if (isLiked) R.color.blue else R.color.graydam,
+                        null
+                    )
+                )
 
                 val likeCommentSection = binding.likeCommentSection
                 val params = likeCommentSection.layoutParams as ConstraintLayout.LayoutParams

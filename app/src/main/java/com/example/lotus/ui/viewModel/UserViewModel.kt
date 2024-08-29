@@ -35,7 +35,7 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
     fun getUserProfile(): Job {
         return viewModelScope.launch {
             val data = userRepository.getUserProfile()
-                _userProfile.value = data
+            _userProfile.value = data
         }
     }
 
