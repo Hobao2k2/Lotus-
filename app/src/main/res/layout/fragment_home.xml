@@ -28,6 +28,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_default="wrap" />
 
+
             <ImageView
                 android:id="@+id/imgSearch"
                 android:layout_width="30dp"

@@ -54,6 +54,10 @@ class PostAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
+            binding.root.setOnClickListener {
+                listener.onItemClick(bindingAdapterPosition)
+            }
+
             binding.imgLike.setOnClickListener {
                 listener.onLikeClick(bindingAdapterPosition)
             }
@@ -99,6 +103,7 @@ class PostAdapter(
     }
 
     interface OnItemClickListener {
+        fun onItemClick(position: Int)
         fun onLikeClick(position: Int)
         fun onCommentClick(position: Int)
     }

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -15,6 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lotus.R
+import com.example.lotus.data.model.Comment
 import com.example.lotus.data.repository.PostRepository
 import com.example.lotus.databinding.FragmentHomeBinding
 import com.example.lotus.ui.adapter.PostAdapter
@@ -55,6 +57,8 @@ class HomeFragment : Fragment(), PostAdapter.OnItemClickListener {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
 
+        val window: Window = requireActivity().window
+        window.statusBarColor = resources.getColor(R.color.white)
 
         getData()
 
@@ -68,8 +72,9 @@ class HomeFragment : Fragment(), PostAdapter.OnItemClickListener {
         binding.avatarProfile
 
         binding.addPostTv.setOnClickListener{
-
             requireActivity().supportFragmentManager.beginTransaction()
+                .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                 .replace(R.id.fragment_container, AddPostFragment())
                 .addToBackStack(null)
                 .commit()
@@ -110,6 +115,23 @@ class HomeFragment : Fragment(), PostAdapter.OnItemClickListener {
                 }
             }
         }
+    }
+
+    override fun onItemClick(position: Int) {
+        val selectedPost = adapter.currentList[position]
+
+        val bundle = Bundle().apply {
+            putString("postId", selectedPost.id)
+        }
+
+        val detailFragment = PostDetailFragment().apply {
+            arguments = bundle
+        }
+
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, detailFragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     override fun onLikeClick(position: Int) {

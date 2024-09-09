@@ -113,6 +113,8 @@ class LoginFragment : Fragment() {
                                 Log.e(TAG, "Error: ${response.message}")
                                 Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT).show()
                             }
+
+                            else -> {}
                         }
                     }
                 }

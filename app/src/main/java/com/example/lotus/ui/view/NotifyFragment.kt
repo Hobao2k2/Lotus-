@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.lotus.R
@@ -28,6 +29,24 @@ class NotifyFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentNotifyBinding.inflate(inflater, container, false)
+
+        // Kiểm tra trạng thái hiện tại của chế độ night mode
+        val currentNightMode = AppCompatDelegate.getDefaultNightMode()
+
+        // Cập nhật trạng thái của switch theo chế độ hiện tại
+        binding.switchTheme.isChecked = currentNightMode == AppCompatDelegate.MODE_NIGHT_YES
+
+        // Lắng nghe sự kiện thay đổi của switch
+        binding.switchTheme.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                // Bật chế độ night mode
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                // Bật chế độ day mode
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
+
         return binding.root
     }
 }

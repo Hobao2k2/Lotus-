@@ -9,7 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
         android:id="@+id/addPost">
 
         <!-- Toolbar được cố định ở trên cùng -->
@@ -20,16 +21,18 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             android:minHeight="?attr/actionBarSize"
-            app:layout_scrollFlags="enterAlways|scroll"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:paddingTop="15dp"
             android:background="@drawable/shape_toolbar_blue">
 
             <!-- Các thành phần bên trong toolbar -->
             <TextView
-                android:id="@+id/cancelBtn"
+                android:id="@+id/cancelTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Huỷ"
-                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/open_sans_semibold"
                 android:layout_gravity="start" />
@@ -40,28 +43,34 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_semibold"
                 android:text="Tạo bài viết"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:layout_gravity="center" />
 
             <TextView
-                android:id="@+id/postBtn"
+                android:id="@+id/postTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Đăng"
                 android:layout_marginEnd="10dp"
-                android:textSize="16sp"
+                android:textColor="@color/gray_text"
+                android:textSize="18sp"
                 android:fontFamily="@font/open_sans_semibold"
                 android:layout_gravity="end" />
         </Toolbar>
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottomBar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintVertical_bias="0.0">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/avatarProfile"
@@ -82,11 +91,10 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:text="Tuấn Đạt"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/avatarProfile"
-                app:layout_constraintTop_toTopOf="@id/avatarProfile"
-                />
+                app:layout_constraintTop_toTopOf="@id/avatarProfile" />
 
             <!-- Nội dung bài viết -->
             <EditText
@@ -94,12 +102,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:paddingBottom="60dp"
-                android:hint="Bạn đang nghĩ gì?"
                 android:gravity="top"
-                android:textSize="18sp"
-                android:background="@null"
+                android:hint="Bạn đang nghĩ gì?"
                 android:scrollbars="none"
+                android:background="@null"
+                android:textSize="20sp"
                 app:layout_constraintTop_toBottomOf="@+id/avatarProfile" />
 
             <!-- ImageView để load ảnh khi cần -->
@@ -107,22 +114,22 @@
                 android:id="@+id/imgPost"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
-                android:src="@drawable/avatar_default"
-                android:layout_marginTop="15dp"
+                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@+id/contentEdt" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!-- Thanh bar ở dưới cùng -->
+        <!--        Botombar-->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/bottomBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_bottom_bar"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:padding="17dp">
 
             <ImageButton
@@ -177,6 +184,8 @@
                 app:layout_constraintHorizontal_bias="1.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <!--        Botombar-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.core.widget.NestedScrollView>
