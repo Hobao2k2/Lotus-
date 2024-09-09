@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -32,6 +33,7 @@ class HomeFragment : Fragment(), PostAdapter.OnItemClickListener {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var sharedPrefManager: SharedPrefManager
     private lateinit var adapter: PostAdapter
+    private lateinit var userId: String
 
     private val TAG = "HomeFragment"
 
@@ -45,13 +47,14 @@ class HomeFragment : Fragment(), PostAdapter.OnItemClickListener {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+
         sharedPrefManager = SharedPrefManager(requireContext())
-        val userId = sharedPrefManager.getUserId()
+        userId = sharedPrefManager.getUserId() ?: ""
 
-        adapter = PostAdapter(mutableListOf(), userId,this)
-
+        adapter = PostAdapter( userId,this)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
+
 
         getData()
 
@@ -60,6 +63,18 @@ class HomeFragment : Fragment(), PostAdapter.OnItemClickListener {
             startActivity(intent)
             requireActivity().finish()
             sharedPrefManager.clearLoginState()
+        }
+
+        binding.avatarProfile
+
+        binding.addPostTv.setOnClickListener{
+
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, AddPostFragment())
+                .addToBackStack(null)
+                .commit()
+
+            requireActivity().findViewById<FrameLayout>(R.id.fragment_container).visibility = View.VISIBLE
         }
 
         binding.imgSearch.setOnClickListener {
@@ -71,9 +86,9 @@ class HomeFragment : Fragment(), PostAdapter.OnItemClickListener {
     }
 
     private fun getData() {
+        postViewModel.fetchPosts()
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                postViewModel.fetchPosts()
                 postViewModel.posts.collect { resource ->
                     when (resource) {
                         is Resource.Loading -> {
@@ -85,22 +100,8 @@ class HomeFragment : Fragment(), PostAdapter.OnItemClickListener {
                         is Resource.Success -> {
                             binding.progressBar.visibility = View.GONE
                             binding.recyclerView.visibility = View.VISIBLE
-                            resource.data?.let { posts ->
-                                val itemPosts = posts.map { post ->
-                                    ItemPost(
-                                        id = post.id,
-                                        content = post.content,
-                                        userId = post.userId,
-                                        name = post.name,
-                                        imageAvatar = post.imageAvatar,
-                                        imagePost = post.imagePost,
-                                        likes = post.likes,
-                                        comments = post.comments
-                                    )
-                                }
-
-                                adapter.submitList(itemPosts)
-                            }
+                            Log.d(TAG, "getData: ${resource.data}")
+                            adapter.submitList(resource.data)
                         }
                         is Resource.Error -> {
                             Log.d(TAG, "getData: ${resource.message}")
@@ -112,37 +113,30 @@ class HomeFragment : Fragment(), PostAdapter.OnItemClickListener {
     }
 
     override fun onLikeClick(position: Int) {
-        val currentList = adapter.differ.currentList.toMutableList()
-        val item = currentList[position]
-        val idPost = item.id
-
-        val viewHolder = binding.recyclerView.findViewHolderForAdapterPosition(position)
-        if (viewHolder != null && viewHolder is PostAdapter.PostViewHolder) {
-            val likeButton = viewHolder.binding.imgLike
-
-            val isCurrentlyLiked = likeButton.tag == "liked"
-            if (isCurrentlyLiked) {
-                likeButton.setColorFilter(resources.getColor(R.color.graydam, null))
-                likeButton.tag = "unliked"
-            } else {
-                likeButton.setColorFilter(resources.getColor(R.color.blue, null))
-                likeButton.tag = "liked"
-            }
-
-            updateLike(idPost, !isCurrentlyLiked)
+        val item = adapter.currentList[position]
+        val isCurrentlyLiked = item.likes.contains(userId)
+        val updatedLikes = if (isCurrentlyLiked) {
+            item.likes.filter { it != userId }
+        } else {
+            item.likes + userId
         }
 
+        updateUI(position, updatedLikes)
+
+        postViewModel.likePost(item.id)
     }
 
-
-    private fun updateLike(idPost: String, isLiked: Boolean) {
-
+    private fun updateUI(position: Int, updatedLikes: List<String>) {
+        val currentList = adapter.currentList.toMutableList()
+        val item = currentList[position].copy(likes = updatedLikes)
+        currentList[position] = item
+        adapter.submitList(currentList)
     }
 
     fun scrollToTopAndRefresh() {
-        // Cuộn lên đầu
+
         binding.recyclerView.smoothScrollToPosition(0)
-        // Load lại dữ liệu
+
         getData()
     }
 

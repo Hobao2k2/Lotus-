@@ -131,6 +131,7 @@ class LoginFragment : Fragment() {
             userViewModel.userProfile.collect { response ->
                 if (response != null) {
                     sharedPrefManager.saveUserId(response.id)
+
                 }
             }
         }

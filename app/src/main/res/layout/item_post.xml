@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/roundedImageView" />
 
-    <!--Noi dung bai viet    -->
+    <!-- Username    -->
     <TextView
         android:id="@+id/txtUserNamePost"
         android:layout_width="0dp"

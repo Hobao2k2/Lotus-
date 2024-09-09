@@ -19,6 +19,7 @@
 
     <application
         android:allowBackup="true"
+        android:windowSoftInputMode="adjustPan"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -36,9 +37,11 @@
             android:exported="false" />
         <activity
             android:name=".ui.view.AddPostActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".ui.view.HomePageActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".ui.view.MainActivity"

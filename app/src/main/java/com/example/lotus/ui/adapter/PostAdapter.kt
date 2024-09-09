@@ -8,6 +8,7 @@ import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.lotus.R
@@ -16,48 +17,40 @@ import com.example.lotus.ui.adapter.dataItem.ItemPost
 import com.example.lotus.utils.SharedPrefManager
 
 class PostAdapter(
-    private val items: MutableList<ItemPost>,
     private val userId: String?,
-    private val listener: OnItemClickListener) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
+    private val listener: OnItemClickListener
+) : ListAdapter<ItemPost, PostAdapter.PostViewHolder>(DIFF_CALLBACK) {
 
-    private val differCallback = object : DiffUtil.ItemCallback<ItemPost>() {
-        override fun areItemsTheSame(oldItem: ItemPost, newItem: ItemPost): Boolean {
-            return oldItem.id == newItem.id
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ItemPost>() {
+            override fun areItemsTheSame(oldItem: ItemPost, newItem: ItemPost): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: ItemPost, newItem: ItemPost): Boolean {
+                return oldItem.imagePost == newItem.imagePost &&
+                        oldItem.imageAvatar == newItem.imageAvatar &&
+                        oldItem.name == newItem.name &&
+                        oldItem.content == newItem.content &&
+                        oldItem.likes.size == newItem.likes.size &&
+                        oldItem.comments.size == newItem.comments.size
+            }
         }
-
-        override fun areContentsTheSame(oldItem: ItemPost, newItem: ItemPost): Boolean {
-            return oldItem.imagePost == newItem.imagePost &&
-                    oldItem.imageAvatar == newItem.imageAvatar &&
-                    oldItem.name == newItem.name &&
-                    oldItem.content == newItem.content &&
-                    oldItem.likes.size == newItem.likes.size &&
-                    oldItem.comments.size == newItem.comments.size
-        }
-    }
-
-    val differ = AsyncListDiffer(this, differCallback)
-
-    // Cập nhật danh sách bài viết
-    fun submitList(list: List<ItemPost>) {
-        differ.submitList(list)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = ItemPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PostViewHolder(binding, listener)
+        return PostViewHolder(binding, listener, userId)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        holder.bind(differ.currentList[position])
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int {
-        return differ.currentList.size
-    }
-
-    inner class PostViewHolder(
+    class PostViewHolder(
         val binding: ItemPostBinding,
-        private val listener: OnItemClickListener
+        private val listener: OnItemClickListener,
+        private val userId: String?,
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -80,7 +73,6 @@ class PostAdapter(
                     imgPost.visibility = View.GONE
                 }
 
-                // Load the avatar image
                 Glide.with(itemView.context)
                     .load(item.imageAvatar ?: R.drawable.avatar_default)
                     .into(avatarProfile)
@@ -90,21 +82,15 @@ class PostAdapter(
                 txtLike.text = item.likes.size.toString()
                 txtComment.text = item.comments.size.toString()
 
-                // Set like button color
-                val likeButton = binding.imgLike
-
                 val isLiked = item.likes.contains(userId)
-                val TAG = "PostAdapter"
-                Log.d(TAG, "bind: $item")
-                Log.d(TAG, "post: ${item.content} - ${item.likes} - $userId")
-                likeButton.setColorFilter(
+
+                imgLike.setColorFilter(
                     itemView.resources.getColor(
                         if (isLiked) R.color.blue else R.color.graydam,
                         null
                     )
                 )
 
-                val likeCommentSection = binding.likeCommentSection
                 val params = likeCommentSection.layoutParams as ConstraintLayout.LayoutParams
                 params.topToBottom = if (item.imagePost != null) R.id.imgPost else R.id.txtContentPost
                 likeCommentSection.layoutParams = params
@@ -112,9 +98,9 @@ class PostAdapter(
         }
     }
 
-    // Interface lắng nghe các sự kiện từ adapter
     interface OnItemClickListener {
         fun onLikeClick(position: Int)
         fun onCommentClick(position: Int)
     }
 }
+

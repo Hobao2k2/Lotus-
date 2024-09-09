@@ -72,15 +72,17 @@
                 app:shapeAppearanceOverlay="@style/roundedImageView" />
 
             <TextView
-                android:id="@+id/thinkingTextView"
+                android:id="@+id/addPostTv"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:text="Bạn đang nghĩ gì?"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:layout_marginStart="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/avatarProfile"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -112,8 +114,4 @@
             android:visibility="gone"/>
 
     </FrameLayout>
-
-
-
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -44,6 +44,7 @@ class PostViewModel(private val postRepository: PostRepository): ViewModel() {
         viewModelScope.launch {
             postRepository.likePost(idPost).collect {
                 // Xử lý response khi like bài viết
+//                Log.d("updateUI", "likePost: ${it.data}")
                 _likePost.value = it
             }
         }
