@@ -11,7 +11,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:scaleType="centerCrop"
         android:src="@drawable/image_avatar"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,7 @@
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/avatarProfile"
         app:layout_constraintTop_toTopOf="@id/avatarProfile"
-        app:layout_constraintEnd_toEndOf="parent" />
+         />
 
     <!--    Thoi gian dang bai-->
     <TextView
@@ -41,7 +41,17 @@
         app:layout_constraintStart_toStartOf="@+id/txtUserNamePost"
         app:layout_constraintTop_toBottomOf="@+id/txtUserNamePost" />
 
-
+    <!--    Nut option-->
+    <ImageButton
+        android:id="@+id/btnOption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:padding="5dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_option"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <!-- ImageView để load ảnh khi cần -->
     <TextView
         android:id="@+id/txtContentPost"
@@ -52,12 +62,24 @@
         android:layout_marginEnd="20dp"
         android:ellipsize="end"
         android:maxLines="3"
-        android:text="Bài đăng của bảo\n adsad áđâs \n áđâsd"
+        android:text="Bài đăng của bảo\nadsad áđâs\náđâsd Bài đăng của bảo\nadsad áđâs\náđâsd"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/avatarProfile" />
+
+    <!-- Nút Xem thêm -->
+    <TextView
+        android:id="@+id/txtViewMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Xem thêm"
+        android:visibility="visible"
+        android:textColor="@color/gray_text"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/txtContentPost"
+        app:layout_constraintTop_toBottomOf="@id/txtContentPost" />
 
 <!--    image post-->
     <ImageView

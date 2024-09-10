@@ -167,5 +167,21 @@ class HomeFragment : Fragment(), PostAdapter.OnItemClickListener {
         TODO("Not yet implemented")
     }
 
+    override fun onEditPostClick(position: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDeletePostClick(position: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onSharePostClick(position: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onSavePostClick(position: Int) {
+        TODO("Not yet implemented")
+    }
+
 
 }
