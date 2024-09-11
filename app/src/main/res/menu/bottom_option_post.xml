@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/btnSavePost"
+        android:title="Lưu bài viết"
+        android:icon="@drawable/ic_save_24" />
+
+    <item
+        android:id="@+id/btnSharePost"
+        android:title="Chia sẻ"
+        android:icon="@drawable/ic_share_24" />
+
+    <item
+        android:id="@+id/btnEditPost"
+        android:title="Chỉnh sửa"
+        android:icon="@drawable/ic_edit" />
+
+    <item
+        android:id="@+id/btnRemovePost"
+        android:title="Xóa bài viết"
+        android:icon="@drawable/ic_remove_24" />
+
+</menu>

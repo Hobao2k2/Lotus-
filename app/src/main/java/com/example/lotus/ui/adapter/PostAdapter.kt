@@ -2,6 +2,7 @@ package com.example.lotus.ui.adapter
 
 import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -118,7 +119,7 @@ class PostAdapter(
         }
 
         private fun showBottomSheetDialog(context: Context, position: Int) {
-            val bottomSheetDialog = BottomSheetDialog(context)
+            val bottomSheetDialog = BottomSheetDialog(context, R.style.BottomSheetDialogTheme)
             val view = LayoutInflater.from(context).inflate(R.layout.item_post_option, null)
             bottomSheetDialog.setContentView(view)
 
