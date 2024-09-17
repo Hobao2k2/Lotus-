@@ -69,29 +69,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/avatarProfile" />
 
-    <!-- Nút Xem thêm -->
-    <TextView
-        android:id="@+id/txtViewMore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Xem thêm"
-        android:visibility="visible"
-        android:textColor="@color/gray_text"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/txtContentPost"
-        app:layout_constraintTop_toBottomOf="@id/txtContentPost" />
-
-<!--    image post-->
+    <!--    image post-->
     <ImageView
         android:id="@+id/imgPost"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="16dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/lotus"
+        android:adjustViewBounds="true"
+        android:src="@drawable/anh_doc"
         android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtContentPost" />
 
     <!-- Like và Comment Section -->

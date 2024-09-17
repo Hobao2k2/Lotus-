@@ -132,6 +132,8 @@ class HomeFragment : Fragment(), PostAdapter.OnItemClickListener {
             .replace(R.id.fragment_container, detailFragment)
             .addToBackStack(null)
             .commit()
+
+        requireActivity().findViewById<FrameLayout>(R.id.fragment_container).visibility = View.VISIBLE
     }
 
     override fun onLikeClick(position: Int) {
