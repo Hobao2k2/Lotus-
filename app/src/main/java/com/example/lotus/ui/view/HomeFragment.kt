@@ -91,7 +91,9 @@ class HomeFragment : Fragment(), PostAdapter.OnItemClickListener {
     }
 
     private fun getData() {
+
         postViewModel.fetchPosts()
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 postViewModel.posts.collect { resource ->
@@ -129,9 +131,10 @@ class HomeFragment : Fragment(), PostAdapter.OnItemClickListener {
         }
 
         parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, detailFragment)
+            .add(R.id.fragment_container, detailFragment)
             .addToBackStack(null)
             .commit()
+
 
         requireActivity().findViewById<FrameLayout>(R.id.fragment_container).visibility = View.VISIBLE
     }
@@ -148,6 +151,25 @@ class HomeFragment : Fragment(), PostAdapter.OnItemClickListener {
         updateUI(position, updatedLikes)
 
         postViewModel.likePost(item.id)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            postViewModel.likePost.collect { resource ->
+                when (resource) {
+                    is Resource.Loading -> {
+                        Log.d(TAG, "onLikeClick: Loading")
+                    }
+                    is Resource.Success -> {
+                        Log.d(TAG, "onLikeClick: ${resource.data}")
+                    }
+                    is Resource.Error -> {
+                        Log.d(TAG, "onLikeClick: ${resource.message}")
+                    }
+                }
+            }
+
+
+        }
+
     }
 
     private fun updateUI(position: Int, updatedLikes: List<String>) {

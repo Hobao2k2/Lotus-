@@ -3,169 +3,251 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="5dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.view.PostDetailFragment">
 
-    <ImageButton
-        android:id="@+id/btnBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_back"
-        app:layout_constraintBottom_toBottomOf="@+id/avatarProfile"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/avatarProfile"
-        />
-
-    <!-- Avatar và tên người dùng -->
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/avatarProfile"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/image_avatar"
-        app:layout_constraintStart_toEndOf="@+id/btnBack"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
+        android:paddingBottom="50dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/roundedImageView" />
-
-    <!-- Username    -->
-    <TextView
-        android:id="@+id/txtUserNamePost"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:text="Tuấn Đạt"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/avatarProfile"
-        app:layout_constraintTop_toTopOf="@id/avatarProfile"
-        />
-
-    <!--    Thoi gian dang bai-->
-    <TextView
-        android:id="@+id/txtTimePost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2 mins ago"
-        app:layout_constraintStart_toStartOf="@+id/txtUserNamePost"
-        app:layout_constraintTop_toBottomOf="@+id/txtUserNamePost" />
-
-    <!--    Nut option-->
-    <ImageButton
-        android:id="@+id/btnOption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:padding="5dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_option"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <!-- ImageView để load ảnh khi cần -->
-    <TextView
-        android:id="@+id/txtContentPost"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"
-        android:ellipsize="end"
-        android:text="Bài đăng của bảo\nadsad áđâs\náđâsd Bài đăng của bảo\nadsad áđâs\náđâsd"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/avatarProfile" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <!--    image post-->
-    <ImageView
-        android:id="@+id/imgPost"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
-        android:src="@drawable/anh_doc"
-        android:visibility="visible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtContentPost" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_back"
+                app:layout_constraintBottom_toBottomOf="@+id/avatarProfile"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/avatarProfile"
+                />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/likeCommentSection"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:paddingBottom="15dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgPost">
+            <!-- Avatar và tên người dùng -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/avatarProfile"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/avatar_default"
+                app:layout_constraintStart_toEndOf="@+id/btnBack"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/roundedImageView" />
 
-        <!-- Like Icon -->
-        <ImageButton
-            android:id="@+id/imgLike"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/icon_like"
-            android:scaleType="fitCenter"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
+            <!-- Username    -->
+            <TextView
+                android:id="@+id/txtUserNamePost"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Tuấn Đạt"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/avatarProfile"
+                app:layout_constraintTop_toTopOf="@id/avatarProfile"
+                />
+
+            <!--    Thoi gian dang bai-->
+            <TextView
+                android:id="@+id/txtTimePost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2 mins ago"
+                app:layout_constraintStart_toStartOf="@+id/txtUserNamePost"
+                app:layout_constraintTop_toBottomOf="@+id/txtUserNamePost" />
+
+            <!--    Nut option-->
+            <ImageButton
+                android:id="@+id/btnOption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_option"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtContentPost"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:ellipsize="end"
+                android:text="Bài đăng của bảo\nadsad áđâs\náđâsd Bài đăng của bảo\nadsad áđâs\náđâsd"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/avatarProfile" />
+
+            <!--    image post-->
+            <ImageView
+                android:id="@+id/imgPost"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:src="@drawable/anh_doc"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtContentPost" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/likeCommentSection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:paddingBottom="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgPost">
+
+            <!-- Like Icon -->
+            <ImageButton
+                android:id="@+id/imgLike"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/icon_like"
+                android:scaleType="fitCenter"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="20dp" />
+
+            <!-- Like Count -->
+            <TextView
+                android:id="@+id/txtLike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/imgLike"
+                app:layout_constraintTop_toTopOf="@id/imgLike"
+                app:layout_constraintBottom_toBottomOf="@id/imgLike"
+                android:layout_marginStart="5dp" />
+
+            <!-- Comment Icon -->
+            <ImageView
+                android:id="@+id/imgComment"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/icon_comment"
+                app:layout_constraintStart_toEndOf="@id/txtLike"
+                app:layout_constraintTop_toTopOf="@id/imgLike"
+                app:layout_constraintBottom_toBottomOf="@id/imgLike"
+                android:layout_marginStart="30dp" />
+
+            <!-- Comment Count -->
+            <TextView
+                android:id="@+id/txtComment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/imgComment"
+                app:layout_constraintTop_toTopOf="@id/imgComment"
+                app:layout_constraintBottom_toBottomOf="@id/imgComment"
+                android:layout_marginStart="5dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintTop_toBottomOf="@id/likeCommentSection"
+            android:nestedScrollingEnabled="false"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="20dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_comment"/>
 
-        <!-- Like Count -->
-        <TextView
-            android:id="@+id/txtLike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="10"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@id/imgLike"
-            app:layout_constraintTop_toTopOf="@id/imgLike"
-            app:layout_constraintBottom_toBottomOf="@id/imgLike"
-            android:layout_marginStart="5dp" />
 
-        <!-- Comment Icon -->
-        <ImageView
-            android:id="@+id/imgComment"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="2dp"
-            android:src="@drawable/icon_comment"
-            app:layout_constraintStart_toEndOf="@id/txtLike"
-            app:layout_constraintTop_toTopOf="@id/imgLike"
-            app:layout_constraintBottom_toBottomOf="@id/imgLike"
-            android:layout_marginStart="30dp" />
 
-        <!-- Comment Count -->
-        <TextView
-            android:id="@+id/txtComment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@id/imgComment"
-            app:layout_constraintTop_toTopOf="@id/imgComment"
-            app:layout_constraintBottom_toBottomOf="@id/imgComment"
-            android:layout_marginStart="5dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcvComment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/likeCommentSection"
+    </androidx.core.widget.NestedScrollView>
+
+    <!--    nhap comment-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/commentInputSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_comment"/>
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- EditText nhập comment -->
+        <EditText
+            android:id="@+id/editTextComment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Viết bình luận..."
+            android:layout_marginEnd="10dp"
+            android:padding="10dp"
+            android:background="@drawable/rounded_edittext_gray"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnSendComment"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <!-- Nút gửi comment -->
+        <ImageButton
+            android:id="@+id/btnSendComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_camera"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--    <FrameLayout-->
+<!--        android:id="@+id/frameLayout"-->
+<!--        android:background="@color/white"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+<!--        >-->
+<!--        &lt;!&ndash; ProgressBar &ndash;&gt;-->
+<!--        <ProgressBar-->
+<!--            android:id="@+id/progressBar"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:visibility="visible"/>-->
+
+<!--    </FrameLayout>-->
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,8 @@
 package com.example.lotus.data.repository
 
 import android.content.Context
-import android.util.Log
-import com.example.lotus.data.model.ApiResponse
+import com.example.lotus.data.model.Post
 import com.example.lotus.data.model.PostUserId
-import com.example.lotus.data.model.PostUser
 import com.example.lotus.data.network.ApiService
 import com.example.lotus.data.network.RetrofitClient
 import com.example.lotus.ui.adapter.dataItem.ItemPost
@@ -14,7 +12,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import kotlin.math.log
 
 class PostRepository(context: Context): PostRepositoryImpl {
 
@@ -27,23 +24,22 @@ class PostRepository(context: Context): PostRepositoryImpl {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getPosts(): Flow<Resource<List<ItemPost>>> {
+    override suspend fun getPosts(): Flow<Resource<List<Post>>> {
         return flow {
             emit(Resource.Loading()) // Emit loading state
             try {
                 val response = apiService.getPosts()
-                val itemPosts = response.map { postUser -> postUser.toPost() }
-                emit(Resource.Success(itemPosts))
+                emit(Resource.Success(response))
             } catch (e: Exception) {
                 emit(Resource.Error("Exception: ${e.message}"))
             }
         }
     }
 
-    override suspend fun likePost(idPost: String): Flow<Resource<ItemPost>> {
+    override suspend fun likePost(idPost: String): Flow<Resource<Post>> {
         return flow {
             try {
-                val response = apiService.likePost(idPost).toPost()
+                val response = apiService.likePost(idPost)
                 emit(Resource.Success(response))
             }
             catch (e: Exception) {
@@ -52,5 +48,28 @@ class PostRepository(context: Context): PostRepositoryImpl {
         }
     }
 
+    override suspend fun deletePost(idPost: String): Flow<Resource<Post>> {
+        return flow {
+            try {
+                val response = apiService.deletePost(idPost)
+                emit(Resource.Success(response))
+            }
+            catch (e: Exception) {
+                emit(Resource.Error("Exception: ${e.message}"))
+            }
+        }
+    }
+
+    override suspend fun getPostById(idPost: String): Flow<Resource<Post>> {
+        return flow {
+            try {
+                val response = apiService.getPostById(idPost)
+                emit(Resource.Success(response))
+            }
+            catch (e: Exception) {
+                emit(Resource.Error("Exception: ${e.message}"))
+            }
+        }
+    }
 
 }

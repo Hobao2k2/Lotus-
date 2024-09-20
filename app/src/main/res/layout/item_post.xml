@@ -77,7 +77,7 @@
         android:layout_marginTop="16dp"
         android:scaleType="fitCenter"
         android:adjustViewBounds="true"
-        android:src="@drawable/anh_doc"
+        android:src="@drawable/lotus"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

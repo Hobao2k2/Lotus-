@@ -93,7 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:paddingBottom="40dp"
+                android:paddingBottom="80dp"
                 android:hint="Bạn đang nghĩ gì?"
                 android:gravity="top"
                 android:textSize="18sp"

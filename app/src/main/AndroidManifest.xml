@@ -41,7 +41,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.view.HomePageActivity"
-            android:windowSoftInputMode="adjustPan"
+            android:windowSoftInputMode="adjustResize|stateVisible"
             android:exported="false" />
         <activity
             android:name=".ui.view.MainActivity"

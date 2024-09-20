@@ -40,20 +40,6 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
     }
 
 
-    fun getAllPost():Job {
-        return viewModelScope.launch {
-            try {
-                // Giả sử userRepository.getAllPost() trả về List<Post>
-                _postAll.value = userRepository.gelAllPost()
-                Log.i("test", "du lieu ok")
-            } catch (e: Exception) {
-                // Xử lý lỗi nếu cần
-                // Có thể cập nhật _postAll với dữ liệu rỗng hoặc hiển thị thông báo lỗi
-                _postAll.value = emptyList()
-                Log.e("test", "du lieu rong", e)
-            }
-        }
-    }
 //    fun getAllUser(){
 //        viewModelScope.launch {
 //            try {

@@ -1,0 +1,116 @@
+[33m4f0e2d3[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/lvt[m[33m, [m[1;32mlvt[m[33m)[m HEAD@{0}: merge refs/remotes/origin/lvt: Fast-forward
+[33m1b37743[m HEAD@{1}: checkout: moving from lvt to 1b37743f3efa4faf883bbfbc7164fea35b839700
+[33m4f0e2d3[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/lvt[m[33m, [m[1;32mlvt[m[33m)[m HEAD@{2}: checkout: moving from 1b37743f3efa4faf883bbfbc7164fea35b839700 to lvt
+[33m1b37743[m HEAD@{3}: checkout: moving from lvt to 1b37743f3efa4faf883bbfbc7164fea35b839700
+[33m4f0e2d3[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/lvt[m[33m, [m[1;32mlvt[m[33m)[m HEAD@{4}: commit: update option post
+[33mc92e57c[m HEAD@{5}: checkout: moving from lvt to lvt
+[33mc92e57c[m HEAD@{6}: branch: Reset to origin/lvt
+[33mc92e57c[m HEAD@{7}: checkout: moving from lvt to lvt
+[33mc92e57c[m HEAD@{8}: branch: Reset to origin/lvt
+[33mc92e57c[m HEAD@{9}: commit: update option post
+[33m1b37743[m HEAD@{10}: commit: update option post
+[33m78c61d7[m HEAD@{11}: commit: update
+[33md191586[m HEAD@{12}: checkout: moving from lvt_test to lvt
+[33m6f33006[m[33m ([m[1;31morigin/lvt_test[m[33m, [m[1;32mlvt_test[m[33m)[m HEAD@{13}: checkout: moving from lvt to lvt_test
+[33md191586[m HEAD@{14}: commit: update
+[33m7158ae9[m HEAD@{15}: commit: update
+[33m49ca617[m HEAD@{16}: commit: update like post
+[33m83b1c4f[m HEAD@{17}: commit: update
+[33ma1deb95[m HEAD@{18}: checkout: moving from baov2 to lvt
+[33mdf89946[m[33m ([m[1;31morigin/baov2[m[33m, [m[1;32mbaov2[m[33m)[m HEAD@{19}: checkout: moving from baov2 to baov2
+[33mdf89946[m[33m ([m[1;31morigin/baov2[m[33m, [m[1;32mbaov2[m[33m)[m HEAD@{20}: branch: Reset to origin/baov2
+[33mdc3bb24[m HEAD@{21}: checkout: moving from lvt to baov2
+[33ma1deb95[m HEAD@{22}: merge origin/lvt: Merge made by the 'ort' strategy.
+[33mc69b58d[m HEAD@{23}: commit: update post have User object and post have userid
+[33m6f33006[m[33m ([m[1;31morigin/lvt_test[m[33m, [m[1;32mlvt_test[m[33m)[m HEAD@{24}: merge origin/lvt_test: Fast-forward
+[33m5fcf88c[m HEAD@{25}: checkout: moving from lvt_test to lvt
+[33m6f33006[m[33m ([m[1;31morigin/lvt_test[m[33m, [m[1;32mlvt_test[m[33m)[m HEAD@{26}: checkout: moving from lvt to lvt_test
+[33m5fcf88c[m HEAD@{27}: checkout: moving from lvt_test to lvt
+[33m6f33006[m[33m ([m[1;31morigin/lvt_test[m[33m, [m[1;32mlvt_test[m[33m)[m HEAD@{28}: checkout: moving from lvt to lvt_test
+[33m5fcf88c[m HEAD@{29}: checkout: moving from lvt_test to lvt
+[33m6f33006[m[33m ([m[1;31morigin/lvt_test[m[33m, [m[1;32mlvt_test[m[33m)[m HEAD@{30}: checkout: moving from lvt to lvt_test
+[33m5fcf88c[m HEAD@{31}: checkout: moving from lvt to lvt
+[33m5fcf88c[m HEAD@{32}: branch: Reset to origin/lvt
+[33m5fcf88c[m HEAD@{33}: checkout: moving from lvt_test to lvt
+[33m6f33006[m[33m ([m[1;31morigin/lvt_test[m[33m, [m[1;32mlvt_test[m[33m)[m HEAD@{34}: commit (merge): Merge remote-tracking branch 'origin/baov2' into lvt_test
+[33m5fcf88c[m HEAD@{35}: checkout: moving from lvt to lvt_test
+[33m5fcf88c[m HEAD@{36}: checkout: moving from lvt to lvt
+[33m5fcf88c[m HEAD@{37}: branch: Reset to origin/lvt
+[33m5fcf88c[m HEAD@{38}: reset: moving to HEAD
+[33m5fcf88c[m HEAD@{39}: commit: nav graph update login register...
+[33m727792c[m[33m ([m[1;32mlvt_di[m[33m)[m HEAD@{40}: checkout: moving from lvt_di to lvt
+[33m727792c[m[33m ([m[1;32mlvt_di[m[33m)[m HEAD@{41}: checkout: moving from lvt to lvt_di
+[33m727792c[m[33m ([m[1;32mlvt_di[m[33m)[m HEAD@{42}: checkout: moving from lvt_di to lvt
+[33m727792c[m[33m ([m[1;32mlvt_di[m[33m)[m HEAD@{43}: checkout: moving from lvt to lvt_di
+[33m727792c[m[33m ([m[1;32mlvt_di[m[33m)[m HEAD@{44}: checkout: moving from lvt_di to lvt
+[33m727792c[m[33m ([m[1;32mlvt_di[m[33m)[m HEAD@{45}: checkout: moving from lvt to lvt_di
+[33m727792c[m[33m ([m[1;32mlvt_di[m[33m)[m HEAD@{46}: checkout: moving from lvt to lvt
+[33m727792c[m[33m ([m[1;32mlvt_di[m[33m)[m HEAD@{47}: checkout: moving from lvt to lvt
+[33m727792c[m[33m ([m[1;32mlvt_di[m[33m)[m HEAD@{48}: branch: Reset to origin/lvt
+[33m727792c[m[33m ([m[1;32mlvt_di[m[33m)[m HEAD@{49}: checkout: moving from lvt to lvt
+[33m727792c[m[33m ([m[1;32mlvt_di[m[33m)[m HEAD@{50}: branch: Reset to origin/lvt
+[33m727792c[m[33m ([m[1;32mlvt_di[m[33m)[m HEAD@{51}: checkout: moving from lvt_di to lvt
+[33m727792c[m[33m ([m[1;32mlvt_di[m[33m)[m HEAD@{52}: checkout: moving from lvt to lvt_di
+[33m727792c[m[33m ([m[1;32mlvt_di[m[33m)[m HEAD@{53}: checkout: moving from lvt_di to lvt
+[33m727792c[m[33m ([m[1;32mlvt_di[m[33m)[m HEAD@{54}: checkout: moving from lvt to lvt_di
+[33m727792c[m[33m ([m[1;32mlvt_di[m[33m)[m HEAD@{55}: checkout: moving from baov2 to lvt
+[33mdc3bb24[m HEAD@{56}: checkout: moving from lvt to baov2
+[33m727792c[m[33m ([m[1;32mlvt_di[m[33m)[m HEAD@{57}: checkout: moving from baov2 to lvt
+[33mdc3bb24[m HEAD@{58}: commit (merge): Merge remote-tracking branch 'origin/baov2' into baov2
+[33m0e7cc1d[m HEAD@{59}: reset: moving to HEAD
+[33m0e7cc1d[m HEAD@{60}: commit: update
+[33m572bcb7[m HEAD@{61}: commit: update send token in RetrofitClient and login logout save token clear token
+[33m7936e3d[m HEAD@{62}: checkout: moving from lvt to baov2
+[33m727792c[m[33m ([m[1;32mlvt_di[m[33m)[m HEAD@{63}: commit: update
+[33m0c6d316[m HEAD@{64}: checkout: moving from develop to lvt
+[33m2a24281[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m HEAD@{65}: checkout: moving from lvt to develop
+[33m0c6d316[m HEAD@{66}: commit: update
+[33m2a24281[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m HEAD@{67}: pull origin develop: Fast-forward
+[33m37f292f[m HEAD@{68}: checkout: moving from develop to lvt
+[33m63b2099[m HEAD@{69}: checkout: moving from develop to develop
+[33m63b2099[m HEAD@{70}: branch: Reset to origin/develop
+[33m63b2099[m HEAD@{71}: checkout: moving from lvt to develop
+[33m37f292f[m HEAD@{72}: checkout: moving from develop to lvt
+[33m63b2099[m HEAD@{73}: checkout: moving from lvt to develop
+[33m37f292f[m HEAD@{74}: checkout: moving from develop to lvt
+[33m63b2099[m HEAD@{75}: checkout: moving from lvt to develop
+[33m37f292f[m HEAD@{76}: checkout: moving from develop to lvt
+[33m63b2099[m HEAD@{77}: checkout: moving from lvt to develop
+[33m37f292f[m HEAD@{78}: commit: update
+[33m3c6da9d[m HEAD@{79}: checkout: moving from develop to lvt
+[33m8df0c3a[m HEAD@{80}: checkout: moving from lvt to develop
+[33m3c6da9d[m HEAD@{81}: commit: update
+[33m386aa4c[m HEAD@{82}: commit: update
+[33mf985092[m HEAD@{83}: commit: update login register in userViewModel use livedata
+[33mf48db3e[m HEAD@{84}: commit (merge): Merge remote-tracking branch 'origin/baov1' into lvt
+[33m7809bd9[m HEAD@{85}: checkout: moving from main to lvt
+[33m2b3902c[m[33m ([m[1;32mmain[m[33m)[m HEAD@{86}: checkout: moving from lvt to main
+[33m7809bd9[m HEAD@{87}: merge origin/lvt: Merge made by the 'ort' strategy.
+[33m2c41382[m HEAD@{88}: commit: update
+[33m440022d[m HEAD@{89}: commit: update
+[33m9849a94[m HEAD@{90}: commit: update
+[33mf45784d[m HEAD@{91}: commit: update
+[33me1a9f0f[m HEAD@{92}: commit: update
+[33m0719c2c[m HEAD@{93}: checkout: moving from lvt to lvt
+[33m0719c2c[m HEAD@{94}: branch: Reset to origin/lvt
+[33m0719c2c[m HEAD@{95}: checkout: moving from main to lvt
+[33m2b3902c[m[33m ([m[1;32mmain[m[33m)[m HEAD@{96}: checkout: moving from lvt to main
+[33m0719c2c[m HEAD@{97}: commit: update color
+[33m08248a9[m HEAD@{98}: checkout: moving from main to lvt
+[33m2b3902c[m[33m ([m[1;32mmain[m[33m)[m HEAD@{99}: checkout: moving from lvt to main
+[33m08248a9[m HEAD@{100}: checkout: moving from main to lvt
+[33m2b3902c[m[33m ([m[1;32mmain[m[33m)[m HEAD@{101}: checkout: moving from main to main
+[33m2b3902c[m[33m ([m[1;32mmain[m[33m)[m HEAD@{102}: branch: Reset to origin/main
+[33m2b3902c[m[33m ([m[1;32mmain[m[33m)[m HEAD@{103}: checkout: moving from lvt to main
+[33m08248a9[m HEAD@{104}: checkout: moving from main to lvt
+[33m2b3902c[m[33m ([m[1;32mmain[m[33m)[m HEAD@{105}: checkout: moving from main to main
+[33m2b3902c[m[33m ([m[1;32mmain[m[33m)[m HEAD@{106}: branch: Reset to origin/main
+[33m2b3902c[m[33m ([m[1;32mmain[m[33m)[m HEAD@{107}: checkout: moving from lvt to main
+[33m08248a9[m HEAD@{108}: commit: update home page tablayout
+[33m63f2db8[m HEAD@{109}: commit: update
+[33m7ef03b7[m HEAD@{110}: checkout: moving from main to lvt
+[33m2b3902c[m[33m ([m[1;32mmain[m[33m)[m HEAD@{111}: checkout: moving from lvt to main
+[33m7ef03b7[m HEAD@{112}: checkout: moving from main to lvt
+[33m2b3902c[m[33m ([m[1;32mmain[m[33m)[m HEAD@{113}: checkout: moving from lvt to main
+[33m7ef03b7[m HEAD@{114}: checkout: moving from main to lvt
+[33m2b3902c[m[33m ([m[1;32mmain[m[33m)[m HEAD@{115}: clone: from https://github.com/Hobao2k2/Lotus-.git

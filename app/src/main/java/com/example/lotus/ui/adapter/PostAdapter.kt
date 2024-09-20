@@ -17,26 +17,29 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.lotus.R
+import com.example.lotus.data.model.Post
 import com.example.lotus.databinding.ItemPostBinding
 import com.example.lotus.ui.adapter.dataItem.ItemPost
 import com.example.lotus.utils.SharedPrefManager
+import com.example.lotus.utils.getTimeAgo
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class PostAdapter(
     private val userId: String?,
     private val listener: OnItemClickListener
-) : ListAdapter<ItemPost, PostAdapter.PostViewHolder>(DIFF_CALLBACK) {
+) : ListAdapter<Post, PostAdapter.PostViewHolder>(DIFF_CALLBACK) {
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ItemPost>() {
-            override fun areItemsTheSame(oldItem: ItemPost, newItem: ItemPost): Boolean {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Post>() {
+            override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: ItemPost, newItem: ItemPost): Boolean {
-                return oldItem.imagePost == newItem.imagePost &&
-                        oldItem.imageAvatar == newItem.imageAvatar &&
-                        oldItem.name == newItem.name &&
+            override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
+                return  oldItem.id == newItem.id &&
+                        oldItem.image == newItem.image &&
+                        oldItem.user.image == newItem.user.image &&
+                        oldItem.user.userName == newItem.user.userName &&
                         oldItem.content == newItem.content &&
                         oldItem.likes.size == newItem.likes.size &&
                         oldItem.comments.size == newItem.comments.size
@@ -51,8 +54,6 @@ class PostAdapter(
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         val post = getItem(position)
-
-
         holder.bind(post)
     }
 
@@ -81,29 +82,31 @@ class PostAdapter(
 
         }
 
-        fun bind(item: ItemPost) {
+        fun bind(item: Post) {
             with(binding) {
-                if (item.imagePost != null) {
+                if (item.image != null) {
                     imgPost.visibility = View.VISIBLE
                     Glide.with(itemView.context)
-                        .load(item.imagePost)
+                        .load(item.image)
                         .into(imgPost)
                 } else {
                     imgPost.visibility = View.GONE
                 }
 
                 Glide.with(itemView.context)
-                    .load(item.imageAvatar ?: R.drawable.avatar_default)
+                    .load(item.user.image ?: R.drawable.avatar_default)
                     .into(avatarProfile)
 
-                txtUserNamePost.text = item.name
+                txtUserNamePost.text = item.user.userName
                 txtContentPost.text = item.content
                 txtLike.text = item.likes.size.toString()
                 txtComment.text = item.comments.size.toString()
 
+                txtTimePost.text = getTimeAgo(item.createdOn)
+
                 setLikeStatus(item.likes.contains(userId))
 
-                adjustLayoutBasedOnImage(item.imagePost)
+                adjustLayoutBasedOnImage(item.image)
             }
         }
 

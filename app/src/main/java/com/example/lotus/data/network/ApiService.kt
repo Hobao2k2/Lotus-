@@ -3,6 +3,7 @@ package com.example.lotus.data.network
 import com.example.lotus.data.model.ApiResponse
 import com.example.lotus.data.model.FriendId
 import com.example.lotus.data.model.IdRequest
+import com.example.lotus.data.model.Post
 import com.example.lotus.data.model.PostUser
 import com.example.lotus.data.model.PostUserId
 import com.example.lotus.data.model.RegisterRequest
@@ -25,6 +26,10 @@ interface ApiService {
         @Body registerRequest: RegisterRequest
     ): Response<String>
 
+
+
+
+
     @Multipart
     @POST("/post")
     suspend fun addPost(
@@ -33,13 +38,19 @@ interface ApiService {
     ):PostUserId
 
     @GET("/post")
-    suspend fun getAllPost():List<PostUserId>
+    suspend fun getAllPost():List<Post>
 
     @GET("/post/all")
-    suspend fun getPosts():List<PostUser>
+    suspend fun getPosts():List<Post>
 
     @POST("/post/like/{idPost}")
-    suspend fun likePost(@Path("idPost") idPost:String):PostUserId
+    suspend fun likePost(@Path("idPost") idPost:String):Post
+
+    @DELETE("/post/{idPost}")
+    suspend fun deletePost(@Path("idPost") idPost:String):Post
+
+    @GET("/post/{idPost}")
+    suspend fun getPostById(@Path("idPost") idPost:String):Post
 
     @POST("/users/search/{keyword}")
     suspend fun getSearchUser(@Path("keyword") keyword: String): List<User>

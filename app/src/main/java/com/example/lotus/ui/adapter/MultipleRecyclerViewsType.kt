@@ -7,6 +7,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.lotus.R
+import com.example.lotus.data.model.Post
 import com.example.lotus.databinding.ItemPostBinding
 import com.example.lotus.databinding.ItemType1Binding
 import com.example.lotus.databinding.ItemType2Binding
@@ -45,7 +46,7 @@ class MultipleRecyclerViewsType(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is ProfileViewHolder -> holder.bind(items[position] as ItemProfile)
-            is PostViewHolder -> holder.bind(items[position] as ItemPost)
+            is PostViewHolder -> holder.bind(items[position] as Post)
         }
     }
 
@@ -81,9 +82,6 @@ class MultipleRecyclerViewsType(
         private val listener: OnItemClickListener
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        private var isViewStubInflated = false
-        private var imageView: ImageView? = null
-
         init {
             binding.imgLike.setOnClickListener {
                 listener.onLikeClick(bindingAdapterPosition.toString())
@@ -93,30 +91,23 @@ class MultipleRecyclerViewsType(
             }
         }
 
-        fun bind(item: ItemPost) {
+        fun bind(item: Post) {
             with(binding) {
-                if (item.imagePost != null) {
+                if (item.image != null) {
                     imgPost.visibility = View.VISIBLE
                     Glide.with(itemView.context)
-                        .load(item.imagePost)
+                        .load(item.image)
                         .into(imgPost)
                 } else {
                     imgPost.visibility = View.GONE
                 }
 
-                // Load image using Glide into the inflated ImageView
-                imageView?.let {
-                    Glide.with(itemView.context)
-                        .load(item.imagePost)
-                        .into(it)
-                }
-
                 // Load the avatar image
                 Glide.with(itemView.context)
-                    .load(item.imageAvatar ?: R.drawable.avatar_default)
+                    .load(item.user.image ?: R.drawable.avatar_default)
                     .into(avatarProfile)
 
-                txtUserNamePost.text = item.name
+                txtUserNamePost.text = item.user.userName
                 txtContentPost.text = item.content
                 txtLike.text = item.likes.size.toString()
                 txtComment.text = item.comments.size.toString()
